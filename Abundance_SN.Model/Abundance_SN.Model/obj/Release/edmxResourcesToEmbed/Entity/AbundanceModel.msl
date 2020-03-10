@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Abundance_SNModelStoreContainer" CdmEntityContainer="Abundance_SN_2Entities">
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Abundance_SN.Model.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Abundance_SN.Model.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Abundance_SN.Model.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Abundance_SN.Model.Store.sp_helpdiagramdefinition" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Abundance_SN.Model.Store.sp_helpdiagrams" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Abundance_SN.Model.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Abundance_SN.Model.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="BRAND">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.BRAND">
+        <MappingFragment StoreEntitySet="BRAND">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CATEGORY">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.CATEGORY">
+        <MappingFragment StoreEntitySet="CATEGORY">
+          <ScalarProperty Name="Image_Url" ColumnName="Image_Url" />
+          <ScalarProperty Name="Category_Description" ColumnName="Category_Description" />
+          <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+          <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COURIER_AREA_CHARGES">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.COURIER_AREA_CHARGES">
+        <MappingFragment StoreEntitySet="COURIER_AREA_CHARGES">
+          <ScalarProperty Name="Charger" ColumnName="Charger" />
+          <ScalarProperty Name="Courier_Id" ColumnName="Courier_Id" />
+          <ScalarProperty Name="State_Id" ColumnName="State_Id" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COURIER_CHARGES">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.COURIER_CHARGES">
+        <MappingFragment StoreEntitySet="COURIER_CHARGES">
+          <ScalarProperty Name="Charges" ColumnName="Charges" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COURIER_DETAIL">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.COURIER_DETAIL">
+        <MappingFragment StoreEntitySet="COURIER_DETAIL">
+          <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+          <ScalarProperty Name="Courier_Id" ColumnName="Courier_Id" />
+          <ScalarProperty Name="Area_Id" ColumnName="Area_Id" />
+          <ScalarProperty Name="State_Id" ColumnName="State_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COURIER_SERVICE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.COURIER_SERVICE">
+        <MappingFragment StoreEntitySet="COURIER_SERVICE">
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Courier_Name" ColumnName="Courier_Name" />
+          <ScalarProperty Name="Courier_Id" ColumnName="Courier_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOMER_REVIEW">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.CUSTOMER_REVIEW">
+        <MappingFragment StoreEntitySet="CUSTOMER_REVIEW">
+          <ScalarProperty Name="Customer_Review1" ColumnName="Customer_Review" />
+          <ScalarProperty Name="Customer_Rating" ColumnName="Customer_Rating" />
+          <ScalarProperty Name="Customer_Review_Subject" ColumnName="Customer_Review_Subject" />
+          <ScalarProperty Name="Customer_Email" ColumnName="Customer_Email" />
+          <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Customer_Review_Id" ColumnName="Customer_Review_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOMER_VISIT">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.CUSTOMER_VISIT">
+        <MappingFragment StoreEntitySet="CUSTOMER_VISIT">
+          <ScalarProperty Name="Date_Of_Visit" ColumnName="Date_Of_Visit" />
+          <ScalarProperty Name="Uuid" ColumnName="Uuid" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Customer_Visit_Id" ColumnName="Customer_Visit_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DELIVERY_ADDRESS">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.DELIVERY_ADDRESS">
+        <MappingFragment StoreEntitySet="DELIVERY_ADDRESS">
+          <ScalarProperty Name="Delivery_Option" ColumnName="Delivery_Option" />
+          <ScalarProperty Name="Date_Delivered" ColumnName="Date_Delivered" />
+          <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+          <ScalarProperty Name="Delivery_State_Id" ColumnName="Delivery_State_Id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Cart_Hash" ColumnName="Cart_Hash" />
+          <ScalarProperty Name="Delivery_Status_Id" ColumnName="Delivery_Status_Id" />
+          <ScalarProperty Name="Delivery_Service_Id" ColumnName="Delivery_Service_Id" />
+          <ScalarProperty Name="Delivery_Address_Id" ColumnName="Delivery_Address_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DELIVERY_SERVICE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.DELIVERY_SERVICE">
+        <MappingFragment StoreEntitySet="DELIVERY_SERVICE">
+          <ScalarProperty Name="Activated" ColumnName="Activated" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Delivery_Service_Id" ColumnName="Delivery_Service_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DELIVERY_STATUS">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.DELIVERY_STATUS">
+        <MappingFragment StoreEntitySet="DELIVERY_STATUS">
+          <ScalarProperty Name="Decription" ColumnName="Decription" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Delivery_Status_Id" ColumnName="Delivery_Status_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOME_PAGE_SLIDER">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.HOME_PAGE_SLIDER">
+        <MappingFragment StoreEntitySet="HOME_PAGE_SLIDER">
+          <ScalarProperty Name="Activated" ColumnName="Activated" />
+          <ScalarProperty Name="Image_Url" ColumnName="Image_Url" />
+          <ScalarProperty Name="Home_Page_Slider_Id" ColumnName="Home_Page_Slider_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="INVENTORY">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.INVENTORY">
+        <MappingFragment StoreEntitySet="INVENTORY">
+          <ScalarProperty Name="Product_Variant_Option_Id" ColumnName="Product_Variant_Option_Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NATIONALITY">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.NATIONALITY">
+        <MappingFragment StoreEntitySet="NATIONALITY">
+          <ScalarProperty Name="Nationality_Name" ColumnName="Nationality_Name" />
+          <ScalarProperty Name="Nationality_Id" ColumnName="Nationality_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PAYMENT">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PAYMENT">
+        <MappingFragment StoreEntitySet="PAYMENT">
+          <ScalarProperty Name="Paid" ColumnName="Paid" />
+          <ScalarProperty Name="Date_Paid" ColumnName="Date_Paid" />
+          <ScalarProperty Name="Invoice_Number" ColumnName="Invoice_Number" />
+          <ScalarProperty Name="Payment_Serial_Number" ColumnName="Payment_Serial_Number" />
+          <ScalarProperty Name="Payment_Mode_Id" ColumnName="Payment_Mode_Id" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+          <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PAYMENT_MODE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PAYMENT_MODE">
+        <MappingFragment StoreEntitySet="PAYMENT_MODE">
+          <ScalarProperty Name="Payment_Mode_Description" ColumnName="Payment_Mode_Description" />
+          <ScalarProperty Name="Payment_Mode_Name" ColumnName="Payment_Mode_Name" />
+          <ScalarProperty Name="Payment_Mode_Id" ColumnName="Payment_Mode_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PAYMENT_PAYSTACK">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PAYMENT_PAYSTACK">
+        <MappingFragment StoreEntitySet="PAYMENT_PAYSTACK">
+          <ScalarProperty Name="access_code" ColumnName="access_code" />
+          <ScalarProperty Name="authorization_url" ColumnName="authorization_url" />
+          <ScalarProperty Name="signature" ColumnName="signature" />
+          <ScalarProperty Name="reusable" ColumnName="reusable" />
+          <ScalarProperty Name="brand" ColumnName="brand" />
+          <ScalarProperty Name="country_code" ColumnName="country_code" />
+          <ScalarProperty Name="bank" ColumnName="bank" />
+          <ScalarProperty Name="card_type" ColumnName="card_type" />
+          <ScalarProperty Name="exp_year" ColumnName="exp_year" />
+          <ScalarProperty Name="exp_month" ColumnName="exp_month" />
+          <ScalarProperty Name="last4" ColumnName="last4" />
+          <ScalarProperty Name="fees" ColumnName="fees" />
+          <ScalarProperty Name="ip_address" ColumnName="ip_address" />
+          <ScalarProperty Name="channel" ColumnName="channel" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="gateway_response" ColumnName="gateway_response" />
+          <ScalarProperty Name="domain" ColumnName="domain" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+          <ScalarProperty Name="currency" ColumnName="currency" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERSON">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PERSON">
+        <MappingFragment StoreEntitySet="PERSON">
+          <ScalarProperty Name="Uuid" ColumnName="Uuid" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Date_Registered" ColumnName="Date_Registered" />
+          <ScalarProperty Name="State_Id" ColumnName="State_Id" />
+          <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="OtherName" ColumnName="OtherName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCT">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PRODUCT">
+        <MappingFragment StoreEntitySet="PRODUCT">
+          <ScalarProperty Name="Additional_Information" ColumnName="Additional_Information" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+          <ScalarProperty Name="Brand_Id" ColumnName="Brand_Id" />
+          <ScalarProperty Name="sku" ColumnName="sku" />
+          <ScalarProperty Name="Image_Url" ColumnName="Image_Url" />
+          <ScalarProperty Name="Visits" ColumnName="Visits" />
+          <ScalarProperty Name="Reorder_Level" ColumnName="Reorder_Level" />
+          <ScalarProperty Name="Product_Type_Id" ColumnName="Product_Type_Id" />
+          <ScalarProperty Name="Can_Be_Delivered" ColumnName="Can_Be_Delivered" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Shipping" ColumnName="Shipping" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="MaxPrice" ColumnName="MaxPrice" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCT_IMAGE_GALLARY">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PRODUCT_IMAGE_GALLARY">
+        <MappingFragment StoreEntitySet="PRODUCT_IMAGE_GALLARY">
+          <ScalarProperty Name="Activated" ColumnName="Activated" />
+          <ScalarProperty Name="Image_Url" ColumnName="Image_Url" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Product_Image_Gallary_Id" ColumnName="Product_Image_Gallary_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCT_ORDER_LOG">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PRODUCT_ORDER_LOG">
+        <MappingFragment StoreEntitySet="PRODUCT_ORDER_LOG">
+          <ScalarProperty Name="Unit_Price" ColumnName="Unit_Price" />
+          <ScalarProperty Name="Date_Requested" ColumnName="Date_Requested" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Vendor_Id" ColumnName="Vendor_Id" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCT_SUPPLY_LOG">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PRODUCT_SUPPLY_LOG">
+        <MappingFragment StoreEntitySet="PRODUCT_SUPPLY_LOG">
+          <ScalarProperty Name="Product_Order_Log_Id" ColumnName="Product_Order_Log_Id" />
+          <ScalarProperty Name="Unit_Price" ColumnName="Unit_Price" />
+          <ScalarProperty Name="Supply_Date" ColumnName="Supply_Date" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Vendor_Id" ColumnName="Vendor_Id" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCT_TYPE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PRODUCT_TYPE">
+        <MappingFragment StoreEntitySet="PRODUCT_TYPE">
+          <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCT_VARIANT">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PRODUCT_VARIANT">
+        <MappingFragment StoreEntitySet="PRODUCT_VARIANT">
+          <ScalarProperty Name="Value_3" ColumnName="Value_3" />
+          <ScalarProperty Name="Key_3" ColumnName="Key_3" />
+          <ScalarProperty Name="Value_2" ColumnName="Value_2" />
+          <ScalarProperty Name="Key_2" ColumnName="Key_2" />
+          <ScalarProperty Name="Value_1" ColumnName="Value_1" />
+          <ScalarProperty Name="Key_1" ColumnName="Key_1" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Product_Variant_Id" ColumnName="Product_Variant_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCT_VARIANT_OPTIONS">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.PRODUCT_VARIANT_OPTIONS">
+        <MappingFragment StoreEntitySet="PRODUCT_VARIANT_OPTIONS">
+          <ScalarProperty Name="Image_Url" ColumnName="Image_Url" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Product_Variant_Id" ColumnName="Product_Variant_Id" />
+          <ScalarProperty Name="Product_Option_Name" ColumnName="Product_Option_Name" />
+          <ScalarProperty Name="Product_Option_Id" ColumnName="Product_Option_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REORDER_NOTIFICATION">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.REORDER_NOTIFICATION">
+        <MappingFragment StoreEntitySet="REORDER_NOTIFICATION">
+          <ScalarProperty Name="Order_Number" ColumnName="Order_Number" />
+          <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROLE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.ROLE">
+        <MappingFragment StoreEntitySet="ROLE">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SALES_LOG">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.SALES_LOG">
+        <MappingFragment StoreEntitySet="SALES_LOG">
+          <ScalarProperty Name="Date_Ordered" ColumnName="Date_Ordered" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Unit_Price" ColumnName="Unit_Price" />
+          <ScalarProperty Name="discount" ColumnName="discount" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Product_Variant_Option_Id" ColumnName="Product_Variant_Option_Id" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="Cart_Hash" ColumnName="Cart_Hash" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STATE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.STATE">
+        <MappingFragment StoreEntitySet="STATE">
+          <ScalarProperty Name="Nationality_Id" ColumnName="Nationality_Id" />
+          <ScalarProperty Name="State_Name" ColumnName="State_Name" />
+          <ScalarProperty Name="State_Id" ColumnName="State_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STORE_SETUP">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.STORE_SETUP">
+        <MappingFragment StoreEntitySet="STORE_SETUP">
+          <ScalarProperty Name="Store_Address" ColumnName="Store_Address" />
+          <ScalarProperty Name="About_Us" ColumnName="About_Us" />
+          <ScalarProperty Name="StoreLogoUrl" ColumnName="StoreLogoUrl" />
+          <ScalarProperty Name="BusinessEmail" ColumnName="BusinessEmail" />
+          <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+          <ScalarProperty Name="BusinessRCNo" ColumnName="BusinessRCNo" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="Store_ProductType" ColumnName="Store_ProductType" />
+          <ScalarProperty Name="Shop_Name" ColumnName="Shop_Name" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+          <ScalarProperty Name="Store_Setup_Id" ColumnName="Store_Setup_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STORE_SETUP_PRODUCTSAMPLE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.STORE_SETUP_PRODUCTSAMPLE">
+        <MappingFragment StoreEntitySet="STORE_SETUP_PRODUCTSAMPLE">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Store_Setup_ProductSample_Id" ColumnName="Store_Setup_ProductSample_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STORE_TYPE">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.STORE_TYPE">
+        <MappingFragment StoreEntitySet="STORE_TYPE">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UNIT">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.UNIT">
+        <MappingFragment StoreEntitySet="UNIT">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USER">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.USER">
+        <MappingFragment StoreEntitySet="USER">
+          <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VENDOR">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.VENDOR">
+        <MappingFragment StoreEntitySet="VENDOR">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VW_SALES_PAYMENT">
+      <EntityTypeMapping TypeName="Abundance_SN.Model.VW_SALES_PAYMENT">
+        <MappingFragment StoreEntitySet="VW_SALES_PAYMENT">
+          <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="Payment_Mode_Name" ColumnName="Payment_Mode_Name" />
+          <ScalarProperty Name="Payment_Mode_Id" ColumnName="Payment_Mode_Id" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+          <ScalarProperty Name="Invoice_Number" ColumnName="Invoice_Number" />
+          <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

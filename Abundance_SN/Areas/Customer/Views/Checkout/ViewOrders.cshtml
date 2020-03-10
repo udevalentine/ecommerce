@@ -1,0 +1,91 @@
+﻿@using Abundance_SN.Model.Model
+@model Abundance_SN.Models.ProductViewModel
+
+
+@{
+    ViewBag.Title = "title";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<!-- Off-Canvas Wrapper-->
+<main class="site-main checkout">
+    <div class="container">
+        <br>
+       
+    <div class="row">
+    
+        <div class="col-md-8 col-md-offset-2 shadow" style="background:#fff; padding: 20px; margin-bottom:20px;">
+    <!-- Page Content-->
+    <div class="col-md-12">
+        <h4>MY ORDERS</h4><hr />
+            <div class="">
+                <aside class="user-info-wrapper" style="margin-bottom:20px;">
+               
+                    <div class="user-cover" style="background-image: url(~/Content/css/assets/img/account/user-cover-img.jpg);">
+                        @*<div class="info-label" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward Points to spend"><i class="icon-medal"></i>290 points</div>*@
+                    </div>
+                    <div class="user-info">
+                        @*<div class="user-avatar"><a class="edit-avatar" href="http://themes.#lloydant.com/#lloydant/v2.2/template-1/account-orders.html#"></a><img src="~/Content/css/assets/My Orders_files/user-ava.jpg" alt="User"></div>*@
+                        <div class="user-data" style="border:1px solid #f2f2f2; background:#087ff7; color:#fff; padding:10px;">
+
+                            <h4 style="text-transform:lowercase;">@User.Identity.Name</h4>
+                            <span>Joined @(Model.Person.DateRegistered.Value.ToLongDateString())</span>
+                        </div>
+                    </div>
+                </aside>
+                @*<nav class="list-group"><a class="list-group-item with-badge active" href="#"><i class="icon-bag"></i>Orders<span class="badge badge-primary badge-pill">@Model.GroupCountString.Count</span></a>
+                </nav>*@
+            </div>
+        </div>
+            <div class="col-md-12">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Order No.</th>
+                            <th>Date Purchased</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                            <tbody>
+
+                                @for (int i = 0; i < Model.GroupCountString.Count; i++)
+                                {
+                                    var salesOrder = Model.SalesLogs.Where(s => s.CartHash == Model.GroupCountString[i]);
+                                    var currentSalesOrder = salesOrder.LastOrDefault();
+                                    var orderDate = currentSalesOrder.DateOrdered.Value.ToLongDateString();
+                                    var deliveryStatus = Model.DeliveryAddresses.LastOrDefault(s => s.CartHash == Model.GroupCountString[i]);
+                                    var orderAmount = salesOrder.Sum(s => s.Amount);
+
+                                    <tr>
+                                        <td><a class="text-medium navi-link" href="@Url.Action("ViewOrdersByNumber", "Checkout", new {area = "Customer", orderNumber = @Model.GroupCountString[i]})">@Model.GroupCountString[i]</a></td>
+                                        <td>@orderDate</td>
+                                        <td>
+                                            @if (deliveryStatus != null && deliveryStatus.Id != 4)
+                                            {
+                                                <span class="text-success">
+                                                    @deliveryStatus.DeliveryStatus.Name
+                                                </span>
+                                            }
+                                            else if (deliveryStatus != null && deliveryStatus.Id == 4)
+                                            {
+                                                <span class="text-danger">
+                                                    @deliveryStatus.DeliveryStatus.Name
+                                                </span>
+                                            }
+
+                                        </td>
+                                        <td><span class="text-medium">₦@string.Format("{0:0,0.00}",orderAmount)</span></td>
+
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+</div>
+        </div>
+            </div>
+    </main>
+    <!-- Back To Top Button--><a class="scroll-to-top-btn" href="http://themes.#lloydant.com/#lloydant/v2.2/template-1/account-orders.html#"><i class="icon-arrow-up"></i></a>

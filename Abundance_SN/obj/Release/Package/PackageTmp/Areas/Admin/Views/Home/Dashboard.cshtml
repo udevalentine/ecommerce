@@ -1,0 +1,593 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+<script src="~/Scripts/Chart.bundle.js"></script>
+<script src="~/Scripts/utils.js"></script>
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    jqueryVersion(document).ready(function () {
+
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+				{
+				    extend: 'copy',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'csv',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+				},
+				{
+				    extend: 'excel',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'pdf',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'print',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				}, , 'colvis'
+            ]
+        });
+
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetChartData", "Home")', // we are calling json method
+            dataType: 'json',
+            data: {},
+            success: function (model) {
+
+                var ctx = document.getElementById('canvas').getContext('2d');
+                var config = {
+                    type: 'line',
+                    data: {
+                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        datasets: [
+							{
+							    label: 'Sales Record',
+							    backgroundColor: window.chartColors.red,
+							    borderColor: window.chartColors.red,
+							    data: [
+									model.GroupCountInt[0],
+									model.GroupCountInt[1],
+									model.GroupCountInt[2],
+									model.GroupCountInt[3],
+									model.GroupCountInt[4],
+									model.GroupCountInt[5],
+									model.GroupCountInt[6],
+									model.GroupCountInt[7],
+									model.GroupCountInt[8],
+									model.GroupCountInt[9],
+									model.GroupCountInt[10],
+									model.GroupCountInt[11]
+
+
+							    ],
+							    fill: false
+							}
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Sales Chart For ' + new Date().getFullYear()
+                        },
+                        tooltips: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        hover: {
+                            mode: 'nearest',
+                            intersect: true
+                        },
+                        scales: {
+                            xAxes: [
+								{
+								    display: true,
+								    scaleLabel: {
+								        display: true,
+								        labelString: 'Month'
+								    }
+								}
+                            ],
+                            yAxes: [
+								{
+								    display: true,
+								    scaleLabel: {
+								        display: true,
+								        labelString: 'Value'
+								    }
+								}
+                            ]
+                        }
+                    }
+                };
+                window.myLine = new Chart(ctx, config);
+
+
+                config = {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [
+									 model.Products[0].Visits,
+									model.Products[1].Visits,
+									model.Products[2].Visits,
+									model.Products[3].Visits,
+									model.Products[4].Visits
+                            ],
+                            backgroundColor: [
+								window.chartColors.red,
+								window.chartColors.orange,
+								window.chartColors.yellow,
+								window.chartColors.green,
+								window.chartColors.blue,
+                            ],
+                            label: 'Dataset 1'
+                        }],
+                        labels: [
+							model.Products[0].Name,
+							model.Products[1].Name,
+							model.Products[2].Name,
+						   model.Products[3].Name,
+							 model.Products[4].Name
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            position: 'top',
+                        },
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
+                    }
+                };
+
+                ctx = document.getElementById('chart-area').getContext('2d');
+                window.myDoughnut = new Chart(ctx, config);
+
+                config = {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [
+                               model.SalesLogs[0].Quantity,
+                                  model.SalesLogs[1].Quantity,
+                                  model.SalesLogs[2].Quantity,
+                                  model.SalesLogs[3].Quantity,
+                                  model.SalesLogs[4].Quantity
+                            ],
+                            backgroundColor: [
+                                window.chartColors.Maroon,
+                                window.chartColors.Navy,
+                                window.chartColors.Teal,
+                                window.chartColors.brown,
+                                window.chartColors.green
+                            ],
+                            label: 'Dataset 1'
+                        }],
+                        labels: [
+                            model.SalesLogs[0].Product.Name,
+                                  model.SalesLogs[1].Product.Name,
+                                  model.SalesLogs[2].Product.Name,
+                                  model.SalesLogs[3].Product.Name,
+                                  model.SalesLogs[4].Product.Name
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            position: 'top',
+                        },
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
+                    }
+                };
+
+                ctx = document.getElementById('chart-area').getContext('2d');
+                window.myDoughnut = new Chart(ctx, config);
+
+            },
+            error: function (ex) {
+                swal("Error Occured", "Product Brand could not be Added", "error");
+            }
+        });
+    });
+</script>
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .border-right-line {
+        border-right: 1px solid #f2f2f2;
+    }
+</style>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- eCommerce statistic -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="info">@ViewBag.NewOrder</h3>
+                                        <h6>New Order(s)</h6>
+                                    </div>
+                                    <div>
+                                        <i class="icon-basket-loaded info font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-info" role="progressbar" style="width: 100%"
+                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="warning">@ViewBag.Inventory</h3>
+                                        <h6>Total Products</h6>
+                                    </div>
+                                    <div>
+                                        <i class="icon-wallet icons warning font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-warning" role="progressbar" style="width: 100%"
+                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="success">&#8358;@ViewBag.AmountSold</h3>
+                                        <h6>Total Amount Sold</h6>
+                                    </div>
+                                    <div>
+                                        <i class="icon-bag icons success font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-success" role="progressbar" style="width: 100%"
+                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-12">
+                    <div class="card pull-up">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="danger">@ViewBag.UserCount</h3>
+                                        <h6>Registered Users</h6>
+                                    </div>
+                                    <div>
+                                        <i class="icon-user-follow danger font-large-2 float-right"></i>
+                                    </div>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
+                                    <div class="progress-bar bg-gradient-x-danger" role="progressbar" style="width: 100%"
+                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ eCommerce statistic -->
+            <!-- Products sell and New Orders -->
+            <div class="row match-height">
+                <div class="col-xl-8 col-12" id="ecommerceChartView">
+                    <div class="card card-shadow">
+                        <div class="card-header card-header-transparent py-20">
+                            <div class="btn-group dropdown">
+                                <a href="#" class="text-body dropdown-toggle blue-grey-700" data-toggle="dropdown">PRODUCTS SALES</a>
+                                <div class="dropdown-menu animate" role="menu">
+                                    <a class="dropdown-item" href="#" role="menuitem">Sales</a>
+                                    <a class="dropdown-item" href="#" role="menuitem">Total sales</a>
+                                    <a class="dropdown-item" href="#" role="menuitem">profit</a>
+                                </div>
+                                </div>
+                        </div>
+                        <div style="width: 100%;">
+                            <canvas id="canvas"></canvas>
+                        </div>
+                        @*<div class="widget-content tab-content bg-white p-20">
+                            <div id="canvas-holder">
+                            <div class="ct-chart tab-pane active scoreLineShadow" id="chart-area"></div>
+                                </div>
+                            <div class="ct-chart tab-pane scoreLineShadow" id="chart-area1"></div>
+                            <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToMonth"></div>
+                        </div>*@
+                        <div class="clearfix"></div>
+                        <div class="panel panel-custom" style="background: #f2f2f2;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="white-box">
+                                        <h3 class="box-title">Top Visited Products</h3>
+                                        <div id="canvas-holder" style="width:70%">
+                                            <canvas id="chart-area"></canvas>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="white-box">
+                                        <h3 class="box-title">Top Sold Products</h3>
+                                        <div id="canvas-holde1r" style="width:50%">
+                                            <canvas id="chart-area1"></canvas>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+
+    @*//previous*@
+    @*<div class="card col-md-12" style=" background #f2f2f2;">*@
+
+    @*<div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="white-box">
+                <div class="row row-in">
+
+                    <div class="col-lg-3 col-sm-6 row-in-br">
+                        <ul class="col-in">
+                            <li>
+                                <span class="circle circle-md bg-success"><i class=" ti-clipboard"></i></span>
+                            </li>
+                            <li class="col-last">
+                                <h3 class="counter text-right m-t-15">@ViewBag.Inventory</h3>
+                            </li>
+                            <li class="col-middle">
+                                <h4>Products In Inventory</h4>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 row-in-br">
+                        <ul class="col-in">
+                            <li>
+                                <span class="circle circle-md bg-success"><i class=" ti-shopping-cart"></i></span>
+                            </li>
+                            <li class="col-last">
+                                <h3 class="counter text-right m-t-15">@ViewBag.ProductsInStore</h3>
+                            </li>
+                            <li class="col-middle">
+                                <h4>Total Products</h4>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+                    @*<div class="col-lg-3 col-sm-6">
+                        <div class="col-in text-center">
+                            <h5 class="text-muted text-purple">Total Sales</h5>
+                            <h3 class="counter">@ViewBag.TotalSales</h3>
+                        </div>
+                    </div>*@
+
+
+    @*<div class="col-lg-3 col-sm-6 row-in-br">
+                            <ul class="col-in">
+                                <li>
+                                    <span class="circle circle-md bg-success"><i class="fa fa-archive"></i></span>
+                                </li>
+                                <li class="col-last">
+                                    <h3 class="counter text-right m-t-15">@ViewBag.TodaysSales</h3>
+                                </li>
+                                <li class="col-middle">
+                                    <h4>Today Sales</h4>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div class="col-lg-3 col-sm-6 row-in-br">
+                            <ul class="col-in">
+                                <li>
+                                    <span class="circle circle-md bg-success"><i class="fa fa-money"></i></span>
+                                </li>
+
+                                <li class="col-middle">
+                                    <h4 class="col-md-12">Total Amount</h4>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-middle">
+                                    <h3 class="counter text-right m-t-15">@ViewBag.AmountSold</h3>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+
+                    </div>
+                    <div style="width: 100%;">
+                        <canvas id="canvas"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        </div>*@
+
+    @*</div>
+        <div class="clearfix"></div>*@
+
+    @*<div class="panel panel-custom" style="background: #f2f2f2;">*@
+
+    @*<div class="row-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Sales Count Today</h2>
+                    <br/>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-3">
+                        @{ var a = (int) ViewBag.SalesCount;}
+                        <p class="huge">@a</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body text-justify">
+            <h2 style="font-weight: 300; text-align: center">Sales Record </h2>
+            <hr/>
+            <table class="table-responsive table-striped table-condensed" style="width: 100%" id="MyTable">
+                <thead>
+                <tr>
+                    <th>Customer Order Number</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for (int i = 0; i < Model.SalesLogs.Count; i++)
+                {
+
+                    <tr>
+                        <td>@Model.SalesLogs[i].CartHash</td>
+                        <td>@Model.SalesLogs[i].Product.Name</td>
+                        <td>@Model.SalesLogs[i].Quantity</td>
+                        <td>@Model.SalesLogs[i].Amount</td>
+                    </tr>
+
+                }
+                </tbody>
+            </table>
+
+        </div>*@
+
+
+
+    <!-- row -->
+    @*<div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <div class="white-box">
+                        <h3 class="box-title">Top Visited Products</h3>
+                        <div id="canvas-holder" style="width:70%">
+                            <canvas id="chart-area"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xs-12 col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Top Sold Products</h3>
+                        <div id="canvas-holde1r" style="width:50%">
+                            <canvas id="chart-area1"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>*@

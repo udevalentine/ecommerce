@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A2E21C3F-0993-4EF6-8D39-404C444005FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Abundance_SN.Model</RootNamespace>
+    <AssemblyName>Abundance_SN.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zxing">
+      <HintPath>..\..\..\..\OldApp\absu\Abundance_Nk.Web\bin\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation">
+      <HintPath>..\..\..\..\OldApp\absu\Abundance_Nk.Web\bin\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\AbundanceModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AbundanceModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AbundanceModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AbundanceModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AbundanceModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BRAND.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CATEGORY.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\COURIER_AREA_CHARGES.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\COURIER_CHARGES.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\COURIER_DETAIL.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\COURIER_SERVICE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CUSTOMER_REVIEW.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CUSTOMER_VISIT.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DELIVERY_ADDRESS.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DELIVERY_SERVICE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DELIVERY_STATUS.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\HOME_PAGE_SLIDER.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\INVENTORY.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\NATIONALITY.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PAYMENT.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PAYMENT_MODE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PAYMENT_PAYSTACK.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PERSON.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PRODUCT.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PRODUCT_IMAGE_GALLARY.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PRODUCT_ORDER_LOG.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PRODUCT_SUPPLY_LOG.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PRODUCT_TYPE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PRODUCT_VARIANT.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PRODUCT_VARIANT_OPTIONS.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REORDER_NOTIFICATION.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ROLE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SALES_LOG.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\STATE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\STORE_SETUP.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\STORE_SETUP_PRODUCTSAMPLE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\STORE_TYPE.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sysdiagrams.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UNIT.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\USER.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VENDOR.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_SALES_PAYMENT.cs">
+      <DependentUpon>AbundanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Brand.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\CourierAreaCharges.cs" />
+    <Compile Include="Model\CourierCharges.cs" />
+    <Compile Include="Model\CourierDetail.cs" />
+    <Compile Include="Model\CourierService.cs" />
+    <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\CustomerOrder.cs" />
+    <Compile Include="Model\CustomerReview.cs" />
+    <Compile Include="Model\CustomerVisit.cs" />
+    <Compile Include="Model\DeliveryAddress.cs" />
+    <Compile Include="Model\DeliveryService.cs" />
+    <Compile Include="Model\DeliveryStatus.cs" />
+    <Compile Include="Model\HomePageSlider.cs" />
+    <Compile Include="Model\Inventory.cs" />
+    <Compile Include="Model\Menu.cs" />
+    <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\Payment.cs" />
+    <Compile Include="Model\PaymentMode.cs" />
+    <Compile Include="Model\PaymentView.cs" />
+    <Compile Include="Model\PayStack.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\ProductImageGallary.cs" />
+    <Compile Include="Model\ProductOrderLogs.cs" />
+    <Compile Include="Model\ProductSupplyLogs.cs" />
+    <Compile Include="Model\ProductType.cs" />
+    <Compile Include="Model\ProductUploadFormat.cs" />
+    <Compile Include="Model\ProductVariant.cs" />
+    <Compile Include="Model\ProductVariantOptions.cs" />
+    <Compile Include="Model\ReorderNotification.cs" />
+    <Compile Include="Model\ResultSMS.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\SalesLogs.cs" />
+    <Compile Include="Model\State.cs" />
+    <Compile Include="Model\StoreSetup.cs" />
+    <Compile Include="Model\StoreSetupProductSample.cs" />
+    <Compile Include="Model\StoreType.cs" />
+    <Compile Include="Model\Unit.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\Vendors.cs" />
+    <Compile Include="Model\WareHouse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Translator\BrandTranslator.cs" />
+    <Compile Include="Translator\CategoryTranslator.cs" />
+    <Compile Include="Translator\CourierAreaChargesTranslator.cs" />
+    <Compile Include="Translator\CourierChargesTranslator.cs" />
+    <Compile Include="Translator\CourierDetailTranslator.cs" />
+    <Compile Include="Translator\CourierServiceTranslator.cs" />
+    <Compile Include="Translator\CustomerReviewTranslator.cs" />
+    <Compile Include="Translator\DeliveryAddressTranslator.cs" />
+    <Compile Include="Translator\DeliveryServiceTranslator.cs" />
+    <Compile Include="Translator\DeliveryStatusTranslator.cs" />
+    <Compile Include="Translator\HomePageSliderTranslator.cs" />
+    <Compile Include="Translator\InventoryTranslator.cs" />
+    <Compile Include="Translator\PaymentModeTranslator.cs" />
+    <Compile Include="Translator\PaymentTranslator.cs" />
+    <Compile Include="Translator\PayStackTranslator.cs" />
+    <Compile Include="Translator\PersonTranslator.cs" />
+    <Compile Include="Translator\ProductImageGallaryTranslator.cs" />
+    <Compile Include="Translator\ProductOrderLogTranslator.cs" />
+    <Compile Include="Translator\ProductSupplyLogTranslator.cs" />
+    <Compile Include="Translator\ProductTranslator.cs" />
+    <Compile Include="Translator\ProductTypeTranslator.cs" />
+    <Compile Include="Translator\ProductVariantOptionsTranslator.cs" />
+    <Compile Include="Translator\ProductVariantTranslator.cs" />
+    <Compile Include="Translator\ReorderNotificationTranslator.cs" />
+    <Compile Include="Translator\RolesTranslator.cs" />
+    <Compile Include="Translator\SalesLogsTranslator.cs" />
+    <Compile Include="Translator\StateTranslator.cs" />
+    <Compile Include="Translator\StoreSetupProductSampleTranslator.cs" />
+    <Compile Include="Translator\StoreSetupTranslator.cs" />
+    <Compile Include="Translator\StoreTypeTranslator.cs" />
+    <Compile Include="Translator\TranslatorBase.cs" />
+    <Compile Include="Translator\UnitMeasurementTranslator.cs" />
+    <Compile Include="Translator\UserTranslator.cs" />
+    <Compile Include="Translator\VendorsTranslator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".bin\git.cmd" />
+    <None Include=".bin\node.cmd" />
+    <None Include=".bin\npm.cmd" />
+    <None Include="App.Config" />
+    <EntityDeploy Include="Entity\AbundanceModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AbundanceModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entity\AbundanceModel.edmx.diagram">
+      <DependentUpon>AbundanceModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entity\AbundanceModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AbundanceModel.edmx</DependentUpon>
+      <LastGenOutput>AbundanceModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\AbundanceModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AbundanceModel.edmx</DependentUpon>
+      <LastGenOutput>AbundanceModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

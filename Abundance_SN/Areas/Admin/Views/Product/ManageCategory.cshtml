@@ -1,0 +1,323 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+<style>
+    input[type="search"] {
+        border: 1px solid #ccc;
+    }
+</style>
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    $(document).ready(function () {
+
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                }, , 'colvis'
+            ]
+        });
+        //jqueryVersion.extend($.fn.dataTable.defaults, {
+        //    responsive: false
+        //});
+        $("#deleteId").on("click", function () {
+            function confirmDelete() {
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (!isConfirm) return;
+                    $.ajax({
+                        url: "scriptDelete.php",
+                        type: "POST",
+                        data: {
+                            id: 5
+                        },
+                        dataType: "html",
+                        success: function () {
+                            swal("Done!", "It was succesfully deleted!", "success");
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            swal("Error deleting!", "Please try again", "error");
+                        }
+                    });
+                });
+            }
+        });
+
+
+    });
+</script>
+<div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="#createCategoryModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">CREATE CATEGORY</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Category</label>
+                        <input type="text" class="form-control" id="categorytxtbx" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Description</label>
+                        <input type="text" required class="form-control" id="descriptiontxtbx" />
+                    </div>
+                    <form action="#" method="get" role="form" enctype="multipart/form-data">
+                        <div class="form-group col-md-6">
+                            <label>Upload</label>
+                            <input type="file" id="imageUrltxtbx" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="createCategoryBtnSave" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+
+            <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Category</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            @*<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>*@
+                            <li class="breadcrumb-item"><a href="#">Category</a></li>
+
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="content-body">
+            <!-- Basic form layout section start -->
+            <section id="basic-form-layouts">
+                <div class="col-md-12">
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <div id="DataTables_Table_10_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                        <div class="row">
+
+                                            <div class="col-md-12 pull-right text-right">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCategoryModal">
+                                                    Create
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <table class="table table-striped table-bordered file-export dataTable" id="MyTable" role="grid" aria-describedby="DataTables_Table_10_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending"
+                                                        aria-label="Name: activate to sort column descending" style="width: 126px;">Category Name</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Description</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Image</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"
+                                                        style="width: 28px;">Edit</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"
+                                                        style="width: 28px;">Delete</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.Categories.Count > 0)
+                                                {
+                                                    for (int i = 0; i < Model.Categories.Count; i++)
+                                                    {
+                                                        var productId = Model.Categories[i].Id;
+
+                                                        <tr role="row" class="odd">
+
+
+                                                            <td class="text-center">@Model.Categories[i].Name</td>
+
+                                                            <td class="text-center">@Model.Categories[i].Description</td>
+                                                            @if ((Model.Categories[i].ImageUrl) != null && (Model.Categories[i].ImageUrl) != "")
+                                                            {
+                                                                <td class="sorting_1 text-center">
+                                                                    <img src="@Url.Content(Model.Categories[i].ImageUrl)" , alt=" " class="img-responsive" style="height:100px">
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="sorting_1 text-center"></td>
+                                                            }
+                                                            <td>@Html.ActionLink("Edit", "EditCategory", new { ProNo = @Model.Categories[i].Id, area = "admin", controller = "Product" }, new { @class = "btn btn-outline-primary box-shadow-1 btn-sm ft-edit-2" })</td>
+                                                            <td>@Html.ActionLink("Delete", "DeleteCategory", new { ProNo = @Model.Categories[i].Id, area = "admin", controller = "Product" }, new { @class = "btn btn-outline-primary box-shadow-1 btn-sm ft-x", id = "deleteId" })</td>
+
+                                                        </tr>
+                                                    }
+                                                }
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">Category Name</th>
+                                                    <th rowspan="1" colspan="1">Description</th>
+                                                    <th rowspan="1" colspan="1">Image</th>
+                                                    <th rowspan="1" colspan="1">Edit</th>
+                                                    <th rowspan="1" colspan="1">Delete</th>
+
+
+                                                </tr>
+
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />*@
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#createCategoryBtnSave').on('click', function (e) { //creating category
+            var name = $('#categorytxtbx').val();
+            var description = $('#descriptiontxtbx').val();
+            var image = $("#imageUrltxtbx").get(0);
+            var form = new FormData();
+            if (name != null && name != "" && description != null && description != "" && image != null && image != "") {
+                var files = image.files;
+
+            form.append("image", files[0]);
+            form.append("categoryName", name);
+            form.append("description", description);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateProductCategory", "Product", new { area = "Admin" })', // we are calling json method
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                data: form,
+
+        success: function (result) {
+            if (result && !result.IsError)
+            {
+                $('#createCategoryModal').modal('hide');
+                swal("Operation Success", "Category was succesfully Created!", "success");
+
+
+            }
+            if (result && result.IsError) {
+                $('#createCategoryModal').modal('hide');
+                swal(result.Message, "Not Successful!", "error");
+            }
+            if (!result) {
+                $('#createCategoryModal').modal('hide');
+                swal("Attention!", "Result is not defined.", "error");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            $('#createCategoryModal').modal('hide');
+            swal("Error Creating!", "Please try again", "error");
+        }
+            });
+            window.location.reload();
+            }
+            else {
+                swal("Operation Error", "Ensure You Fill The Required Information", "error");
+            }
+
+        })
+    })
+</script>

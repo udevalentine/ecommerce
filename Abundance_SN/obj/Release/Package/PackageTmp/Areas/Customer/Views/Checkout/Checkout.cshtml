@@ -1,0 +1,1105 @@
+﻿@using Abundance_SN.Business
+@model Abundance_SN.Models.ProductViewModel
+@{
+    ViewBag.Title = "title";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<script src="~/Content/DefaultCss/js/jquery-2.1.4.min.js"></script>
+<script type='text/javascript' src="~/Scripts/jquery.mycart.js"></script>
+<script src="~/Scripts/iziToast.js"></script>
+<script type="text/javascript">
+    var charge = 0;
+    var sumPrice = 0;
+    var noConflict = $.noConflict(true);
+    noConflict(document).ready(function () {
+        $('.Load').hide();
+        
+        //$('#shippingAddress2').hide();
+        //$('#checkBoxDeliverToAddress').show();
+        //$('#checkboxPickInStore').show();
+
+        //var sumPrice = 0;
+        sumPrice = 0;
+        var deliveryMode = null;
+        if (localStorage.products != null && localStorage.products != "" && localStorage.products != "[]") {
+            var allProducts = JSON.parse(localStorage.products);
+            for (var i = 0; i < allProducts.length; i++) {
+                sumPrice += parseInt(allProducts[i].quantity) * parseInt(allProducts[i].price);
+                var subTotal = allProducts[i].price * allProducts[i].quantity;
+                //var subTotal= string.Format("{0:0,0.00}", subTotalRaw);
+
+                $('#reviewTable').append('<tr id="' + allProducts[i].id + '" size="' + allProducts[i].productOptionId + '">' +
+                    '<td class="tb-image">' +
+                    '<a href="#" class="item-photo">' +
+                    '<img src="' + allProducts[i].image + '" alt="cart">' +
+                                                                '</a>' +
+                                                            '</td>' +
+                        '<td class="tb-product">' +
+                    '<div class="product-name">' +
+                    '<a href="#">' + allProducts[i].name + '</a>' +
+                            '</div>' +
+                        '</td>' +
+                    '<td class="tb-price">' +
+                    '<span class="price">₦' + allProducts[i].price + '</span>' +
+                        '</td>' +
+                    '<td>' +
+                    '<span>' + allProducts[i].key1 + ':' + allProducts[i].value1 + '</span > ' +
+                    '<span>' + allProducts[i].key2 + ':' + allProducts[i].value2 + '</span>' +
+                    '<span>' + allProducts[i].key3 + ':' + allProducts[i].value3 + '</span>' +
+                        '</td>' +
+                        '<td class="tb-qty">' +
+
+                    '<div class="quantity">'+
+                    '<div class="buttons-added">' +
+                    '<a href="#" class="sign minus">' +
+                    '<i class="fa fa-minus"></i>' +
+                    '</a>' +
+
+                    '<input type="text" id="quantityValue_' + i + '" value=' + allProducts[i].quantity + ' title="Qty" class="input-text qty text valueQuantity" min="1" size="1">' +
+
+                    '<a href="#" class="sign plus">' +
+                    '<i class="fa fa-plus"></i>' +
+                    '</a>' +
+
+                        '</div>'+
+                                '</div>' +
+                    '</td>' +
+                    '<td class="tb-total">' +
+                    '<span class="price" id="tdAmt'+ i +'">₦' + subTotal + '</span>' +
+                            '</td>' +
+                            '<td class="tb-remove">' +
+                                '<a href="#" class="action-remove">' +
+                                    '<span class="my-product-remove2">' +
+                                        '<i class="fa fa-times" aria-hidden="true"></i>' +
+                                    '</span>' +
+                                '</a>' +
+                            '</td>' + '</tr>');
+
+                        }
+        }
+
+        $('#productTable').on('click', 'a.minus', function () {
+
+            var divUpd = $(this).parent().find('.valueQuantity'), newVal = parseInt(divUpd.val(), 10) - 1;
+            if (newVal > 0) {
+                var divId = divUpd.attr('id');
+                var arr = divId.split('_');
+                var amtId = "tdAmt" + arr[1];
+                var divAmt = $('#' + amtId).text();
+                var amountValue = divAmt.replace("₦", "");
+                var productAmount = parseInt(amountValue) / parseInt(divUpd.val(), 10);
+                var newAmt = parseInt(amountValue) - parseInt(productAmount);
+                $('#' + amtId).text('₦' + newAmt);
+                $('#cartTotal').text('');
+                $('#cartSubtotal').text('');
+                var currentProductId = $(this).closest('tr').attr('id');
+                var currentProductOptionId = $(this).closest('tr').attr('size');
+                updatePoduct(currentProductId, newVal, currentProductOptionId);
+                var totalPrice = getTotalPrice() + charge;
+                var totalPriceUp = getTotalPrice();
+                var totalQuantity = getTotalQuantity();
+                $('#cartTotal').text('₦' + totalPrice);
+                $('.my-cart-badge').text(totalQuantity);
+                $('#cartSubtotal').text('₦' + totalPriceUp);
+                //if (newVal >= 1) divUpd.val(newVal);
+            }
+
+        });
+        $('#productTable').on('click', 'a.plus', function () {
+
+                        var divUpd = $(this).parent().find('.valueQuantity'), newVal = parseInt(divUpd.val(), 10) + 1;
+                        if (newVal > 0) {
+                            var divId = divUpd.attr('id');
+                            var arr = divId.split('_');
+                            var amtId = "tdAmt" + arr[1];
+                            var divAmt = $('#' + amtId).text();
+                            var amountValue = divAmt.replace("₦", "");
+                            var productAmount = parseInt(amountValue) / parseInt(divUpd.val(), 10);
+                            var newAmt = parseInt(amountValue) + parseInt(productAmount);
+                            $('#' + amtId).text('₦' + newAmt);
+                            $('#cartTotal').text('');
+                            $('#cartSubtotal').text('');
+                            var currentProductId = $(this).closest('tr').attr('id');
+                            var currentProductOptionId = $(this).closest('tr').attr('size');
+                            updatePoduct(currentProductId, newVal, currentProductOptionId);
+                            var totalPrice = getTotalPrice() + charge;
+                            var totalPriceUp = getTotalPrice();
+                            var totalQuantity = getTotalQuantity();
+                            $('#cartTotal').text('₦' + totalPrice);
+                            $('.my-cart-badge').text(totalQuantity);
+                            $('#cartSubtotal').text('₦' + totalPriceUp);
+                            //divUpd.val(newVal);
+                        }
+
+        });
+        //get the charge on select of area
+                $('#courierArea').on('change', function(){
+        var stateId = $('#deliveryState').val();
+        var areaId = $('#courierArea').find('option:selected').val();
+        charge = 0;
+        if (stateId != null && stateId != "" && areaId > 0)
+        {
+$.ajax({
+    
+                        type: 'POST',
+                        url: '@Url.Action("CourierCharge", "Checkout", new { area = "Customer" })', // we are calling json method
+                        dataType: 'json',
+                        data: { stateId: stateId, areaId: areaId},
+                        success: function (result) {
+                            if (result != null) {
+
+                                charge = result[0].charges;
+                                $('#tableId').empty();
+                                renderCarTable();
+                                localStorage.DeliveryCharge = charge;
+                            }
+
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve CourierCharge.' + ex);
+                        }
+                    });
+        }
+        else
+        {
+            swal("Operation Fail","Please, Ensure you select State, CourierService and Area", "error");
+        }
+
+        })
+                renderCarTable();
+        //$('#tableId').append('<tr><td>Cart Subtotal:</td> <td class="text-medium" id="cartSubtotal">₦' + sumPrice + '</td></tr><tr><td>Delivery Fee:</td><td class="text-medium">₦ ' + charge + '</td></tr><tr> <td>Total Charges:</td><td class="text-medium">₦ ' + 0 + '</td></tr><tr><td>Total</td><td class="text-lg text-medium" id="cartTotal">₦' + sumPrice + '</td> </tr>');
+        $('#clearCart').click(function() {
+            localStorage.products = "[]";
+            window.location.reload();
+
+        });
+        $('#btnCompleteOrder').on('click', function () {
+
+                        var isvalid = false;
+            $('.Load').show();
+                        var mobileNumber, surname, firstName, email, uuid, otherName, landMark, city, state, shippingAddress, emailValidatedForShipping,paymentMode;
+                        var pickInStoreEmail = $('#checkout-email2').val();
+                        var pickInStoreEmailValiated = isValidEmailAddress(pickInStoreEmail);
+
+                        //if ($('#bank').prop('checked')) {
+                        //    paymentMode = 1;
+                        //}
+                        if ($('#card').prop('checked')) {
+                            paymentMode = 2;
+                        }
+                        //} else {
+                        //    paymentMode = 2;
+                        //}
+
+                        if ($('#checkBoxDelivery').prop('checked')) {
+
+                            uuid = null;
+                            surname = $('#checkout-fn').val();
+                            firstName = $('#checkout-ln').val();
+                            otherName = $('#checkout-on').val();
+                            landMark = $('#checkout-address1').val(); 
+                            email = $('#checkout-email').val();
+                            //city = $('#checkout-city').val();
+                            city = $('#courierArea').find('option:selected').text();
+                            //state = $('#Person_StateId').val();
+                            state = $('#deliveryState').val();
+                            shippingAddress = $('#checkout-address1').val();
+                            mobileNumber = $('#Person_PhoneNumber').val();
+                            emailValidatedForShipping = isValidEmailAddress(email);
+
+                            deliveryMode = 1;
+
+                            if (emailValidatedForShipping == true && city != "" && state != "" && landMark != "" && surname != "" && firstName != "" && mobileNumber != "") {
+                                isvalid = true;
+                            } else {
+                    $('.Load').hide();
+                                iziToast.error({
+                                    rtl: false,
+                        layout: 1,
+                        drag: false,
+                        timeout: 10000,
+                        close: true,
+                        overlay: true,
+                        toastOnce: true,
+                        id: 'question',
+                        progressBar: true,
+                        title: 'Error',
+                        message: 'Some Fields are missing Or email Address is not in the correct Format, kindly fill out the required details to continue',
+                        position: 'center'
+                                });
+                            }
+
+
+                        } else if ($('#pickInStoreCheckBox').prop('checked')) {
+
+                            deliveryMode = 3;
+                            mobileNumber = $('#phoneNumber').val();
+                            surname = $('#checkout-fn2').val();
+                            firstName = $('#checkout-ln2').val();
+                            email = $('#checkout-email2').val();
+                            if (mobileNumber != "" && surname != "" && firstName != "" && pickInStoreEmailValiated == true) {
+
+                                isvalid = true;
+
+                            } else {
+                                iziToast.error({
+                                    rtl: false,
+                        layout: 1,
+                        drag: false,
+                        timeout: 10000,
+                        close: true,
+                        overlay: true,
+                        toastOnce: true,
+                        id: 'question',
+                        progressBar: true,
+                        title: 'Error',
+                        message: 'Some Fields are missing Or email Address is not in the correct Format, kindly fill out the required details to continue',
+                        position: 'center'
+                                });
+                    $('.Load').hide();
+                            }
+                        }
+
+                        var previousCreatedOrder = localStorage.OrderNumber;
+
+                        if (previousCreatedOrder != undefined && previousCreatedOrder != "" && previousCreatedOrder !="[]" ) {
+
+                            var processedOrderNumber = JSON.parse(localStorage.OrderNumber);
+
+                            noConflict.ajax({
+                                type: "POST",
+                    url: "@Url.Action("PayStackPayment", "Payment", new { area = "Customer" })",
+                    dataType: "json",
+                    data: { customerId: processedOrderNumber },
+                    success: function (payStackUrl) {
+
+                                    if (payStackUrl != null && payStackUrl) {
+                                        window.location.href = payStackUrl;
+                                        localStorage.OrderNumber="[]"
+                                    } else {
+
+                            $('.Load').hide();
+
+                                        iziToast.error({
+                                            rtl: false,
+                                layout: 1,
+                                drag: false,
+                                timeout: 10000,
+                                close: true,
+                                overlay: true,
+                                toastOnce: true,
+                                id: 'question',
+                                progressBar: true,
+                                title: 'Error',
+                                message: 'Sorry switch could not be reached at this time.Kindly try again',
+                                position: 'center'
+                                        });
+                                    }
+                                },
+                    error: function (ex) {
+                        $('.Load').hide();
+
+                                    iziToast.error({
+
+                                        rtl: false,
+                            layout: 1,
+                            drag: false,
+                            timeout: 10000,
+                            close: true,
+                            overlay: true,
+                            toastOnce: true,
+                            id: 'question',
+                            progressBar: true,
+                            title: 'Error',
+                            message: 'Sorry we were not able to complete your order kindly try Again',
+                            position: 'center'
+                                    });
+                                    console.log(ex);
+                                },
+                    traditional: true
+                            });
+                        }
+
+                        else if (isvalid) {
+                            if (location.href.match(/anonymous/)) {
+                                uuid = getCookie('user_id');
+                                if (uuid == null || uuid == "" || uuid == " ") {
+                                    uuid = generateUUID();
+                                    document.cookie = ('user_id =' + uuid);
+                                }
+                            }
+
+                            var arrayToPost = [];
+                            var allProducts = JSON.parse(localStorage.products);
+                            for (var i = 0; i < allProducts.length; i++) {
+
+                                allProducts[i].summary = escape(allProducts[i].summary);
+                                arrayToPost.push(allProducts[i]);
+                            }
+                            var myRecordArray = JSON.stringify(arrayToPost);
+                            var chargeFee = 0;
+                            if (localStorage.DeliveryCharge != "[]")
+                            {
+                                chargeFee = localStorage.DeliveryCharge;
+                            }
+                            
+                            noConflict.ajax({
+                                type: "POST",
+                    url: "@Url.Action("MakePayment", "Payment", new {area = "Customer"})",
+                    dataType: "json",
+                    data: { myRecordArray: myRecordArray, surname: surname, firstName: firstName, middleName: otherName, mobile: mobileNumber, landMark: landMark, city: city, state: state, email: email, shippingAddress: shippingAddress, paymentMode: paymentMode, uuid: uuid, deliveryMode: deliveryMode,deliveryCharge:chargeFee},
+                    success: function (arrayJsonModel) {
+
+                                    if (arrayJsonModel.PayStackUrl != null && arrayJsonModel.PayStackUrl != undefined) {
+                                        window.location.href = arrayJsonModel.PayStackUrl;
+                                        localStorage.OrderNumber = "[]";
+                                    } else {
+                                        localStorage.OrderNumber = JSON.stringify(arrayJsonModel.CustomerOrderNumber);
+                            $('.Load').hide();
+
+                                        iziToast.error({
+
+                                            rtl: false,
+                                layout: 1,
+                                drag: false,
+                                timeout: 10000,
+                                close: true,
+                                overlay: true,
+                                toastOnce: true,
+                                id: 'question',
+                                progressBar: true,
+                                title: 'Error',
+                                message: 'Sorry we were not able to complete your order kindly try Again',
+                                position: 'center'
+                                        });
+                                    }
+
+                                },
+                    error: function (ex) {
+                        $('.Load').hide();
+
+                                    iziToast.error({
+
+                                        rtl: false,
+                            layout: 1,
+                            drag: false,
+                            timeout: 10000,
+                            close: true,
+                            overlay: true,
+                            toastOnce: true,
+                            id: 'question',
+                            progressBar: true,
+                            title: 'Error',
+                            message: 'Sorry we were not able to complete your order kindly try Again',
+                            position: 'center'
+                                    });
+                                    console.log(ex);
+                                },
+                    traditional: true
+                            });
+                        }
+
+
+                    });
+
+        $('#pickInStoreCheckBox').click(function () {
+                        if ($('#pickInStoreCheckBox').is(':checked')) {
+                            $('#checkBoxDelivery').prop('checked', false);
+                            localStorage.DeliveryCharge = "[]";
+                        }
+                    });
+        $('#checkBoxDelivery').click(function () {
+                        if ($('#checkBoxDelivery').is(':checked')) {
+                $('#pickInStoreCheckBox').prop('checked', false);
+                        }
+                    });
+
+        $('#bank').click(function () {
+                        if ($('#bank').is(':checked')) {
+                $('#card').prop('checked', false);
+                        }
+                    });
+        $('#card').click(function () {
+                        if ($('#card').is(':checked')) {
+                $('#bank').prop('checked', false);
+                        }
+                    });
+
+
+        var navListItems = $('div.setup-panel div a'),
+            allWells = $('.setup-content'),
+            allNextBtn = $('.nextBtn');
+
+        allWells.hide();
+
+        navListItems.click(function (e) {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+                        navListItems.removeClass('btn-success').addClass('btn-default');
+                $item.addClass('btn-success');
+                        allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+                    }
+                    });
+
+        allNextBtn.click(function () {
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
+
+            $(".form-group").removeClass("has-error");
+            for (var i = 0; i < curInputs.length; i++) {
+                        if (!curInputs[i].validity.valid) {
+                            isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
+                        }
+                    }
+
+            if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
+                    });
+
+        $('div.setup-panel div a.btn-success').trigger('click');
+                });
+    function generateUUID() {
+        var d = new Date().getTime(); //Date().Now();
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+            d += performance.now(); //use high-precision timer if available
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+    function getCookie(cookieName) {
+        var name = cookieName + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            //  c = c.substring(1);
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+
+        }
+        return " ";
+    }
+    function isValidEmailAddress(emailAddress) {
+        var pattern = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        ;
+        if (emailAddress.match(pattern)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    var updatePoduct = function (id, quantity, OptionId) {
+        var productIndex = getIndexOfProduct(id, OptionId);
+        if (productIndex < 0) {
+            return false;
+        }
+        var products = JSON.parse(localStorage.products);
+        products[productIndex].quantity = typeof quantity === "undefined" ? products[productIndex].quantity * 1 + 1 : quantity;
+
+        $('#cartBody').empty();
+        $('.subtotal').text('');
+        //var sumPrice = 0;
+        sumPrice = 0;
+        var sumQuantity = 0;
+        $('#cartBody').html(' ');
+        for (var i = 0; i < products.length; i++) {
+            $('#cartBody').append('<li class="product-inner "><div class="product-thumb style1"> <div class="thumb-inner"><a href="#">  <img id="cartProductImage" src="' + products[i].image + '" alt="Product" style="height:50px;width:70px;"></a></div> </div> <div class="product-innfo" id="' + products[i].id + '" size="' + products[i].productOptionId + '"><div class="product-name"> <a href="#">' + products[i].name + '</a></div><a href="#" class="remove my-product-remove">  <i class="fa fa-times" aria-hidden="true"></i> </a><span class="price"><ins id="discountedAmount">₦' + products[i].price + '</ins> <del id="realPrice">₦' + products[i].price + '</del></span></div> </li>');
+            sumPrice += parseInt(products[i].quantity) * parseInt(products[i].price);
+            sumQuantity += products[i].quantity;
+        }
+        $('#sumTotal').append('₦' + sumPrice);
+        $('#sumTotal2').append('₦' + sumPrice);
+        $('#cartCounter').append(sumQuantity);
+        localStorage.products = JSON.stringify(products);
+        return true;
+
+
+    };
+    function renderCarTable() {
+        var grandTotal=sumPrice + charge;
+        $('#tableId').append('<tr><td>Cart Subtotal:</td> <td class="text-medium" id="cartSubtotal">₦' + sumPrice + '</td></tr><tr><td>Delivery Fee:</td><td class="text-medium">₦ ' + charge + '</td></tr><tr> <td>Total Charges:</td><td class="text-medium">₦ ' + 0 + '</td></tr><tr><td>Total</td><td class="text-lg text-medium" id="cartTotal">₦' + grandTotal + '</td> </tr>');
+    }
+    var getIndexOfProduct = function (id, productOptionId) {
+        var productIndex = -1;
+        var products = JSON.parse(localStorage.products);
+        $.each(products, function (index, value) {
+            if (value.id == id && value.productOptionId == productOptionId) {
+                productIndex = index;
+                return;
+            }
+        });
+        return productIndex;
+    };
+    var getTotalQuantity = function () {
+        var total = 0;
+        var products = JSON.parse(localStorage.products);
+        $.each(products, function (index, value) {
+            total += value.quantity * 1;
+        });
+        return total;
+    };
+    var getTotalPrice = function () {
+        var products = JSON.parse(localStorage.products);
+        var total = 0;
+        for (var i = 0; i < products.length; i++) {
+            total += parseInt(products[i].quantity) * parseInt(products[i].price);
+        }
+        return total;
+    };
+
+</script>
+<!-- Off-Canvas Wrapper-->
+<main class="site-main checkout">
+
+    <div class="container">
+        <!-- <ol class="breadcrumb-page">
+            <li><a href="#">Home </a></li>
+            <li class="active"><a href="#">checkout</a></li>
+        </ol> -->
+    </div>
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-lg-9 col-sm-12">
+
+                <div class="shadow bg-white" style="padding:15px;">
+                    <div class="stepwizard">
+                        <div class="stepwizard-row setup-panel">
+                            <div class="stepwizard-step col-xs-4">
+                                <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
+                                <p>
+                                    <small>Delivery Address</small>
+                                </p>
+                            </div>
+                            <div class="stepwizard-step col-xs-4">
+                                <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                                <p>
+                                    <small>Review</small>
+                                </p>
+                            </div>
+                            <div class="stepwizard-step col-xs-4">
+                                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                                <p>
+                                    <small>Payment</small>
+                                </p>
+                            </div>
+                            <!-- <div class="stepwizard-step col-xs-3">
+                                <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+                                <p>
+                                    <small>Cargo</small>
+                                </p>
+                            </div> -->
+                        </div>
+                    </div>
+                    <form role="form">
+
+                        <div class="panel setup-content" id="step-1">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="checkbox" id="">
+                                        <label data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            <input type="checkbox" id="checkBoxDelivery" /> <span class="h5" style="margin-top:15px; display:inline-block;">Ship to this Address</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="collapseOne" aria-expanded="false" class="collapse">
+                                    <div action="#" class="checkout" method="post" name="checkout">
+                                        <h4 class="title-checkout">Delivery Address</h4>
+                                        <div class="row" id="shippingAddress3">
+                                            <div class="form-group col-md-6">
+                                                @Html.LabelFor(model => model.Person.Surname, "Surname:", new { @class = "control-label " })
+                                                @Html.TextBoxFor(model => model.Person.Surname, new { @class = "form-control", placeholder = "Surname name", id = "checkout-fn" })
+                                                @Html.ValidationMessageFor(model => model.Person.Surname, null, new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.LabelFor(model => model.Person.FirstName, "First Name:", new { @class = "control-label " })
+                                                @Html.TextBoxFor(model => model.Person.FirstName, new { @class = "form-control", placeholder = "First name", id = "checkout-ln" })
+                                                @Html.ValidationMessageFor(model => model.Person.FirstName, null, new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.LabelFor(model => model.Person.OtherName, "Middle Name:", new { @class = "control-label " })
+                                                @Html.TextBoxFor(model => model.Person.OtherName, new { @class = "form-control", placeholder = "Middle name", id = "checkout-on" })
+                                                @Html.ValidationMessageFor(model => model.Person.OtherName, null, new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.LabelFor(model => model.Person.PhoneNumber, "Phone Number:", new { @class = "control-label " })
+                                                @Html.TextBoxFor(model => model.Person.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "Person_PhoneNumber" })
+                                                @Html.ValidationMessageFor(model => model.Person.PhoneNumber, null, new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.LabelFor(model => model.Person.Email,"E-mail:", new { @class = "control-label " })
+                                                @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control", placeholder = "Email", id = "checkout-email", type = "email" })
+                                                @Html.ValidationMessageFor(model => model.Person.Email, null, new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.LabelFor(model => model.Person.LandMark, "Address:", new { @class = "control-label " })
+                                                @Html.TextBoxFor(model => model.Person.LandMark, new { @class = "form-control", placeholder = "Address", id = "checkout-address1" })
+                                                @Html.ValidationMessageFor(model => model.Person.LandMark, null, new { @class = "text-danger" })
+                                            </div>
+                                            @*<div class="form-group col-md-6">
+                                                    @Html.LabelFor(model => model.Person.City, "City:", new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.City, new { @class = "form-control", placeholder = " City", id = "checkout-city" })
+                                                    @Html.ValidationMessageFor(model => model.Person.City, null, new { @class = "text-danger" })
+                                                </div>*@
+                                            
+                                            <div class="form-group col-md-6">
+                                                @Html.LabelFor(model => model.Person.StateId, "State:", new { @class = "control-label " })
+                                                @Html.DropDownListFor(model => model.Person.StateId, (IEnumerable<SelectListItem>)ViewBag.StateId, new { @class = "form-control", id = "deliveryState", placeholder = "State", @style = "padding: 4px 10px 10px !important" })
+                                                @Html.ValidationMessageFor(model => model.Person.StateId, null, new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-6" id="divcourierArea">
+                                                <label>Area:</label>
+                                                <select class="form-control" id="courierArea"></select>
+                                            </div>
+                                            @*<div class="form-group col-md-6">
+                                                    @Html.LabelFor(model => model.CourierService.Courier_Id, "Courier Name:", new { @class = "control-label " })
+                                                    @Html.DropDownListFor(model => model.CourierService.Courier_Id, (IEnumerable<SelectListItem>)ViewBag.CourierId, new { @class = "form-control", id = "courierId", @style = "padding: 4px 10px 10px !important" })
+                                                    @Html.ValidationMessageFor(model => model.CourierService.Courier_Id, null, new { @class = "text-danger" })
+                                                </div>*@
+
+                                            @*<div class="form-group col-md-6" id="divcourierService">
+                                                    <select class="form-control" id="courierService"></select>
+                                                </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="checkbox" id="checkboxPickInStore">
+                                        <label data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <input type="checkbox" id="pickInStoreCheckBox" />
+                                            <span class="h5" style="margin-top:15px; display:inline-block;">PickIn Store</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="collapseTwo" aria-expanded="false" class="collapse">
+                                    <h4 class="title-checkout">Receiver's Information</h4>
+                                    <div class="row" id="shippingAddress2">
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.Person.Surname, "Surname:", new { @class = "control-label " })
+                                            @Html.TextBoxFor(model => model.Person.Surname, new { @class = "form-control", placeholder = "Surname name", id = "checkout-fn2" })
+                                            @Html.ValidationMessageFor(model => model.Person.Surname, null, new { @class = "text-danger" })
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.Person.FirstName, "First Name:", new { @class = "control-label " })
+                                            @Html.TextBoxFor(model => model.Person.FirstName, new { @class = "form-control", placeholder = "First name", id = "checkout-ln2" })
+                                            @Html.ValidationMessageFor(model => model.Person.FirstName, null, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.Person.PhoneNumber, "Phone Number:", new { @class = "control-label " })
+                                            @Html.TextBoxFor(model => model.Person.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "phoneNumber" })
+                                            @Html.ValidationMessageFor(model => model.Person.PhoneNumber, null, new { @class = "text-danger" })
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(model => model.Person.Email, new { @class = "control-label " })
+                                            @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control", placeholder = "Email", id = "checkout-email2", type = "email" })
+                                            @Html.ValidationMessageFor(model => model.Person.Email, null, new { @class = "text-danger" })
+                                        </div>
+                                        @*<div class="well">Store Address</div>*@
+                                    </div>
+
+                                </div>
+                                <button class="btn btn-primary nextBtn pull-right" id="nextToReview" type="button"> <span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>Next</button>
+
+                            </div>
+                        </div>
+
+                        <div class="setup-content" id="step-2">
+                            <div class="container yo">
+                                <div>
+                                    <div class="col-md-8 shopping-cart">
+                                        <div class="form-cart">
+                                            <div class="table-cart">
+                                                <table class="table table-responsive shopping-cart" id="productTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="tb-image">Product Image</th>
+                                                            <th class="tb-product">Product Name</th>
+                                                            <th class="tb-price">Unit Price</th>
+                                                            <th class="tb-price">Option(s)</th>
+                                                            <th class="tb-qty">Qty</th>
+                                                            <th class="tb-total">SubTotal</th>
+                                                            <th class="tb-remove"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="reviewTable"></tbody>
+
+
+                                                </table>
+                                            </div>
+                                            <div class="cart-actions">
+
+
+                                                <button type="submit" class="btn-update">
+                                                    <span id="clearCart">Clear Shopping Cart</span>
+                                                </button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <hr>
+                                        <a type="button" class="btn btn-primary pull-left" href="step-1"><span>Previous</span></a>
+                                        <button class="btn btn-primary nextBtn pull-right" type="button" id="paymentcontinueBtn">
+                                            Next
+                                        </button><span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setup-content" id="step-3">
+
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <label for="card">
+                                        <input type="checkbox" id="card" checked="checked"> Pay with card/Pay with bank
+                                    </label>
+                                </div>
+                                <hr>
+                                @*<div class="col-md-12">
+                                    <label for="bank">
+                                        <input type="checkbox" id="bank"> Pay with bank
+                                    </label>
+                                </div>*@
+                                <a type="button" class="btn btn-primary pull-left" href="#step-2"><span>Previous</span></a>
+                                <button class="btn btn-primary nextBtn pull-right" id="btnCompleteOrder" type="button">Pay</button><span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <br>
+                <div class="">
+                    <div class="tab-content">
+
+
+                        @*<div class="tab-pane fade in" id="tab2">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <form class="form-cart">
+                                                <div class="table-cart">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="tb-image"></th>
+                                                                <th class="tb-product">Product Name</th>
+                                                                <th class="tb-price">Unit Price</th>
+                                                                <th class="tb-price">Option(s)</th>
+                                                                <th class="tb-qty">Qty</th>
+                                                                <th class="tb-total">SubTotal</th>
+                                                                <th class="tb-remove"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="tb-image">
+                                                                    <a href="#" class="item-photo">
+                                                                        <img src="images/cart1.jpg" alt="cart">
+                                                                    </a>
+                                                                </td>
+                                                                <td class="tb-product">
+                                                                    <div class="product-name">
+                                                                        <a href="#">Smartphone MTK6737 Quad Core.</a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="tb-price">
+                                                                    <span class="price">$229.00</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>Color: Red</span>
+                                                                    <span>Size: M</span>
+                                                                </td>
+                                                                <td class="tb-qty">
+                                                                    <div class="quantity">
+                                                                        <div class="buttons-added">
+                                                                            <input type="text" value="1" title="Qty" class="input-text qty text" size="1">
+                                                                            <a href="#" class="sign plus">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </a>
+                                                                            <a href="#" class="sign minus">
+                                                                                <i class="fa fa-minus"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="tb-total">
+                                                                    <span class="price">$229.00</span>
+                                                                </td>
+                                                                <td class="tb-remove">
+                                                                    <a href="#" class="action-remove">
+                                                                        <span>
+                                                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                                                        </span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tb-image">
+                                                                    <a href="#" class="item-photo">
+                                                                        <img src="images/cart2.jpg" alt="cart">
+                                                                    </a>
+                                                                <td class="tb-product">
+                                                                    <div class="product-name">
+                                                                        <a href="#">Acer's Aspire S7 is a thin and portable laptop</a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="tb-price">
+                                                                    <span class="price">$229.00</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>Color: Red</span>
+                                                                    <span>Size: M</span>
+                                                                </td>
+                                                                <td class="tb-qty">
+                                                                    <div class="quantity">
+                                                                        <div class="buttons-added">
+                                                                            <input type="text" value="1" title="Qty" class="input-text qty text" size="1">
+                                                                            <a href="#" class="sign plus">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </a>
+                                                                            <a href="#" class="sign minus">
+                                                                                <i class="fa fa-minus"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="tb-total">
+                                                                    <span class="price">$229.00</span>
+                                                                </td>
+                                                                <td class="tb-remove">
+                                                                    <a href="#" class="action-remove">
+                                                                        <span>
+                                                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                                                        </span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="cart-actions">
+                                                    <button type="submit" class="btn-clean">
+                                                        <span>Go Back</span>
+                                                    </button>
+
+                                                    <button type="submit" class="btn-update">
+                                                        <span>Complete Order</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*<div class="tab-pane fade in" id="tab3">
+                                <div class="col-md-12">
+                                    <div class="form-group payment col-md-12">
+
+                                        <h4 class="title-checkout">Payment Method</h4>
+
+
+                                        <ul>
+                                            <li>
+                                                <label class="inline">
+                                                    <input type="checkbox">
+                                                    <span class="input"></span>Credit card
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="inline">
+                                                    <input type="checkbox">
+                                                    <span class="input"></span>Cash on Delivery
+                                                </label>
+                                            </li>
+
+                                        </ul>
+
+                                        <span class="grand-total">
+                                            Grand Total
+                                            <span>$100.00</span>
+                                        </span>
+                                        <button type="submit" class="btn-order">Place Order Now</button>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                @using (Html.BeginForm("Checkout", "Checkout", new { area = "Customer" }, FormMethod.Post))
+                {
+                    <div class="col-md-12 padding-left-5  shadow bg-white" style="padding:15px;">
+                        <a class="btn btn-block btn-warning" href="@Url.Action("Index", "Home", new { area = "" })">Continue Shopping</a>
+                        <br>
+                        <br>
+                        <div class="order-summary">
+                            <h4 class="title-shopping-cart">Order Summary</h4>
+                            <div class="checkout-element-content">
+                                <table class="table">
+                                    <tbody id="tableId"> </tbody>
+                                </table><br>
+                                <button type="submit" class="btn-primary btn-block" id="summaryPay">
+                                    <span>Pay</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+    @*//recent product*@
+
+    <div class="block-recent-view">
+        <div class="container-fluid">
+            <div class="title-of-section">Recommended Products</div>
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+                @if (Model.Products.Count > 0)
+                {
+                    for (int i = 0; i < Model.Products.Count; i++)
+                    {
+                        <div class="product-item style1">
+                            <div class="product-inner equal-elem">
+                                <div class="product-thumb">
+                                    <div class="thumb-inner" style="height:235px;">
+                                        <a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = Model.Products[i].Id })"><img src="@Url.Content(Model.Products[i].ImageUrl)" alt="Product"></a>
+                                    </div>
+                                    <span class="onsale">@Model.Products[i].Discount %</span>
+                                    <a href="#" class="quick-view">35% Off</a>
+                                </div>
+                                <div class="product-innfo">
+                                    <div class="product-name"><a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = Model.Products[i].Id })">@Model.Products[i].Name</a></div>
+                                    <span class="price">
+                                        <ins>₦@Model.Products[i].DiscountAmount</ins>
+                                        <del>₦@Model.Products[i].Price</del>
+                                    </span>
+                                    <span class="star-rating">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <span class="review">5 Review</span>
+                                    </span>
+
+                                    <div class="group-btn-hover">
+                                        <a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = Model.Products[i].Id })" class="add-to-cart"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+    @*//end*@
+
+
+</main>
+<a href="#" id="scrollup" title="Scroll to Top">Scroll</a>
+<!-- jQuery -->
+<!-- Back To Top Button--><a class="scroll-to-top-btn" href="http://themes.#lloydant.com/#lloydant/v2.2/template-1/checkout-address.html#"><i class="icon-arrow-up"></i></a>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#divcourierArea').hide();
+        $('#divcourierService').hide();
+        //hiding the pay button until shipping address has been filled
+        $('#summaryPay').hide();
+        //show the pay button
+        $('#nextToReview').on('click', function () {
+            $('#summaryPay').show();
+        })
+        //using click on summaryPay to trigger payment
+        $('#summaryPay').on('click', function () {
+
+            $('#btnCompleteOrder').click();
+            return false;
+        })
+        $('#deliveryState').on('change', function () {
+            var stateId = $('#deliveryState').val();
+            $.ajax({
+
+                type: 'POST',
+                url: '@Url.Action("CourierArea", "Checkout", new { area = "Customer" })', // we are calling json method
+                        dataType: 'json',
+                        data: { stateId: stateId},
+                        success: function (result) {
+                            if (result != null) {
+                                $('#divcourierArea').show();
+                                $('#divcourierService').show();
+                                $("#courierArea").empty();
+                                $("#courierArea").append('<option value="' + 0 + '">----Select----</option>');
+                                //$("#courierService").append('<option value="' + 0 + '">----Select----</option>');
+                                    $.each(result, function (i, values) {
+                                        $('#courierArea').append('<option value="' + values.Id + '">' + values.Area + '</option>');
+                                        //$('#courierService').append('<option value="' + values.CourierService.Courier_Id + '">' + values.CourierService.Courier_Name + '</option>');
+                                    });
+                            }
+
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve CourierArea.' + ex);
+                        }
+                    });
+        })
+
+
+    })
+    @*function GetCharge() {
+        var courierId = $('#courierId').val();
+        var stateId = $('#deliveryState').val();
+        var areaId = $('#courierArea').find('option:selected').val();
+        if (courierId != null && courierId != " " && stateId != null && stateId != "" && areaId > 0)
+        {
+$.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("CourierCharge", "Checkout", new { area = "Customer" })', // we are calling json method
+                        dataType: 'json',
+                        data: { stateId: stateId, areaId: areaId, serviceId: courierId},
+                        success: function (result) {
+                            if (result != null) {
+                                charge = result.charges;
+                            }
+
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve CourierCharge.' + ex);
+                        }
+                    });
+        }
+        else
+        {
+            swal("Operation Fail","Please, Ensure you select State, CourierService and Area", "error");
+        }
+
+    }*@
+</script>

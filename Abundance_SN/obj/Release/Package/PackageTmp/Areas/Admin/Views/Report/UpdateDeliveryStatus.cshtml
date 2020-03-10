@@ -1,0 +1,173 @@
+﻿@model Abundance_SN.Areas.Admin.Models.CustomerViewModel
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    $(document).ready(function () {
+
+        $('#createModal').modal('hide');
+        $('.Load').hide();
+
+        $('#submit').on('click', function () {
+            $('.Load').show();
+            var orderNumber = $('#DeliveryAddress_CartHash').val();
+            if (orderNumber != "" && orderNumber != undefined) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GetOrderByNumber", "Report", new { area = "Admin" })",
+                    dataType: "json",
+                    data: { orderNumber: orderNumber },
+                    success: function (arrayJsonModel) {
+                        $('#modalBody').html('');
+
+                        for (i = 0; i < arrayJsonModel.length; i++) {
+                            $('#modalBody').append('<div class="row"><div class="col-md-6"><img src="' + arrayJsonModel[i].ImageUrl + '" alt="product image"></div><div class="col-md-6" style="float:right"><h5 class="card-title">' + arrayJsonModel[i].Name + '</h5><hr> <div><b>Quantity:</b> <span>' + arrayJsonModel[i].Quantity + '</span></div> <div class="mb-2"><b>Total:</b>' + arrayJsonModel[i].Amount + '</div></div></div><div class="row mt-5"></div>');
+                        }
+                        $('#createModal').modal('show');
+                        $('.Load').hide();
+                    },
+                    error: function (ex) {
+                        swal("Error Ocurred", "An Error Occured while Updating your Request", "error");
+                    },
+                    traditional: true
+                });
+                $('#deliveryOrderNumber').val(orderNumber);
+            } else {
+                swal("Error Ocurred", "Kindly input an Order Number to Continue", "error");
+                $('.Load').hide();
+            }
+
+        });
+
+    });
+
+</script>
+<br />
+
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Report</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="content-header-right col-md-6 col-12">
+                <div class="dropdown float-md-right">
+                    <button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton"
+                            type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
+                        <a class="dropdown-item" href="#"><i class="la la-calendar-check-o"></i> Calender</a>
+                        <a class="dropdown-item" href="#"><i class="la la-cart-plus"></i> Cart</a>
+                        <a class="dropdown-item" href="#"><i class="la la-life-ring"></i> Support</a>
+                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="la la-cog"></i> Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <div class="container">
+                <div class="col-lg-4 offset-4 col-md-6 offset-md-3 offset-sm-0 col-sm-12">
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                    }
+                </div>
+                <div class="col-md-6 offset-md-3 offset-sm-0">
+                    <div class="card">
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <form class="form">
+                                    <div class="form-body">
+                                        <h4 class="form-section"><i class="ft-plus-square"></i>Update Delivery Status</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <p class="custom-text-black"> Enter the Order number and click on the search button</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.DeliveryAddress.CartHash, "Order Number", new { @class = "control-label custom-text-black" })
+                                                    @Html.TextBoxFor(model => model.DeliveryAddress.CartHash, new { @class = "form-control  text-uppercase", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.DeliveryAddress.CartHash, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <button class="btn btn-success" type="submit" name="submit" id="submit">Search</button>
+                                                <span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" role="dialog" id="createModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                @using (Html.BeginForm("SaveDeliveryStatus", "Report", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                                                    @Html.HiddenFor(model => model.DeliveryAddress.CartHash, new { Id = "deliveryOrderNumber" })
+                                                    <div class="modal-body">
+                                                        
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                 <div id="modalBody"></div>
+                                                            </div>
+                                                            <div class="col-md-12" style="padding-top:20px">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.DeliveryStatus.Id, "Delivery Status", new { @class = "col-md-12 control-label" })
+                                                                    <div class="col-md-12">
+                                                                        @Html.DropDownListFor(model => model.DeliveryStatus.Id, (IEnumerable<SelectListItem>)ViewBag.DeliveryStatus, new { @class = "form-control custom-select", required = true })
+                                                                        @Html.ValidationMessageFor(model => model.DeliveryStatus.Id, null, new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-success" type="submit">Save</button>
+                                                        </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

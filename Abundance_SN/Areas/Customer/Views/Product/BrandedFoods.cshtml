@@ -1,0 +1,186 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    .newClass {
+        min-height: 300px;
+        padding-top: 7em;
+        background: url(/Content/images/10.jpg) no-repeat 0px 0px;
+        background-size: cover;
+    }
+</style>
+<div class="banner">
+
+    <div class="w3l_banner_nav_right">
+        <div class="w3l_banner_nav_right_banner3" id="topImage">
+            <h3>Best Deals For New Products<span class="blink_me"></span></h3>
+        </div>
+        <div class="w3l_banner_nav_right_banner3_btm">
+            <div class="col-md-4 w3l_banner_nav_right_banner3_btml">
+                <div class="view view-tenth">
+                    <img src="~/Content/images/13.jpg" alt=" " class="img-responsive" />
+                    <div class="mask">
+                        <h4>Best Sellers</h4>
+                        <p>Best in the sale of utensils</p>
+                    </div>
+                </div>
+                <h4>Utensils</h4>
+                <ol>
+                    <li>Utensils Description 1</li>
+                    <li>Utensils Description 2</li>
+                    <li>Utensils Description 3</li>
+                </ol>
+            </div>
+            <div class="col-md-4 w3l_banner_nav_right_banner3_btml">
+                <div class="view view-tenth">
+                    <img src="~/Content/images/14.jpg" alt=" " class="img-responsive" />
+                    <div class="mask">
+                        <h4>Best Sellers</h4>
+                        <p>Best in Hair care Products</p>
+                    </div>
+                </div>
+                <h4>Hair Care</h4>
+                <ol>
+                    <li>Hair Care Description 1</li>
+                    <li>Hair Care Description 2</li>
+                    <li>Hair Care Description 3</li>
+                </ol>
+            </div>
+            <div class="col-md-4 w3l_banner_nav_right_banner3_btml">
+                <div class="view view-tenth">
+                    <img src="~/Content/images/15.jpg" alt=" " class="img-responsive" />
+                    <div class="mask">
+                        <h4>Best Sellers</h4>
+                        <p>Best in Hair care Products</p>
+                    </div>
+                </div>
+                <h4>Cookies</h4>
+                <ol>
+                    <li>Cookies Description 1</li>
+                    <li>Cookies Description 3</li>
+                    <li>Cookies Description 3</li>
+                </ol>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        @if (Model.GroupProducts.Count > 0 && Model.GroupProducts != null)
+        {
+            <div class="w3ls_w3l_banner_nav_right_grid">
+                <h3>Popular Products</h3>
+                @for (int i = 1; i <= Model.GroupProducts.Count; i++)
+                {
+                    var currentProduct = Model.Products.Where(s => s.ProductType.Id == i).ToList();
+                    <div class="w3ls_w3l_banner_nav_right_grid1">
+
+                        @for (int j = 0; j < currentProduct.Count; j++)
+                        {	<h6>@currentProduct[j].ProductType.Name</h6>
+                            <div class="col-md-3 w3ls_w3l_banner_left">
+                                <div class="hover14 column">
+                                    <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
+                                        <div class="agile_top_brand_left_grid_pos">
+                                            <img src="~/Content/images/offer.png" alt=" " class="img-responsive" />
+                                        </div>
+                                        <div class="agile_top_brand_left_grid1">
+                                            <figure>
+                                                <div class="snipcart-item block">
+                                                    <div class="snipcart-thumb">
+                                                        <a href="#"><img src="@Url.Content(currentProduct[j].ImageUrl)" alt=" " class="img-responsive" /></a>
+                                                        <p>@currentProduct[j].Name</p>
+                                                        <h4>@Model.Products[j].Price.ToString("C", System.Globalization.CultureInfo.CurrentCulture) <span>$5.00</span></h4>
+                                                    </div>
+                                                    <div class="snipcart-details">
+                                                        <form action="#" method="post">
+                                                            <fieldset>
+                                                                <input type="hidden" name="cmd" value="_cart" />
+                                                                <input type="hidden" name="item_Id" value="@currentProduct[j].Id" />
+                                                                <input type="hidden" name="add" value="1" />
+                                                                <input type="hidden" name="business" value=" " />
+                                                                <input type="hidden" name="item_name" value="@currentProduct[j].Name" />
+                                                                <input type="hidden" name="amount" value="@currentProduct[j].Price" />
+                                                                <input type="hidden" name="discount_amount" value="1.00" />
+                                                                <input type="hidden" name="currency_code" value="USD" />
+                                                                <input type="hidden" name="return" value=" " />
+                                                                <input type="hidden" name="cancel_return" value=" " />
+                                                                <input type="submit" name="submit" value="Add to cart" class="button" />
+                                                            </fieldset>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </figure>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="clearfix"> </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- //banner -->
+<!-- Bootstrap Core JavaScript -->
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".dropdown").hover(
+			function () {
+			    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+			    $(this).toggleClass('open');
+			},
+			function () {
+			    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+			    $(this).toggleClass('open');
+			}
+		);
+    });
+</script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        /*
+			var defaults = {
+			containerID: 'toTop', // fading element id
+			containerHoverID: 'toTopHover', // fading element hover id
+			scrollSpeed: 1200,
+			easingType: 'linear'
+			};
+		*/
+
+        var backgroundImage = 'url(/Content/images/10.jpg) no-repeat 0px 0px';
+        var divImage = $('#topImage').removeClass('w3l_banner_nav_right_banner3');
+        divImage.addClass('newClass');
+
+
+    });
+</script>
+<!-- //here ends scrolling icon -->
+<script src="~/Content/js/minicart.js"></script>
+<script>
+    paypal.minicart.render();
+
+    paypal.minicart.cart.on('checkout', function (evt) {
+        var items = this.items(),
+			len = items.length,
+			total = 0,
+			i;
+
+        // Count the number of each item in the cart
+        for (i = 0; i < len; i++) {
+            total += items[i].get('quantity');
+        }
+
+        if (total < 3) {
+            alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+            evt.preventDefault();
+        }
+    });
+
+</script>

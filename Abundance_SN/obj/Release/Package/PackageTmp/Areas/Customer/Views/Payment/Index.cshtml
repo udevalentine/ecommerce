@@ -1,0 +1,209 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+@{
+    ViewBag.Title = "title";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<link rel="stylesheet" media="screen" href="~/Content/css/assets/css/card.min.css">
+<script src="~/Scripts/jquery-2.2.3.min.js"></script>
+<!-- Customizer scripts-->
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        $('#btnContinue').show();
+        $('.Load').hide();
+        
+        var sumPrice = 0;
+        if (localStorage.products != null && localStorage.products != "" && localStorage.products != "[]") {
+            var allProducts = JSON.parse(localStorage.products);
+            $('#btnContinue').show();
+            for (var i = 0; i < allProducts.length; i++) {
+                sumPrice += parseInt(allProducts[i].quantity) * parseInt(allProducts[i].price);
+            }
+            $('#tableId').append('<tr><td>Cart Subtotal:</td> <td class="text-medium">₦' + sumPrice + '</td></tr><tr><td>Shipping:</td><td class="text-medium">₦ ' + 0 + '</td></tr><tr> <td>Total Charges:</td><td class="text-medium">₦ ' + 0 + '</td></tr><tr><td>Total</td><td class="text-lg text-medium">₦ ' + sumPrice + '</td> </tr>');
+        }
+        $('#btnContinue').on('click', function () {
+            $('.Load').show();
+            var payInStore;
+            var paywithCard;
+            if ($('#processToPay').is(':checked')) {
+                payInStore = true;
+            } else {
+                payInStore = false;
+            }
+            if ($('#same_address').is(':checked')) {
+                paywithCard = true;
+            } else {
+                paywithCard = false;
+            }
+
+            if (payInStore != false || paywithCard != false ) {
+
+                var paymentMode;
+                var stringfiedPaymentMode;
+                if ($('#processToPay').is(':checked')) {
+                    paymentMode = 1;
+                    stringfiedPaymentMode = JSON.stringify(paymentMode);
+                    sessionStorage.setItem('stringfiedPaymentMode', stringfiedPaymentMode);
+                }
+                else if ($('#same_address').is(':checked')) {
+                    paymentMode = 2;
+                    stringfiedPaymentMode = JSON.stringify(paymentMode);
+                    sessionStorage.setItem('stringfiedPaymentMode', stringfiedPaymentMode);
+                }
+                window.location.href = '/EasyShop/Customer/Payment/OrderPreview';
+            } else {
+                swal("Dear Customer", "Kindly select a payment mode to continue", "warning");
+            }
+            
+        });
+
+        $('#processToPay').click(function () {
+            if ($('#processToPay').is(':checked')) {
+                $('#same_address').prop('checked', false);
+            } 
+        });
+        $('#same_address').click(function () {
+            if ($('#same_address').is(':checked')) {
+                $('#processToPay').prop('checked', false);
+            }
+        });
+    });
+
+</script>
+
+    <div class="offcanvas-wrapper">
+        <!-- Page Title-->
+        <div class="page-title">
+            <div class="container">
+                <div class="column">
+                    <h1>Checkout</h1>
+                </div>
+                <div class="column">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>Checkout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Page Content-->
+        <div class="container padding-bottom-3x mb-2">
+            <div class="row">
+                <!-- Checkout Adress-->
+                <div class="col-xl-9 col-lg-8">
+                    <div class="checkout-steps">
+                        <a href="#">3. Review</a><a class="active" href="#"><span class="angle"></span>2. Payment</a>@*<a class="completed" href="#"><span class="step-indicator icon-circle-check"></span><span class="angle"></span>2. Shipping</a>*@<a class="completed" href="#"><span class="step-indicator icon-circle-check"></span><span class="angle"></span>1. Address</a>
+                    </div>
+                        <h4>Choose Payment Method</h4>
+                        <hr class="padding-bottom-1x">
+                        <div class="accordion" id="pay" role="tablist">
+                            <div class="card">
+                                <div class="card-header" role="tab">
+                                    <h6><a href="#card" data-toggle="collapse" data-parent="#accordion"><i class="icon-columns"></i>Pay with Credit Card</a></h6>
+                                </div>
+                                <div class="collapse show" id="card" role="tabpanel">
+                                    <div class="card-body">
+                                        <p>
+                                            
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="processToPay" checked="">
+                                                <label class="custom-control-label" for="processToPay"> We accept following credit cards:&nbsp;<img class="d-inline-block align-middle" src="@Url.Content("~/Content/images/card.png")" style="width: 120px;" alt="Cerdit Cards"></label>
+                                            </div> 
+                                           
+                                        </p>
+                                        <div class="card-wrapper" data-jp-card-initialized="true">
+                                            <div class="jp-card-container">
+                                                <div class="jp-card">
+                                                    <div class="jp-card-front">
+                                                        <div class="jp-card-logo jp-card-elo">
+                                                            <div class="e">e</div>
+                                                            <div class="l">l</div>
+                                                            <div class="o">o</div>
+                                                        </div>
+                                                        <div class="jp-card-logo jp-card-visa">visa</div>
+                                                        <div class="jp-card-logo jp-card-mastercard">MasterCard</div>
+                                                        <div class="jp-card-logo jp-card-maestro">Maestro</div>
+                                                        <div class="jp-card-logo jp-card-amex"></div>
+                                                        <div class="jp-card-logo jp-card-discover">discover</div>
+                                                        <div class="jp-card-logo jp-card-dinersclub"></div>
+                                                        <div class="jp-card-logo jp-card-dankort">
+                                                            <div class="dk">
+                                                                <div class="d"></div>
+                                                                <div class="k"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="jp-card-lower">
+                                                            <div class="jp-card-shiny"></div>
+                                                            <div class="jp-card-cvc jp-card-display">•••</div>
+                                                            <div class="jp-card-number jp-card-display">•••• •••• •••• ••••</div>
+                                                            <div class="jp-card-name jp-card-display">Full Name</div>
+                                                            <div class="jp-card-expiry jp-card-display" data-before="month/year" data-after="valid
+thru">••/••</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="jp-card-back">
+                                                        <div class="jp-card-bar"></div>
+                                                        <div class="jp-card-cvc jp-card-display">•••</div>
+                                                        <div class="jp-card-shiny"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<img class="pp-img" src="~/Content/images/lloydant.jpeg" alt="Image Alternative text" title="Image Title">
+                                        <p>Important: You will be redirected to our payment website to securely complete your payment.</p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="processToPay">
+                                            <label class="custom-control-label" for="processToPay">Pay With Card</label>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="card">
+                                <div class="card-header" role="tab">
+                                    <h6><a href="#pis" data-toggle="collapse" data-parent="#accordion"><i class="icon-columns"></i>Pick In Store (PIS)</a></h6>
+                                </div>
+                                <div class="collapse show" id="pis" role="tabpanel">
+                                    <div class="card-body">
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="same_address">
+                                            <label class="custom-control-label" for="same_address">Pay In Store</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                        <div class="checkout-footer margin-top-1x">
+                            <div class="column">
+                                <a class="btn btn-outline-secondary" href="@Url.Action("Checkout","Checkout",new {area ="Customer"})"><i class="fa fa-arrow-left"></i><span class="hidden-xs-down">&nbsp;Back</span></a>
+                            </div>
+                            <div class="column" id="btnContinue" style="display:none">
+                                <a class="btn btn-primary" href="#lloydant"><span class="hidden-xs-down">Continue&nbsp;</span><i class="fa fa-arrow-right"></i></a>
+                                <span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Sidebar          -->
+                <div class="col-xl-3 col-lg-4">
+                    <aside class="sidebar">
+                        <div class="padding-top-2x hidden-lg-up"></div>
+                        <!-- Order Summary Widget-->
+                        <section class="widget widget-order-summary">
+                            <h3 class="widget-title">Order Summary</h3>
+                            <table class="table">
+                                <tbody id="tableId"> </tbody>
+                            </table>
+                        </section>
+                    </aside>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#lloydant"><i class="icon-arrow-up"></i></a>
+

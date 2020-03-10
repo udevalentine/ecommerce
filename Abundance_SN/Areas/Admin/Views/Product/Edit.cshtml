@@ -1,0 +1,352 @@
+﻿@using RestSharp.Extensions
+@model Abundance_SN.Models.ProductViewModel
+
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-2.2.3.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+<script type="text/javascript">
+    //$(document).ready(function() {
+    //	$('.imageUpload').change(function(e) {
+    //		var fileId = this.id;
+    //		var files = e.target.files;
+    //		if (files.length > 0) {
+    //			if (window.FormData !== undefined) {
+    //				//var data = new FormData();
+    //				//for (var x = 0; x < files.length; x++) {
+    //				//
+    //				//	data.append('variantImage-' + fileName, files[x]);
+
+    //				//}
+    //				var fileName = fileId.split('-')[1];
+    //				$('#image-' + fileName).val(files[0].name);
+    //			}
+    //		}
+    //	});
+    //});
+    tinymce.init({
+        selector: 'textarea',
+        height: 300,
+        //width: 1000,
+        theme: 'modern',
+        plugins: [
+			'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+			'searchreplace wordcount visualblocks visualchars code fullscreen',
+			'insertdatetime media nonbreaking save table contextmenu directionality',
+			'emoticons template paste textcolor colorpicker textpattern imagetools'
+        ],
+        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons',
+        image_advtab: true,
+        templates: [
+			{ title: 'Test template 1', content: 'Test 1' },
+			{ title: 'Test template 2', content: 'Test 2' }
+        ],
+        content_css: [
+			'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+			'//www.tinymce.com/css/codepen.min.css'
+        ]
+    });
+</script>
+@Html.AntiForgeryToken()
+@using (Html.BeginForm("Edit", "Product", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <br />
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                    <h3 class="content-header-title mb-0 d-inline-block">Manage Products</h3>
+                    <div class="row breadcrumbs-top d-inline-block">
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb">
+                                @*<li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Home")">Home</a></li>*@
+                                <li class="breadcrumb-item"><a href="#">Edit Product</a></li>
+
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right col-md-6 col-12">
+                    <div class="dropdown float-md-right">
+                        <button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
+                            <a class="dropdown-item" href="#"><i class="la la-calendar-check-o"></i> Calender</a>
+                            <a class="dropdown-item" href="#"><i class="la la-cart-plus"></i> Cart</a>
+                            <a class="dropdown-item" href="#"><i class="la la-life-ring"></i> Support</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="la la-cog"></i> Settings</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-body">
+                <!-- Basic form layout section start -->
+                <div class="col-md-12">
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                    }
+                </div>
+
+                <section id="basic-form-layouts">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+
+                                                        <div class="card-content collapse show">
+                                                            <div class="card-body">
+
+                                                                <div class="col-md-12">
+                                                                    @Html.HiddenFor(model => model.Product.Id)
+                                                                    @Html.HiddenFor(model => model.ProductVariant.Id)
+                                                                    @Html.HiddenFor(model=>model.ProductVariantOptions.Id)
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+
+                                                                            @Html.LabelFor(model => model.Product.Name, "Name", new { @class = "control-label " })
+                                                                            @Html.TextBoxFor(model => model.Product.Name, new { @class = "form-control" })
+                                                                            @Html.ValidationMessageFor(model => model.Vendors.Name, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.Sku, "Sku", new { @class = "control-label " })
+                                                                            @Html.TextBoxFor(model => model.Product.Sku, new { @class = "form-control" })
+                                                                            @Html.ValidationMessageFor(model => model.Product.Sku, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.ProductType.Id, "Product Type", new { @class = "control-label " })
+                                                                            @Html.DropDownListFor(model => model.Product.ProductType.Id, (IEnumerable<SelectListItem>)ViewBag.ProductTypeId, new { @class = "form-control" })
+                                                                            @Html.ValidationMessageFor(model => model.Product.ProductType.Id, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.Brand.Id, "Brand", new { @class = "control-label " })
+                                                                            @Html.DropDownListFor(model => model.Product.Brand.Id, (IEnumerable<SelectListItem>)ViewBag.BrandsId, new { @class = "form-control" })
+                                                                            @Html.ValidationMessageFor(model => model.Product.Brand.Id, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.Discount, "Discount", new { @class = "control-label " })
+                                                                            @Html.TextBoxFor(model => model.Product.Discount, new { @class = "form-control", required = true })
+                                                                            @Html.ValidationMessageFor(model => model.Product.Discount, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.ReorderLevel, "ReOrder Level", new { @class = "control-label " })
+                                                                            @Html.TextBoxFor(model => model.Product.ReorderLevel, new { @class = "form-control", required = true })
+                                                                            @Html.ValidationMessageFor(model => model.Product.ReorderLevel, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.UnitMeasurement.Id, "Unit of Measurement", new { @class = "control-label " })
+                                                                            @Html.DropDownListFor(model => model.Product.UnitMeasurement.Id, (IEnumerable<SelectListItem>)ViewBag.UnitMeasurementId, new { @class = "form-control", required = true })
+                                                                            @Html.ValidationMessageFor(model => model.Product.UnitMeasurement.Name, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.Price, "Price", new { @class = "control-label " })
+                                                                            @Html.TextBoxFor(model => model.Product.Price, new { @class = "form-control" ,@readonly=true})
+                                                                            @Html.ValidationMessageFor(model => model.Product.Price, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                               
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.Product.Weight, "Weight", new { @class = "control-label " })
+                                                                        @Html.TextBoxFor(model => model.Product.Weight, new { @class = "form-control" })
+                                                                        @Html.ValidationMessageFor(model => model.Product.Weight, null, new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+
+                                                                @if (Model.ProductVariant != null)
+                                                                {
+                                                                    if (Model.ProductVariant.Key1 != null)
+                                                                    {
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+
+                                                                                @Html.LabelFor(model => model.ProductVariant.Key1, Model.ProductVariant.Key1, new { @class = "control-label " })
+                                                                                @Html.TextBoxFor(model => model.ProductVariant.Value1, new { @class = "form-control" })
+                                                                                @Html.ValidationMessageFor(model => model.ProductVariant.Value1, null, new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                        @*</div>*@
+                                                                    }
+                                                                  
+                                                                        if (Model.ProductVariant.Key2 != null)
+                                                        {
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+
+                                                                @Html.LabelFor(model => model.ProductVariant.Key2, Model.ProductVariant.Key2, new { @class = "control-label " })
+                                                                @Html.TextBoxFor(model => model.ProductVariant.Value2, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ProductVariant.Value2, null, new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        }
+                                                                       if (Model.ProductVariant.Key3 != null)
+                                                        {
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+
+                                                                @Html.LabelFor(model => model.ProductVariant.Key3, Model.ProductVariant.Key3, new { @class = "control-label " })
+                                                                @Html.TextBoxFor(model => model.ProductVariant.Value3, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ProductVariant.Value3, null, new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        }
+                                                                    
+                                                                }
+
+
+                                                                    <div class="col-md-6"><div class="form-group mt-3">
+                                                                    <div class="Checkbox">
+                                                                        @Html.LabelFor(model => model.Product.CanBedelivered, "Delivery", new { @class = "control-label " })
+                                                                        @Html.CheckBoxFor(model => model.Product.CanBedelivered, new { @class = "" })
+                                                                        @Html.ValidationMessageFor(model => model.Product.CanBedelivered, null, new { @class = "text-danger" })
+                                                                   
+                                                                        <!--activate checkbox-->
+                                                                        @Html.LabelFor(model => model.Product.Active, "Activate", new { @class = "control-label " })
+                                                                        @Html.CheckBoxFor(model => model.Product.Active, new { @class = "" })
+                                                                        @Html.ValidationMessageFor(model => model.Product.Active, null, new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div></div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+
+                                                                            @Html.LabelFor(model => model.Product.Description, "Description", new { @class = "control-label " })
+                                                                            @Html.TextBoxFor(model => model.Product.Description, new { @class = "form-control" })
+                                                                            @Html.ValidationMessageFor(model => model.Product.Description, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+
+                                                                            @Html.LabelFor(model => model.Product.AdditionalInformation, "Additional Infomation", new { @class = "control-label " })
+                                                                            @Html.TextAreaFor(model => model.Product.AdditionalInformation, new { @class = "form-control" })
+                                                                            @Html.ValidationMessageFor(model => model.Product.AdditionalInformation, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Product.ImageUrl, "Product Image", new { @class = "control-label col-md-12" })
+                                                                            <a href="#"><img title=" " alt=" " src="@Url.Content(Model.Product.ImageUrl)" style=" width:80%" /></a><br />
+                                                                            <input type="file" title="Upload Image" id="file" name="file" class="" />
+                                                                            @Html.ValidationMessageFor(model => model.Product.ImageUrl, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <table class="table table-bordered file-export dataTable" id="MyTable" role="grid" aria-describedby="DataTables_Table_10_info">
+                                                                    <thead class="thead-dark">
+                                                                        <tr role="row">
+                                                                            <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                                                style="width: 126px;">Product Option</th>
+                                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                                                style="width: 202px;">Price</th>
+                                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"
+                                                                                style="width: 92px;">Image</th>
+                                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"
+                                                                                style="width: 92px;">Quantity</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    @*<div class="card">
+                                                                        <table class="table-responsive table-striped table-condensed" style="width: 100%" id="MyTable">
+
+                                                                            <thead>
+                                                                                <tr>
+
+                                                                                    <th>Product Option</th>
+                                                                                    <th>Price</th>
+                                                                                    <th>Image</th>
+
+                                                                                </tr>
+                                                                            </thead>*@
+                                                                    <tbody>
+                                                                        @for (int i = 0; i < Model.ProductVariantOptionses.Count; i++)
+                                                                        {
+                                                                            @Html.HiddenFor(model => model.ProductVariantOptionses[i].Id)
+                                                                            <tr>
+                                                                                <td class="p-0 text-center">@Html.TextBoxFor(model => model.ProductVariantOptionses[i].ProductOptionName, null, new { @class="form-control", @style= "border:0; background:transparent;" })</td>
+                                                                                <td class="p-0 text-center">@Html.TextBoxFor(model => model.ProductVariantOptionses[i].Price, null, new { @class = "form-control", @style = "border:0; background:transparent;" })</td>
+                                                                                <td class="p-0 text-center">
+                                                                                    @if (Model.ProductVariantOptionses[i].ImageUrl != null)
+                                                                                    {
+                                                                                        <div class="form-group pt-1">
+                                                                                            <a href="#"><img title=" " width="80%" alt=" " src="@Url.Content(Model.ProductVariantOptionses[i].ImageUrl)" id="image-@Model.ProductVariantOptionses[i].Id" /></a>
+                                                                                            <input type="file" title="Upload Image" id="file-@Model.ProductVariantOptionses[i].Id" name="file-@Model.ProductVariantOptionses[i].Id" class="imageUpload" />
+                                                                                        
+                                                                                        </div>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <div class="form-group pt-1">
+                                                                                            <input type="file" title="Upload Image" id="file-@Model.ProductVariantOptionses[i].Id" name="file-@Model.ProductVariantOptionses[i].Id" class="imageUpload" />
+                                                                                        </div>
+                                                                                    }
+
+                                                                                </td>
+                                                                                <td class="p-0 text-center">@Html.TextBoxFor(model => model.ProductVariantOptionses[i].VariantQuantity, new { @class = "form-control", @style = "border:0; background:transparent;" })</td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    </tbody>
+                                                                    <tfoot class="thead-dark">
+                                                                        <tr>
+                                                                            <th rowspan="1" colspan="1">Product Option</th>
+                                                                            <th rowspan="1" colspan="1">Price</th>
+                                                                            <th rowspan="1" colspan="1">Image</th>
+                                                                            <th rowspan="1" colspan="1">Quantity</th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+</div>
+                                </div>
+                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <div class="col--2"></div>
+                                                                <div class="col-sm-10">
+                                                                    <input class="btn btn-success mr5" type="submit" name="submit" value="Save" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+

@@ -1,0 +1,243 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+<script src="~/Scripts/Chart.bundle.js"></script>
+<script src="~/Scripts/utils.js"></script>
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    jqueryVersion(document).ready(function () {
+
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+				{
+				    extend: 'copy',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'csv',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+				},
+				{
+				    extend: 'excel',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'pdf',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'print',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				}, , 'colvis'
+            ]
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetChartData", "Home")', // we are calling json method
+            dataType: 'json',
+            data: {},
+            success: function (model) {
+
+                var config = {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [
+									 model.Products[0].Visits,
+									model.Products[1].Visits,
+									model.Products[2].Visits,
+									model.Products[3].Visits,
+									model.Products[4].Visits
+                            ],
+                            backgroundColor: [
+								window.chartColors.red,
+								window.chartColors.orange,
+								window.chartColors.yellow,
+								window.chartColors.green,
+								window.chartColors.blue,
+                            ],
+                            label: 'Dataset 1'
+                        }],
+                        labels: [
+							model.Products[0].Name,
+							model.Products[1].Name,
+							model.Products[2].Name,
+						   model.Products[3].Name,
+							 model.Products[4].Name
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            position: 'top',
+                        },
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
+                    }
+                };
+
+                var ctx = document.getElementById('chart-area').getContext('2d');
+                window.myDoughnut = new Chart(ctx, config);
+            },
+            error: function (ex) {
+                swal("Error Occured", "Product Brand could not be Added", "error");
+            }
+        });
+    });
+    function ViewDetails(orderNumber) {
+
+
+        var number = $(orderNumber).data('assigned-id');
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ViewOrdersByNumber", "Customer", new { area = "Admin" })",
+            dataType: "json",
+            data: { orderNumber: number },
+            success: function (arrayJsonModel) {
+                $('#modalBody').html('');
+                for (i = 0; i < arrayJsonModel.length; i++) {
+                    $('#modalBody').append('<div class="row"><div class="col-md-4"><img src="' + arrayJsonModel[i].ImageUrl + '" alt="product image" style="width:100%;"></div><div class="col-md-6" style="float:right"><h5 class="card-title">' + arrayJsonModel[i].Name + '</h5><hr> <div><b>Quantity: </b> <span>' + arrayJsonModel[i].Quantity + '</span></div> <div class="mb-2"><b>Total: </b>' + arrayJsonModel[i].Amount + '</div></div></div>');
+                }
+            },
+
+            traditional: true
+        });
+        $('#createModal').modal('show');
+    }
+</script>
+
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Report</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            @*<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>*@
+                            <li class="breadcrumb-item"><a href="#">Weekly Report</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="content-header-right col-md-6 col-12">
+                <div class="dropdown float-md-right">
+                    <button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton"
+                            type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
+                        <a class="dropdown-item" href="#"><i class="la la-calendar-check-o"></i> Calender</a>
+                        <a class="dropdown-item" href="#"><i class="la la-cart-plus"></i> Cart</a>
+                        <a class="dropdown-item" href="#"><i class="la la-life-ring"></i> Support</a>
+                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="la la-cog"></i> Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section id="basic-form-layouts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                           
+                            @if (Model.GroupCountString != null && Model.GroupCountString.Count > 0)
+                            {
+                                <div class="card-body text-justify">
+                                    <div class="table-responsive">
+                                        <table class="table-striped table-condensed" style="width: 100%" id="MyTable">
+                                            <thead>
+                                                <tr>
+                                                 
+                                                    <th>Customer Order Number</th>
+                                                  
+                                                    <th>Amount</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                                @for (int i = 0; i < Model.GroupCountString.Count; i++)
+                                            {
+
+                                                var amount = Model.SalesLogs.Where(s => s.CartHash == Model.GroupCountString[i]).Sum(s => s.Amount);
+                                            <tr>
+                                                <td>@Model.GroupCountString[i]</td>
+                                                <td>@amount</td>
+                                                <td><a href="#" onclick="ViewDetails(this)" data-assigned-id="@Model.GroupCountString[i]"><b>Details</b></a></td>
+                                            </tr>
+                                            }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="modal fade" role="dialog" id="createModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body" id="modalBody"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+            
+        </div>
+</div>
+    </div>

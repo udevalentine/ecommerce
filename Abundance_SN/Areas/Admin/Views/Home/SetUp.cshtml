@@ -1,0 +1,260 @@
+﻿@model Abundance_SN.Models.RegisterViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_SetupLayout.cshtml";
+}
+
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<link href="~/Scripts/DropZone/dropzone.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Content/bootstrap_Admin/plugins/bower_components/raphael/raphael-min.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+<script src="~/Scripts/DropZone/dropzone.js"></script>
+
+
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<style>
+    .form-group {
+        margin: 15px !important;
+    }
+
+    .shade {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#divProductSample').hide();
+        $('#checkBoxId').on('click',function() {
+            $('#divProductSample').show();
+        });
+    });
+</script>
+
+<div class="row p-4">
+    <div class="col-md-1"></div>
+    <div class="col-md-7 col-sm-12 panel m-l-30 offset-md-1 shade">
+        <br><br>
+        <div>
+            @if (TempData["Message"] != null)
+            {
+                @Html.Partial("_Message", TempData["Message"])
+            }
+        </div>
+
+        @using (Html.BeginForm("SetUp", "Home", FormMethod.Post))
+        {
+
+
+            <div class="col-md-12">
+
+                <h4 id="prospective">STORE SETUP INFORMATION</h4>
+                <hr class="bg-warning">
+                <div class="col-md-12">
+                    <br>
+                    <h4 id="present">PERSONAL INFORMATION</h4>
+                </div>
+                <div class="clearfix"></div>
+                <hr />
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Person.Surname, "First Name")
+                        @Html.TextBoxFor(model => model.Person.Surname, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.Person.Surname)
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Person.FirstName, "Last Name")
+                        @Html.TextBoxFor(model => model.Person.FirstName, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.Person.FirstName)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Person.Address, "Street Address")
+                        @Html.TextBoxFor(model => model.Person.Address, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.Person.Address)
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Person.Email, "Personal Email", new { @class = "control-label " })
+                        @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.Person.Email)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Person.PhoneNumber, "Mobile Number")
+                        @Html.TextBoxFor(model => model.Person.PhoneNumber, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.Person.PhoneNumber)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Person.City, "City")
+                        @Html.TextBoxFor(model => model.Person.City, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.Person.City)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Person.StateId, "State", new { @class = "control-label " })
+                        @Html.DropDownListFor(model => model.Person.StateId, (IEnumerable<SelectListItem>)ViewBag.States, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.Person.StateId)
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <hr class="bg-info">
+                    <br>
+                    <h4 id="present">BUSINESS INFORMATION</h4>
+                </div>
+                <div class="clearfix"></div>
+                <hr />
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BusinessName, "Business-Name", new { @class = "control-label " })
+                        @Html.TextBoxFor(model => model.BusinessName, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.BusinessName)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BusinessRegistrationNo, "Rc. No.", new { @class = "control-label " })
+                        @Html.TextBoxFor(model => model.BusinessRegistrationNo, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.BusinessRegistrationNo)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BusinessEmail, "Business-Email", new { @class = "control-label " })
+                        @Html.TextBoxFor(model => model.BusinessEmail, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.BusinessEmail)
+                    </div>
+                </div>
+                @*<div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, "Password", new { @class = "control-label " })
+                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", required = true })
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>*@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShopName, "Store name", new { @class = "control-label " })
+                        @Html.TextBoxFor(model => model.ShopName, new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(model => model.ShopName)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.StoreTypes.Id, "What Type Of Product Do You Sell", new { @class = "control-label " })
+                        @Html.DropDownListFor(model => model.StoreTypes.Id, (IEnumerable<SelectListItem>)ViewBag.StoreType, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StoreTypes.Id)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StoreAddress, "Store Address", new { @class = "control-label " })
+                        @Html.TextAreaFor(model => model.StoreAddress, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StoreAddress, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AboutUs, "Store Description", new { @class = "control-label " })
+                        @Html.TextAreaFor(model => model.AboutUs, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AboutUs, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                        <div class="form-group">
+                            
+                            @Html.HiddenFor(model => model.StoreLogoUrl, new { @class = "form-control", required = true ,id="imageUrl"})
+                            @*@Html.ValidationMessageFor(model => model.StoreLogoUrl, null, new { @class = "text-danger" })*@
+                        </div>
+                </div>
+
+                @*<div class="col-md-6">
+                        @Html.LabelFor(model => model.Activated, "Populate Store With Products Sample Similar To Your Store Type", new {@class = "col-md-6"})
+                        <div class="col-md-6">
+                            @Html.CheckBoxFor(model => model.Activated, new {@class = "", id = "checkBoxId"})
+                            @Html.ValidationMessageFor(model => model.Activated, null, new {@class = "text-danger"})
+                        </div>
+                    </div>*@
+                @*<div class="col-md-6" style="display:none" id="divProductSample">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StoreSetupProductSample.Id, "Product Sample", new { @class = "control-label " })
+                            @Html.DropDownListFor(model => model.StoreSetupProductSample.Id, (IEnumerable<SelectListItem>)ViewBag.ProductSamples, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StoreSetupProductSample.Id)
+                        </div>
+                    </div>*@
+                <div class="clearfix"></div>
+                <div class="col-md-12" style="margin-bottom: 10px">
+                    <hr>
+                    <button class="btn btn-warning" type="submit" name="submit" id="submit" style="float: right">Save</button>
+                    <div id="busy" style="display: none">Processing ...</div>
+                    @*<div id="result"></div>*@
+                </div>
+            </div>
+
+
+
+
+        }
+       
+    </div>
+
+
+    <div class="col-md-3 ">
+        <div class=" card bg-white p-20 shade">
+            <div class="card-header title h4">
+                Upload Store Logo
+            </div><hr />
+            <div class="card-block card-body" style="min-height:160px;">
+                <div class="form-group">
+                   <div id="dropzone">
+                            <form class="dropzone needsclick" id="demo-upload" action="/"></form>
+                        </div>
+                    <div class="col-md-12 alert alert-info text-center">Dimension  30 x 100 Pixels</div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<link href="~/Scripts/DropZone/dropzone.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Content/bootstrap_Admin/plugins/bower_components/raphael/raphael-min.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+<script src="~/Scripts/DropZone/dropzone.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#submit').on('click', function () {
+        //$('#submit').click(function () {
+            var imageFiles = GetUploadedFiles();
+            var path = imageFiles[0].filePath;
+            $('#imageUrl').val(path);
+        })
+        
+    })
+</script>

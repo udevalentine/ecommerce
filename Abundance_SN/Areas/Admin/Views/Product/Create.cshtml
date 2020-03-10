@@ -1,0 +1,1577 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .form-group {
+        margin: 15px !important;
+    }
+
+
+    /*#wrapper
+    {
+        position:absolute;
+        left:50%;
+        top:50%;
+        width:600px;
+        height:150px;
+        margin:-150px 0 0 -300px;
+    }*/
+
+    .tags-input {
+        list-style: none;
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 5px;
+        height: 40px;
+        font-size: 14px;
+        background: #fff;
+        width: 100%;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+        .tags-input li {
+            float: left;
+        }
+
+    .tags {
+        background: #28343d;
+        padding: 5px 20px 5px 8px;
+        border-radius: 2px;
+        margin-right: 5px;
+        position: relative;
+        color: #fff;
+    }
+
+        .tags i {
+            position: absolute;
+            right: 6px;
+            top: 3px;
+            width: 8px;
+            height: 8px;
+            content: '';
+            cursor: pointer;
+            opacity: .7;
+            font-size: 12px;
+        }
+
+            .tags i:hover {
+                opacity: 1;
+            }
+
+    .tags-new input[type="text"] {
+        border: 0;
+        margin: 0;
+        padding: 0 0 0 3px;
+        font-size: 14px;
+        margin-top: 5px;
+        background: #fff;
+    }
+
+        .tags-new input[type="text"]:focus {
+            outline: none;
+        }
+
+    #mceu_45 {
+        display: none !important;
+    }
+</style>
+
+@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<link href="~/Scripts/DropZone/dropzone.css" rel="stylesheet" />
+<script src="~/Content/bootstrap_Admin/plugins/bower_components/raphael/raphael-min.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+<script src="~/Scripts/DropZone/dropzone.js"></script>
+<script src="~/Scripts/vendor.min.js"></script>
+
+<script type="text/javascript">
+    var clickArray = [];
+    var productProp = [];
+    $(document).ready(function () {
+        $('#additionalInfo').hide();
+        $('#previewcClick').on('click', function(){
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('#productImagePreview');
+                output.scr = reader.result;
+
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        })
+
+        $('.load').hide();
+        var imageFiles = null;
+        $('#divOption0').show();
+        $('#txtbox').show();
+        $('#deleteBtn0').hide();
+        $('#btnOption0').show();
+        $('#createModal').modal('hide');
+
+        //populate the SubCategory Dropdown by selecting category Item
+        $('#categoryDropDownId').change(function () {
+            var  catid= $('#categoryDropDownId').val();
+            $('#TypeId').empty();
+            $.ajax({
+                type: 'POST',
+            url:'@Url.Action("PopulateProductTypeByCategoryId", "Product")', // we are calling json method
+            dataType: 'json',
+            data: { categoryId: catid},
+                success: function (prductTypeDropdown) {
+                    $("#TypeId").append('<option value="' + 0 + '">----Select----</option>');
+                    $.each(prductTypeDropdown, function (i, prductTypeDropdown) {
+                        $('#TypeId').append('<option value="' + prductTypeDropdown.Value + '">' + prductTypeDropdown.Text + '</option>');
+                    });
+
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve prductTypeDropdown.' + ex);
+                }
+            })
+        })
+        $('#showAdditionalInfoDiv').on('click', function () {
+            if($('#showAdditionalInfoDiv').is(':checked')) {
+                $('#additionalInfo').show();
+            } else {
+                $('#additionalInfo').hide();
+            }
+        })
+
+        $('#CheckBox1').on('click', function () {
+            if ($('#CheckBox1').is(':checked')) {
+                $('#txtboxSize').show();
+                $('#txtboxColour').show();
+            } else {
+                $('#txtboxSize').hide();
+                $('#txtboxColour').hide();
+            }
+
+        });
+        $('#CheckBox2').on('click', function () {
+            if ($('#CheckBox2').is(':checked')) {
+                $('#txtboxImage').show();
+                $('#txtboxColour').hide();
+                $('#txtboxColour').val('');
+                $('#txtbox').hide();
+            } else {
+                $('#txtboxImage').hide();
+                $('#txtboxColour').hide();
+                $('#txtbox').show();
+            }
+
+        });
+        $(".tags-new input").focus();
+
+        //--------------------- First Variant
+        $("#keyValue1Input").keyup(function (event) {
+            var tag = $(this).val().trim(),
+			  length = tag.length;
+
+            if ((tag.charAt(length - 1) == ',') && (tag != ",") || event.keyCode === 13) {
+                tag = tag.substring(0, length - 1);
+                var id = $(this);
+
+                if (!existingTag(tag, id)) {
+
+                    var variantValueSplit;
+                    var variantValueArray = [];
+                    if (tag.indexOf(",") !== -1) {
+                        variantValueSplit = tag.split(",");
+                        $.each(variantValueSplit, function (i, myItem) {
+                            if (myItem != "") {
+                                variantValueArray.push(myItem);
+                            }
+
+                        });
+                    } else {
+                        variantValueArray.push(tag);
+                    }
+
+                    var variantObj;
+                    var newName;
+
+                    for (var i = 0; i < variantValueArray.length; i++) {
+
+                        var variantValue = variantValueArray[i];
+
+                        if (productProp && productProp.length > 0) {
+                            //1=type1, 2=type2, 3=type3, 4=type12, 5=type13, 6=type123, 7=type23
+                            var newProdProp = [];
+                            switch (productProp[0].Type) {
+                                case "1":
+                                    variantObj = { Type: "1", Select: true, Name: variantValue, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                                case "2":
+                                    $.each(productProp, function (i, item) {
+                                        newName = tag + " - " + item.Name;
+                                        variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        if (checkIfItemExist(variantObj.Name)) {
+                                            newProdProp.push(newName);
+                                        };
+                                    });
+                                    productProp = newProdProp;
+                                case "3":
+                                    $.each(productProp, function (i, item) {
+                                        newName = tag + " - " + item.Name;
+                                        variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        if (checkIfItemExist(variantObj.Name)) {
+                                            newProdProp.push(newName);
+                                        };
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "4":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        $.each(productProp, function (i, item) {
+                                            newName = tag + " - " + item.Name.split(" - ")[1];
+                                            variantObj = { Id: i, Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                            var result = newProdProp.filter(function (item) {
+                                                return (item.Name == variantObj.Name);
+                                            });
+                                            if (result.length == 0) {
+                                                newProdProp.push(variantObj);
+                                            }
+                                        });
+                                        productProp = productProp.concat(newProdProp);
+                                    };
+                                    break;
+                                case "5":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "5", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                                case "6":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[1] + " - " + productProp[0].Name.split(" - ")[2];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                                case "7":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[0] + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                            }
+
+                            $('<li class="tags"><span>' + variantValueArray[i] + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValuel"));
+                            $(this).val("");
+                            generateVariantTable();
+                        } else {
+                            variantObj = { Type: "1", Select: true, Name: tag, Price: "0.00", Barcode: "", Quantity: 0 };
+                            productProp.push(variantObj);
+                            generateVariantTable();
+                            $('<li class="tags"><span>' + tag + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValuel"));
+                            $(this).val("");
+                        }
+                    }
+                }
+                else {
+                    $(this).val(tag);
+                }
+            }
+
+        });
+
+
+
+        $('#keyvalue2input').keyup(function (event) {
+
+            var tag = $(this).val().trim(),
+              length = tag.length;
+
+            if ((tag.charAt(length - 1) == ',') && (tag != ",") || event.keyCode === 13) {
+                tag = tag.substring(0, length - 1);
+                var id = $(this);
+
+                if (!existingTag(tag, id)) {
+
+                    var variantValueSplit;
+                    var variantValueArray = [];
+                    if (tag.indexOf(",") !== -1) {
+                        variantValueSplit = tag.split(",");
+                        $.each(variantValueSplit, function (i, myItem) {
+                            if (myItem != "") {
+                                variantValueArray.push(myItem);
+                            }
+                        });
+                    } else {
+                        variantValueArray.push(tag);
+                    }
+
+                    var variantObj;
+                    var newName;
+
+                    for (var i = 0; i < variantValueArray.length; i++) {
+
+                        var variantValue = variantValueArray[i];
+
+                        if (productProp && productProp.length > 0) {
+                            //1=type1, 2=type2, 3=type3, 4=type12, 5=type13, 6=type123, 7=type23
+                            var newProdProp = [];
+                            switch (productProp[0].Type) {
+                                case "1":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name + " - " + variantValue;
+                                        variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "2":
+                                    variantObj = { Type: "2", Select: true, Name: variantValue, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    productProp.push(variantObj);
+                                case "3":
+                                    $.each(productProp, function (i, item) {
+                                        newName = variantValue + " - " + item.Name;
+                                        variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "4":
+                                    newName = productProp[0].Name.split(" - ")[0] + " - " + variantValue;
+                                    variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        $.each(productProp, function (i, item) {
+                                            newName = item.Name.split(" - ")[0] + " - " + variantValue;
+                                            variantObj = { Id: i, Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                            var result = newProdProp.filter(function (item) {
+                                                return (item.Name == variantObj.Name);
+                                            });
+                                            if (result.length == 0) {
+                                                newProdProp.push(variantObj);
+                                            }
+                                        });
+                                        productProp = productProp.concat(newProdProp);
+                                    }
+                                    break;
+                                case "5":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name.split(" - ")[0] + " - " + variantValue + " - " + item.Name.split(" - ")[1];
+                                        variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "6":
+                                    newName = productProp[0].Name.split(" - ")[0] + " - " + variantValue + " - " + productProp[0].Name.split(" - ")[2];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    productProp.push(variantObj);
+                                    break;
+                                case "7":
+                                    newName = variantValue + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    productProp.push(variantObj);
+                                    break;
+                            }
+
+                            $('<li class="tags"><span>' + variantValueArray[i] + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue2"));
+                            $(this).val("");
+                            generateVariantTable();
+                        } else {
+                            variantObj = { Type: "2", Select: true, Name: tag, Price: "0.00", Barcode: "" };
+                            productProp.push(variantObj);
+                            generateVariantTable();
+                            $('<li class="tags"><span>' + tag + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue2"));
+                            $(this).val("");
+                        }
+                    }
+                }
+            }
+        });
+
+        $('.tags-new input').keyup(function (event) {
+            var tag = $(this).val().trim(),
+			  length = tag.length;
+
+            if ((tag.charAt(length - 1) == ',') && (tag != ",") || event.keyCode === 13) {
+                tag = tag.substring(0, length - 1);
+                var id = $(this);
+
+                if (!existingTag(tag, id)) {
+
+                    var variantValueSplit;
+                    var variantValueArray = [];
+                    if (tag.indexOf(",") !== -1) {
+                        variantValueSplit = tag.split(",");
+                        $.each(variantValueSplit, function (i, myItem) {
+                            if (myItem != "") {
+                                variantValueArray.push(myItem);
+                            }
+
+                        });
+                    } else {
+                        variantValueArray.push(tag);
+                    }
+
+                    var variantObj;
+                    var newName;
+
+                    for (var i = 0; i < variantValueArray.length; i++) {
+
+                        var variantValue = variantValueArray[i];
+
+                        if (productProp && productProp.length > 0) {
+                            //1=type1, 2=type2, 3=type3, 4=type12, 5=type13, 6=type123, 7=type23
+                            var newProdProp = [];
+                            switch (productProp[0].Type) {
+                                case "1":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name + " - " + variantValue;
+                                        variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "2":
+                                    variantObj = { Type: "2", Select: true, Name: variantValue, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    productProp.push(variantObj);
+                                case "3":
+                                    $.each(productProp, function (i, item) {
+                                        newName = variantValue + " - " + item.Name;
+                                        variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "4":
+                                    newName = productProp[0].Name.split(" * ")[0] + " * " + variantValue;
+                                    variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        $.each(productProp, function (i, item) {
+                                            newName = item.Name.split(" * ")[0] + " * " + variantValue;
+                                            variantObj = { Id: i, Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                            var result = newProdProp.filter(function (item) {
+                                                return (item.Name == variantObj.Name);
+                                            });
+                                            if (result.length == 0) {
+                                                newProdProp.push(variantObj);
+                                            }
+                                        });
+                                        productProp = productProp.concat(newProdProp);
+                                    }
+                                    break;
+                                case "5":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name.split(" - ")[0] + " - " + variantValue + " - " + item.Name.split(" - ")[1];
+                                        variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "6":
+                                    newName = productProp[0].Name.split(" - ")[0] + " - " + variantValue + " - " + productProp[0].Name.split(" - ")[2];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    productProp.push(variantObj);
+                                    break;
+                                case "7":
+                                    newName = variantValue + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "", Quantity: 0 };
+                                    productProp.push(variantObj);
+                                    break;
+                            }
+
+                            $('<li class="tags"><span>' + variantValueArray[i] + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue3"));
+                            $(this).val("");
+                            generateVariantTable();
+                        } else {
+                            variantObj = { Type: "2", Select: true, Name: tag, Price: "0.00", Barcode: "", Quantity: 0 };
+                            productProp.push(variantObj);
+                            generateVariantTable();
+                            $('<li class="tags"><span>' + tag + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue3"));
+                            $(this).val("");
+                        }
+                    }
+                }
+            }
+
+        });
+        $('#submitBtn').on('click', function () {
+            $('#submitBtn').prop('disabled', true);
+            var arrayToPost = [];
+            var newProductArray;
+            var quantity = 0;
+            var priceArray = [];
+            var check = false;
+
+            $('#tblVariantBody tr').each(function (row, tr) {
+
+                var firstChild = tr.cells[0].firstChild;
+
+                
+
+                if (firstChild.checked) {
+                    // Ensure that Quantity is added for each of the Added Product VAriant
+                    if (tr.cells[1].firstChild.value <= 0 || tr.cells[2].firstChild.value <= 0) {
+                        swal("Error", "Specify Quantity For Product", "error");
+                        $('#submitBtn').prop('disabled', false);
+                        check = true;
+                        return false;
+                        
+                    }
+                    var reOrder = $("#Product_ReorderLevel").val();
+                    if (reOrder >= tr.cells[2].firstChild.value) {
+                        $('#submitBtn').prop('disabled', false);
+                        swal("Error", "Variant Quantity Should not be Less than or equal to Reorder Level", "error");
+                        check = true;
+                        return false;
+                        
+                    }
+
+                    
+
+                    newProductArray = { Select: true, Name: tr.cells[0].innerText, Price: tr.cells[1].firstChild.value, Quantity: tr.cells[2].firstChild.value };
+                    arrayToPost.push(newProductArray);
+                    //get the quantity of variants and assign it to total quantity
+                    quantity = quantity + Number(newProductArray.Quantity);
+                    priceArray.push(newProductArray.Price);
+
+                }
+                
+            });
+            if (check) {
+                return;
+            }
+            //$("#Product_ReorderLevel").val(quantity);
+            //get the lowest price of the product variant, that will form the starting price for the display product
+            priceArray.sort(function (a, b) { return a - b });
+            var minPrice = priceArray[0];
+            var maxPrice = priceArray[priceArray.length - 1];
+
+            $('.load').show();
+
+            var productName = $("#Product_Name").val();
+            var productTypeId = $("#TypeId").val();
+            var productBrand = $("#productBrandId option:selected").val();
+            var productAdditionalInfo = tinymce.editors[$('#productAdditionalInfo').attr('id')].getContent();
+            productAdditionalInfo = escape(productAdditionalInfo);
+            var productDescription = $("#productDescription").val();
+            //var productPrice = $("#Product_Price").val();
+            var productPrice = minPrice;
+            var productMaxPrice = maxPrice;
+            var productDiscount = $("#Product_Discount").val();
+            var productWeight = $("#Product_Weight").val();
+            var unitOfMeasurement = $("#unitMeasurementId").val();
+            var reOrderLevel = $("#Product_ReorderLevel").val();
+            var canBeDelivered = $("#Product_CanBedelivered").val();
+            var shipping = $("#Product_Shipping").val();
+            var productSku = $("#Product_Sku").val();
+            var activated = $("#Product_Active").val();
+            var productVariantKey1 = $("#ProductVariant_Key1").val();
+            var productVariantKey2 = $("#ProductVariant_Key2").val();
+            var productVariantKey3 = $("#ProductVariant_Key3").val();
+            //var filePath = $("#myimageUrl").val();
+            if (productName != null && productName != "" && productTypeId > 0 && productDescription != null && productDescription != "" && reOrderLevel != null && reOrderLevel != "")
+            {
+                            var productVariantValue1 = '';
+            [].forEach.call(document.querySelectorAll('#keyValue1Ul li'), function (item) { return productVariantValue1 += item.innerText + ","; });
+            var productVariantValue2 = '';
+            [].forEach.call(document.querySelectorAll('#keyValue2Ul li'), function (item) { return productVariantValue2 += item.innerText + ","; });
+            var productVariantValue3 = '';
+            [].forEach.call(document.querySelectorAll('#keyValue3Ul li'), function (item) { return productVariantValue3 += item.innerText + ","; });
+
+            if (productVariantKey1 != null && productVariantKey1 != "" || productVariantKey2 != null && productVariantKey2 != "" || productVariantKey3 != null && productVariantKey3 != "" ) {
+                var productData = {
+                    'productName': productName,
+                    'productTypeId': productTypeId,
+                    'productBrand': productBrand,
+                    'productDescription': productDescription,
+                    'productAdditionalInfomation': productAdditionalInfo,
+                    'productPrice': productPrice,
+                    'MaxPrice': productMaxPrice,
+                    'productDiscount': productDiscount,
+                    'productWeight': productWeight,
+                    'unitOfMeasurement': unitOfMeasurement,
+                    'reOrderLevel': reOrderLevel,
+                    'canBeDelivered': canBeDelivered,
+                    'shipping': shipping,
+                    'productSku': productSku,
+                    'activated': activated,
+                    'productVariantKey1': productVariantKey1,
+                    'productVariantKey2': productVariantKey2,
+                    'productVariantKey3': productVariantKey3,
+                    'productVariantValue1': productVariantValue1,
+                    'productVariantValue2': productVariantValue2,
+                    'productVariantValue3': productVariantValue3
+                };
+                var imageFiles = GetUploadedFiles();
+                
+                //var imageArray = JSON.stringify(imageFiles);
+                //var imageFiles = getUploadedImage();
+                var imageArray = JSON.stringify(imageFiles);
+                if (imageArray == "[]" || imageArray==[]) {
+                    swal("Error", "No Product Image Added", "error");
+                    $('#submitBtn').prop('disabled', false);
+                    return;
+                }
+                var productVariantArray = JSON.stringify(arrayToPost);
+                var productArray = JSON.stringify(productData);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CreateProduct", "Product")', // we are calling json method
+                    dataType: 'json',
+                    //contentType:"application/json",
+                    data: { productItems: productArray, image: imageArray, productVariantArray: productVariantArray },
+                    success: function (result) {
+                        if (result && !result.IsError) {
+                            location.reload(true);
+                            swal("Operation Successful", "Product has been Created", "success");
+                            
+                        }
+                        //if (types = "Error") {
+                        if (result && result.IsError) {
+                            swal("Operation Failed", result.Message, "error");
+                            $('#submitBtn').prop('disabled', false);
+                            //swal("Operation Failed", "Product Was not Added Please Cross Check the fields and Try Again", "error");
+                        }
+                    },
+                    error: function (ex) {
+                        alert('Failed to Create Product.' + ex.Message);
+                        $('.load').hide();
+
+                    }
+                });
+
+            } else {
+                swal("Operation Failed", "Add the Product Variant to be Able to continue", "error");
+                $('#submitBtn').prop('disabled', false);
+            }
+            }
+            else {
+                swal("Operation Failed", "Please, Provide The Required Information To Continue", "error");
+                $('#submitBtn').prop('disabled', false);
+
+            }
+
+
+        });
+
+        $(document).on("click", ".tags i", function () {
+
+            var text = $(this).parent("li").text();
+            var newProductProp = [];
+
+
+            for (var i = 0; i < productProp.length; i++) {
+
+                if (productProp[i].Name != undefined && productProp[i].Name.indexOf(text) > -1) {
+                    newProductProp.push(productProp);
+                }
+            }
+            $.each(newProductProp, function (i, itemToBeRemoved) {
+                productProp.pop(itemToBeRemoved);
+            });
+            $(this).parent("li").remove();
+            generateVariantTable();
+
+        });
+
+
+
+    });
+
+    function CreateProductType() {
+        //$('#subCategory').attr('disable', true);
+        $("#Product_ProductType_Id").empty();
+        var productType = $("#ProductType_Name").val();
+        var CategoryId = $("#categoryId").val();
+        if ((productType != null && productType != "") && (categoryId != null && categoryId != ""))
+        {
+            $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateNewProductType", "Product")', // we are calling json method
+            dataType: 'json',
+            data: { productType: productType, CategoryId: CategoryId },
+            success: function (types) {
+                $("#Product_ProductType_Id").append('<option value="' + 0 + '"> -- Select -- </option>');
+                $.each(types, function (i, Option) {
+                    $("#Product_ProductType_Id").append('<option value="' + Option.Value + '">' + Option.Text + '</option>');
+                });
+
+                $("#ProductType_Name").val('');
+                swal("Operation Successful", "Sub-Category has been Added", "success");
+                window.location.reload();
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Product Types.' + ex);
+            }
+        });
+        }
+        else {
+            swal("Operation Error", "Ensure You Fill The Required Information", "error");
+        }
+
+    }
+    function CreateProductCategory() {
+
+        $("#categoryId").empty();
+        var category = $("#categoryName").val();
+        var categoryDescr= $("#categoryDescription").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateNewProductCategory", "Product")', // we are calling json method
+            dataType: 'json',
+            data: { category:category, description:categoryDescr },
+            success: function (categories) {
+                $("#categoryId").append('<option value="' + 0 + '"> -- Select -- </option>');
+                $.each(categories, function (i, catList) {
+                    $("#categoryId").append('<option value="' + catList.Value + '">' + catList.Text + '</option>');
+                });
+
+                $("#categoryName").val('');
+                $("#categoryDescription").val('');
+
+                swal("Operation Successful", "Category has been Added", "success");
+                window.location.reload();
+            },
+            error: function (ex) {
+                alert('Failed to retrieve categories.' + ex);
+            }
+        });
+    }
+
+    function CreateProductBrand() {
+
+        $("#Product_Brand_Id").empty();
+        var productBrand = $("#Brand_Name").val();
+        if (productBrand != null && productBrand != "")
+        {
+                    $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateNewProductBrand", "Product")', // we are calling json method
+            dataType: 'json',
+            data: { productBrand: productBrand },
+            success: function (brands) {
+                $("#Product_Brand_Id").append('<option value="' + 0 + '"> -- Select -- </option>');
+                $.each(brands, function (i, Option) {
+                    $("#Product_Brand_Id").append('<option value="' + Option.Value + '">' + Option.Text + '</option>');
+                });
+
+                $("#Brand_Name").val('');
+                swal("Operation Successful", "Brand has been Added", "success");
+                window.location.reload();
+            },
+            error: function (ex) {
+                swal("Error Occured", "Product Brand could not be Added", "error");
+            }
+        });
+        }
+        else {
+            swal("Operation Error", "Ensure You Fill The Required Information", "error");
+        }
+
+    }
+
+    function CreateUnit() {
+
+        $("#Product_UnitMeasurement_Id").empty();
+        var unit = $("#Unit_Name").val();
+        if (unit != null && unit != "")
+        {
+            $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateNewUnit", "Product")', // we are calling json method
+            dataType: 'json',
+            data: { unit: unit },
+            success: function (units) {
+                $("#Product_UnitMeasurement_Id").append('<option value="' + 0 + '"> -- Select -- </option>');
+                $.each(units, function (i, Option) {
+                    $("#Product_UnitMeasurement_Id").append('<option value="' + Option.Value + '">' + Option.Text + '</option>');
+                });
+
+                $("#Unit_Name").val('');
+                swal("Operation Successful", "Unit has been Added", "success");
+                window.location.reload();
+            },
+            error: function (ex) {
+                swal("Error Occured", "Unit could not be Added", "error");
+            }
+        });
+        }
+        else {
+            swal("Operation Error", "Ensure You Fill The Required Information", "error");
+        }
+
+    }
+
+    tinymce.init({
+        selector: 'textarea',
+        height: 500,
+        //width: 1000,
+        theme: 'modern',
+        plugins: [
+			'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+			'searchreplace wordcount visualblocks visualchars code fullscreen',
+			'insertdatetime media nonbreaking save table contextmenu directionality',
+			'emoticons template paste textcolor colorpicker textpattern imagetools'
+        ],
+        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons',
+        image_advtab: true,
+        templates: [
+			{ title: 'Test template 1', content: 'Test 1' },
+			{ title: 'Test template 2', content: 'Test 2' }
+        ],
+        content_css: [
+			'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+			'//www.tinymce.com/css/codepen.min.css'
+        ]
+    });
+    function showMoreOption(optionButton) {
+        var clicks = optionButton.id.replace('btnOption', '');
+        clicks = parseInt(clicks) + 1;
+        var oldClickNumber = parseInt(clicks) - 1;
+
+        if (clicks == 2) {
+            $('#btnOption' + oldClickNumber).hide();
+            $('#divOption2').show();
+        } else if (clicks < 3 && clicks !== 2) {
+
+            $('#divOption1').show();
+            $('#btnOption' + oldClickNumber).attr('id', 'btnOption' + clicks);
+        }
+
+
+    }
+    function deleteOption(deleteButton) {
+        var clicks = deleteButton.id.replace('deleteBtn', '');
+        var oldClickNumber = parseInt(clicks) - 1;
+        if (clicks == 1) {
+            $('#deleteBtn0').hide();
+            $('#divOption' + clicks).find('input:text').val('');
+            $('#divOption' + clicks).hide();
+            $('#btnOption' + clicks).show();
+            $('#btnOption' + clicks).attr('id', 'btnOption' + oldClickNumber);
+
+        } else {
+            $('#divOption' + clicks).find('input:text').val('');
+            $('#divOption' + clicks).hide();
+            $('#btnOption' + oldClickNumber).show();
+            $('#deleteBtn0').show();
+        }
+
+
+    }
+
+    function generateVariantTable() {
+
+        if (productProp.length > 0) {
+            $("#tblVariantBody").empty();
+            for (var i = 0; i < productProp.length; i++) {
+                var product = productProp[i];
+                if (product.Select == true) {
+                    $("#tblVariantBody").append('<tr><td><input type="checkbox" onclick="changeOptionStatus(' + i + ')" checked="' + product.Select + '" /><p>' + product.Name + '</p></td><td><input type="text" value="' + product.Price + '"/></td>' +
+											'<td><input type="text" value="' + product.Quantity + '"/></td></tr>');
+                } else {
+                    $("#tblVariantBody").append('<tr><td><input type="checkbox" onclick="changeOptionStatus(' + i + ')"/><p>' + product.Name + '</p></td><td><input type="text" value="' + product.Price + '"/></td>' +
+											'<td><input type="text" value="' + product.Quantity + '"/></td></tr>');
+                }
+
+
+            }
+
+            $("#tblVariant").show();
+        } else {
+            $("#tblVariant").hide();
+        }
+    }
+    function checkIfItemExist(name) {
+
+        var existing = true,
+			text = name.toLowerCase();
+
+        $.each(productProp, function (i, item) {
+            if (item.Name.toLowerCase() == text) {
+                existing = false;
+                return "";
+            }
+        });
+
+        return existing;
+    }
+
+    function changeOptionStatus(id) {
+
+        if (productProp[id].Select) {
+            productProp[id].Select = false;
+        } else {
+            productProp[id].Select = true;
+        }
+
+        generateVariantTable();
+    }
+
+
+    function existingTag(text, tag) {
+
+        var existing = false;
+        $.each(productProp, function (i, item) {
+            if (item.Name.indexOf(text) > -1) {
+                existing = true;
+            }
+        });
+        return existing;
+    }
+</script>
+
+
+@*$(function(){
+      $(".tags-new input").focus();
+
+      $(".tags-new input").keyup(function(){
+
+            var tag = $(this).val().trim(),
+            length = tag.length;
+
+            if((tag.charAt(length - 1) == ',') && (tag != ","))
+            {
+                tag = tag.substring(0, length - 1);
+
+                if(!existingTag(tag))
+                {
+                    $('<li class="tags"><span>' + tag + '</span><i class="fa fa-times"></i></i></li>').insertBefore($(".tags-new"));
+                    $(this).val("");
+                }
+                else
+                {
+                    $(this).val(tag);
+                }
+            }
+        });
+
+      $(document).on("click", ".tags i", function(){
+        $(this).parent("li").remove();
+      });
+
+    });*@
+
+
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+}
+<div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="#createCategoryModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">CREATE CATEGORY</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Category</label>
+                        <input type="text" class="form-control" id="categorytxtbx" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="descriptiontxtbx" />
+                    </div>
+                    <form action="#" method="get" role="form" enctype="multipart/form-data">
+                        <div class="form-group col-md-6">
+                            <label>Upload</label>
+                            <input type="file" id="imageUrltxtbx" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="createCategoryBtnSave" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Products</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            @*<li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Home")">Home</a></li>*@
+                            <li class="breadcrumb-item"><a href="#">Add Products</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="content-header-right col-md-6 col-12">
+                <div class="dropdown float-md-right">
+                    <button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton"
+                            type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
+                        <a class="dropdown-item" href="#"><i class="la la-calendar-check-o"></i> Calender</a>
+                        <a class="dropdown-item" href="#"><i class="la la-cart-plus"></i> Cart</a>
+                        <a class="dropdown-item" href="#"><i class="la la-life-ring"></i> Support</a>
+                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="la la-cog"></i> Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Basic form layout section start -->
+            <section id="basic-form-layouts">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+
+                                    @*<form class="form">*@
+                                    <div class="form-body">
+                                        <h4 class="form-section"><i class="ft-plus-square"></i> Add Products</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @*<div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-6">*@
+                                                    @*@using (Html.BeginForm("Create", "Product", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                        {*@
+                                                    @Html.HiddenFor(s => s.GroupCountString, new { Id = "uploadedImages" })
+                                                    <label>Product Title <span class="text-danger">**</span></label>
+                                                    @*@Html.LabelFor(model => model.Product.Name, "Product Title", new { @class = "col-md-12 control-label" })*@
+                                                    @Html.TextBoxFor(model => model.Product.Name, new { @class = "form-control", required = true, id = "Product_Name" })
+                                                    @Html.ValidationMessageFor(model => model.Vendors.Name, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Category <span class="text-danger">**</span></label>
+                                                    @*@Html.LabelFor(model => model.Category.Id, "Category", new { @class = "col-md-12 control-label" })*@
+                                                    @Html.DropDownListFor(model => model.Category.Id, (IEnumerable<SelectListItem>)ViewBag.Category, new { @class = "form-control", Id = "categoryDropDownId" })
+                                                    @Html.ValidationMessageFor(model => model.Category.Id, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @*@Html.LabelFor(model => model.Product.ProductType.Id, "Sub-Category", new { @class = "col-md-12 control-label" })*@
+                                                    <label>Sub-Category <span class="text-danger">**</span></label>
+                                                    @Html.DropDownListFor(model => model.Product.ProductType.Id, (IEnumerable<SelectListItem>)ViewBag.ProductTypeId, new { @class = "form-control", Id = "TypeId" })
+                                                    @Html.ValidationMessageFor(model => model.Product.ProductType.Id, null, new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Brand <span class="text-danger">**</span></label>
+                                                    @*@Html.LabelFor(model => model.Product.Brand.Id, "Brand", new { @class = "col-md-12 control-label" })*@
+                                                    @Html.DropDownListFor(model => model.Product.Brand.Id, (IEnumerable<SelectListItem>)ViewBag.BrandsId, new { @class = "form-control", required = true, Id = "productBrandId" })
+                                                    @Html.ValidationMessageFor(model => model.Product.Brand.Id, null, new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            @*<div class="col-md-6" style="display:none;">*@
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Re-Order Level <span class="text-danger">**</span></label>
+                                                    @*@Html.LabelFor(model => model.Product.ReorderLevel, "Re-Order Level", new { @class = "col-md-12 control-label" })*@
+                                                    @Html.TextBoxFor(model => model.Product.ReorderLevel, new { @class = "form-control", id = "Product_ReorderLevel" })
+                                                    @Html.ValidationMessageFor(model => model.Product.ReorderLevel, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Product.Discount, "Discount (%)", new { @class = "col-md-11 control-label" })
+                                                    @Html.TextBoxFor(model => model.Product.Discount, new { @class = "form-control", type = "number", @min = "1", @max = "98", id = "Product_Discount" })
+                                                    @Html.ValidationMessageFor(model => model.Product.Discount, null, new { @class = "text-danger" })
+
+
+                                                </div>
+                                            </div>
+                                            @*<div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Product.Price, " Unit Price", new { @class = "col-md-12 control-label" })
+                                                        @Html.TextBoxFor(model => model.Product.Price, new { @class = "form-control", required = true, id = "Product_Price", @placeholder = "0.00" })
+                                                        @Html.ValidationMessageFor(model => model.Product.Price, null, new { @class = "text-danger" })
+
+                                                    </div>
+                                                </div>*@
+
+                                            
+
+
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Product.UnitMeasurement.Id, "Unit of Measurement", new { @class = "col-md-12 control-label" })
+                                                    @Html.DropDownListFor(model => model.Product.UnitMeasurement.Id, (IEnumerable<SelectListItem>)ViewBag.UnitMeasurementId, new { @class = "form-control", required = true, Id = "unitMeasurementId" })
+                                                    @Html.ValidationMessageFor(model => model.Product.UnitMeasurement.Name, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Product.Weight, "Weight (kg)", new { @class = "col-md-12 control-label" })
+                                                    @Html.TextBoxFor(model => model.Product.Weight, new { @class = "form-control", @type = "number", @min = "0", id = "Product_Weight" })
+                                                    @Html.ValidationMessageFor(model => model.Product.Weight, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group ">
+                                                    <label>Description <span class="text-danger">**</span></label>
+                                                    @*@Html.LabelFor(model => model.Product.Description, "Description", new { @class = "col-md-12 control-label" })*@
+                                                    @Html.TextBoxFor(model => model.Product.Description, new { @class = "form-control", Id = "productDescription", @placeholder = "Description of Products" })
+                                                    @Html.ValidationMessageFor(model => model.Product.Description, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12" style="background:#f2f2f2;">
+                                            <div class="form-group">
+                                                <label class="inline text-dark"><input type="checkbox" id="showAdditionalInfoDiv"><span class="input"></span> Any Additional Information</label>
+                                                <div class="form-group" id="additionalInfo">
+                                                    @Html.LabelFor(model => model.Product.AdditionalInformation, "Additional Information", new { @class = "col-md-12 control-label" })
+                                                    @Html.TextAreaFor(model => model.Product.AdditionalInformation, new { @class = "form-control", Id = "productAdditionalInfo", @placeholder = "Product Additional Information" })
+                                                    @Html.ValidationMessageFor(model => model.Product.AdditionalInformation, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @*@Html.LabelFor(model => model.Product.Shipping, "Can be Shipped", new { @class = "col-md-12" })
+                                                    @Html.CheckBoxFor(model => model.Product.Shipping, new { @class = "" })
+                                                    @Html.ValidationMessageFor(model => model.Product.Shipping, null, new { @class = "text-danger" })*@
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div id="dropzone">
+                                                    <form class="dropzone needsclick" id="demo-upload" action="/"></form>
+                                                </div><br />
+                                                <div class="col-md-12 alert alert-info text-center" style="color:#fff !important;"> Picture Dimension size should be 180 x 180 pixels</div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group accordion" id="accordionExample">
+                                                <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    Add Variants To Product
+                                                </a>
+                                                <div class="collapse pt-1" id="collapseExample">
+                                                    <div class="form-group" id="divOption0">
+                                                        @*<label class="control-label" for="size">Option Name</label>*@
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                @Html.LabelFor(model => model.ProductVariant.Key1, "Option Name", new { @class = "control-label" })
+                                                                @Html.TextBoxFor(model => model.ProductVariant.Key1, new { @class = "form-control", placeHolder = "Size", id = "ProductVariant_Key1" })
+                                                                @Html.ValidationMessageFor(model => model.ProductVariant.Key1, null, new { @class = "text-danger" })
+
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <label>&nbsp;</label>
+                                                                <ul class="tags-input form-control" id="keyValue1Ul">
+                                                                    <li class="tags-new" id="keyValuel">
+                                                                        <input class="col-md-12" type="text" id="keyValue1Input" data-toggle="tooltip" data-placement="top" title="Add comma at the end of each input" placeholder="e.g Big,Small,">
+                                                                    </li>
+                                                                </ul>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="divOption1">
+                                                        @*<label class="control-label" for="size">Option Name</label>*@
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                @Html.LabelFor(model => model.ProductVariant.Key2, "Option Name", new { @class = " control-label" })
+                                                                @Html.TextBoxFor(model => model.ProductVariant.Key2, new { @class = "form-control", placeHolder = "Colour", id = "ProductVariant_Key2" })
+                                                                @Html.ValidationMessageFor(model => model.ProductVariant.Key2, null, new { @class = "text-danger" })
+
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <label>&nbsp;</label>
+                                                                <ul class="tags-input" id="keyValue2Ul">
+                                                                    <li class="tags-new" id="keyValue2">
+                                                                        <input class="col-md-12" type="text" id="keyvalue2input" data-toggle="tooltip" data-placement="top" title="Add comma at the end of each input" placeholder=" e.g Red,Blue,">
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12 pl-0" id="divOption2">
+                                                        @*<label class="control-label" for="size">Option Name</label>*@
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                @Html.LabelFor(model => model.ProductVariant.Key3, "Option Name", new { @class = "control-label" })
+                                                                @Html.TextBoxFor(model => model.ProductVariant.Key3, new { @class = "form-control", placeHolder = "Material", id = "ProductVariant_Key3" })
+                                                                @Html.ValidationMessageFor(model => model.ProductVariant.Key3, null, new { @class = "text-danger" })
+
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <label>&nbsp;</label>
+                                                                <ul class="tags-input" id="keyValue3Ul">
+                                                                    <li class="tags-new" id="keyValue3">
+                                                                        <input class="col-md-12" type="text" id="keyvalue3input" data-toggle="tooltip" data-placement="top" title="Add comma at the end of each input" placeholder="e.g Cotton,Silk,">
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="col-md-4"><button class="btn" id="btnOption0" onclick="showMoreOption(this)" style="display: none"> Add New Option</button></div>*@
+                                                    <table style="display: none" id="tblVariant" class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Variant</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tblVariantBody"></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="deliverCheck">
+                                                            @Html.CheckBoxFor(model => model.Product.CanBedelivered, new { @class = "", id = "Product_CanBedelivered" })
+                                                            Can be Delivered
+                                                        </label>
+                                                        @Html.ValidationMessageFor(model => model.Product.CanBedelivered, null, new { @class = "text-danger" })
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.CheckBoxFor(model => model.Product.Active, new { @class = "", id = "Product_Active" })
+                                                        @Html.LabelFor(model => model.Product.Active, "Activate", new { @class = " control-label" })
+                                                        @Html.ValidationMessageFor(model => model.Product.Active, null, new { @class = "text-danger" })
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+
+                                                <button type="submit" class="btn btn-primary" id="submitBtn">
+                                                    <span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    @*</form>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title" id="basic-layout-colored-form-control">Quick Edits</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+
+                                    <form class="form">
+                                        <div class="form-body">
+                                            <h4 class="form-section"><i class="ft-info"></i> Add Category</h4>
+                                            <div class="row mb-2">
+                                                @*<div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Category.Name, "Name", new { @class = "col-md-12 control-label" })
+                                                        @Html.TextBoxFor(model => model.Category.Name, new { @class = "form-control", required = true, id = "categoryName" })
+                                                        @Html.ValidationMessageFor(model => model.Category.Name, null, new { @class = "text-danger" })
+                                                    </div></div>*@
+                                                @*<div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Category.Description, "Description", new { @class = "col-md-12 control-label" })
+                                                            @Html.TextBoxFor(model => model.Category.Description, new { @class = "form-control", required = true, id = "categoryDescription" })
+                                                            @Html.ValidationMessageFor(model => model.Category.Description, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>*@
+                                                <div class="form-group col-md-12">
+                                                    @*<button type="submit" class="btn btn-secondary" onclick="CreateProductCategory()">Add</button>*@
+
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCategoryModal">
+                                                        Create
+                                                    </button>
+                                                    |
+                                                    @Html.ActionLink("View All", "ManageCategory", "Product", new { area = "Admin", @class = "btn btn-outline-primary" })
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <h4 class="form-section col-md-12"><i class="ft-grid"></i> Add Sub Category</h4>
+                                            <div class="row mb-2">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.ProductType.Name, "Name", new { @class = "col-md-12 control-label" })
+                                                        @Html.TextBoxFor(model => model.ProductType.Name, new { @class = "form-control", required = true, @placeholder = "Name", id = "ProductType_Name" })
+                                                        @Html.ValidationMessageFor(model => model.ProductType.Name, null, new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Category.Id, "Category", new { @class = "col-md-12 control-label" })
+                                                        @Html.DropDownListFor(model => model.Category.Id, (IEnumerable<SelectListItem>)ViewBag.Category, new { @class = "form-control", Id = "categoryId" })
+                                                        @Html.ValidationMessageFor(model => model.Category.Id, null, new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <button type="submit" class="btn btn-secondary" id="subCategory" onclick="CreateProductType()">Add</button> |
+                                                    @Html.ActionLink("View All", "ViewProductTypes", "Product", new { area = "Admin", @class = "btn btn-outline-primary" })
+                                                </div>
+                                            </div>
+                                            <h4 class="form-section col-md-12"><i class="ft-info"></i> Add Brand</h4>
+                                            <div class="row mb-2">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Brand.Name, "Name", new { @class = "col-md-12 control-label" })
+                                                        @Html.TextBoxFor(model => model.Brand.Name, new { @class = "form-control", required = true, id = "Brand_Name" })
+                                                        @Html.ValidationMessageFor(model => model.Brand.Name, null, new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                @*<div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Product.Brand.Id, "Brand", new { @class = "col-md-12 control-label" })
+                                                            @Html.DropDownListFor(model => model.Product.Brand.Id, (IEnumerable<SelectListItem>)ViewBag.BrandsId, new { @class = "form-control", required = true, id = "productBrandId" })
+                                                            @Html.ValidationMessageFor(model => model.Product.Brand.Id, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>*@
+
+                                                <div class="form-group col-md-12">
+                                                    <button type="submit" class="btn btn-secondary" onclick="CreateProductBrand()">Add</button>
+                                                    |
+                                                    @Html.ActionLink("View All", "ViewBrands", "Product", new { area = "Admin", @class = "btn btn-outline-primary" })
+                                                </div>
+                                            </div>
+                                            <h4 class="form-section col-md-12">
+                                                Add Units
+                                            </h4>
+                                            <div class="row mb-2">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Unit.Name, "Name", new { @class = "col-md-12 control-label" })
+                                                        @Html.TextBoxFor(model => model.Unit.Name, new { @class = "form-control", required = true, id = "Unit_Name" })
+                                                        @Html.ValidationMessageFor(model => model.Unit.Name, null, new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                @*<div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Product.UnitMeasurement.Id, "Unit of Measurement", new { @class = "col-md-12 control-label" })
+                                                            @Html.DropDownListFor(model => model.Product.UnitMeasurement.Id, (IEnumerable<SelectListItem>)ViewBag.UnitMeasurementId, new { @class = "form-control", required = true, Id = "unitMeasurementId" })
+                                                            @Html.ValidationMessageFor(model => model.Product.UnitMeasurement.Name, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>*@
+                                                <div class="form-group col-md-12">
+
+                                                    <button type="submit" class="btn btn-secondary" onclick="CreateUnit()">Add</button>
+                                                    |
+                                                    @Html.ActionLink("View All", "ViewUnits", "Product", new { area = "Admin", @class = "btn btn-outline-primary" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //upload product Image
+        $('#productImageUpload').change(function () {
+            var imageData = new FormData();
+            var files = $('#productImageUpload').get(0).files;
+            if (files.length > 0) {
+                imageData.append("productImage", files[0]);
+            }
+            $.ajax({
+                url: '@Url.Action("UploadImage", "Product", new { area = "Admin" })',
+                type: "POST",
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                data: imageData,
+                success: function (imageUrlResponse) {
+                    if (imageUrlResponse != null && imageUrlResponse != undefined)
+                    {
+                        var index = uploadedImages.indexOf(imageUrlResponse);
+                        $('#myimageUrl').val(imageUrlResponse);
+                        alert("Image Uploaded Successfully")
+                        function getUploadedImage() {
+                            return uploadedImages;
+
+                        }
+                    }
+
+                },
+                error: function (error) {
+                    alert("error in image upload")
+                }
+            })
+        })
+        $('#createCategoryBtnSave').on('click', function (e) { //creating category
+            var name = $('#categorytxtbx').val();
+            var description = $('#descriptiontxtbx').val();
+            var image = $("#imageUrltxtbx").get(0);
+            var form = new FormData();
+            if (name != null && name != "" && description != null && description != "" && image != null && image != "")
+            {
+                            var files = image.files;
+
+            form.append("image", files[0]);
+            form.append("categoryName", name);
+            form.append("description", description);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateProductCategory", "Product", new { area = "Admin" })', // we are calling json method
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                data: form,
+
+                success: function (result) {
+                    if (result && !result.IsError) {
+                        $('#createCategoryModal').modal('hide');
+                        swal("Operation Success", "Category was succesfully Created!", "success");
+
+
+                    }
+                    if (result && result.IsError) {
+                        $('#createCategoryModal').modal('hide');
+                        swal(result.Message, "Not Successful!", "error");
+                    }
+                    if (!result) {
+                        $('#createCategoryModal').modal('hide');
+                        swal("Attention!", "Result is not defined.", "error");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#createCategoryModal').modal('hide');
+                    swal("Error Creating!", "Please try again", "error");
+                }
+            });
+            window.location.reload();
+            }
+            else {
+                swal("Operation Error", "Ensure You Fill The Required Information", "error");
+            }
+
+
+        })
+    })
+</script>
+
+
+
+@*previous code*@
+@*<div class="col-md-4 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="text-center">Product Type</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="form-group">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-8 col-md-offset-4">
+                    <button type="submit" class="btn btn-primary" onclick="CreateProductType()">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+@*<div class="panel-footer">
+        <a href="@Url.Action("ViewProductTypes", "Product", new { area = "Admin" })">View All</a>
+    </div>*@
+
+
+@*<div class="modal fade" role="dialog" id="createModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <div class="row mt-5">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Product.ImageUrl, "Product Image", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-6">
+                                <input type="file" title="Upload Image" id="file" name="file" class="form-control"/>
+                                @Html.ValidationMessageFor(model => model.Product.ImageUrl, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="uploadexcel" class="btn btn-success" onclick="upload()">Upload</button>
+            </div>
+        </div>
+    </div>*@
+

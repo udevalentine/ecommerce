@@ -1,0 +1,171 @@
+﻿@model Abundance_SN.Models.RegisterViewModel
+
+@{
+// Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("EditStoreSetUp", "Home", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                    <h3 class="content-header-title mb-0 d-inline-block">Store Setup</h3>
+                    <div class="row breadcrumbs-top d-inline-block">
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb">
+                                @*<li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Home")">Home</a></li>*@
+                                <li class="breadcrumb-item"><a href="#">Edit Store</a></li>
+                                <!-- <li class="breadcrumb-item active"><a href="#">Basic Forms</a>
+                                </li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right col-md-6 col-12">
+                    <div class="dropdown float-md-right">
+                        @*<button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>*@
+                        <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
+                            <a class="dropdown-item" href="#"><i class="la la-calendar-check-o"></i> Calender</a>
+                            <a class="dropdown-item" href="#"><i class="la la-cart-plus"></i> Cart</a>
+                            <a class="dropdown-item" href="#"><i class="la la-life-ring"></i> Support</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="la la-cog"></i> Settings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+
+                <!-- Basic form layout section start -->
+                <section id="basic-form-layouts">
+                    <div class="row">
+                        <div class="col-lg-8 offset-2 col-md-8 offset-md-2 offset-sm-0 col-sm-12">
+                            @if (TempData["Message"] != null)
+                            {
+                                @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                            }
+                        </div>
+                        <div class="col-md-8 offset-md-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title" id="basic-layout-form">Edit Store</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                        </div>
+                                        <form class="form">
+                                            <div class="form-body">
+
+                                                <div class="row">
+                                                    @Html.HiddenFor(model => model.StoreSetup.Id)
+                                                    @Html.HiddenFor(model => model.StoreSetup.Person.Id)
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.StoreSetup.StoreLogoUrl, "Store Logo", new { @class = "col-md-4 control-label" })
+                                                            <input type="file" title="Upload Image" id="file" name="file" class="form-control" />
+                                                            @Html.ValidationMessageFor(model => model.StoreSetup.StoreLogoUrl, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+
+                                                            @Html.LabelFor(model => model.StoreSetup.BusinessName, "Business Name", new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.StoreSetup.BusinessName, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.StoreSetup.BusinessName, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+
+                                                            @Html.LabelFor(model => model.StoreSetup.BusinessRcNo, "Business Rc.No.", new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.StoreSetup.BusinessRcNo, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.StoreSetup.BusinessRcNo, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+
+                                                            @Html.LabelFor(model => model.StoreSetup.BusinessPhone, "Business Phone", new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.StoreSetup.BusinessPhone, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.StoreSetup.BusinessPhone, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+
+                                                            @Html.LabelFor(model => model.StoreSetup.BusinessEmail, "Business Email", new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.StoreSetup.BusinessEmail, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.StoreSetup.BusinessEmail, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+
+                                                            @Html.LabelFor(model => model.StoreSetup.ShopName, "Store Name", new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.StoreSetup.ShopName, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.StoreSetup.ShopName, null, new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.StoreSetup.AboutUs, "Store Description", new { @class = "control-label " })
+                                                        @Html.TextAreaFor(model => model.StoreSetup.AboutUs, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.StoreSetup.AboutUs, null, new { @class="text-danger"})
+                                                    </div>
+                                                </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.StoreSetup.StoreAddress, "Store Address", new { @class = "control-label " })
+                                                            @Html.TextAreaFor(model => model.StoreSetup.StoreAddress, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.StoreSetup.StoreAddress, null, new { @class = "text-danger" })
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.StoreTypes.Id, "What Type Of Product Do You Sell", new { @class = "control-label " })
+                                                                @Html.DropDownListFor(model => model.StoreTypes.Id, (IEnumerable<SelectListItem>)ViewBag.StoreType, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.StoreTypes.Id)
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                        <div class="form-actions">
+
+                                                            <button type="submit" class="btn btn-primary">
+                                                                <i class="la la-check-square-o"></i> Save
+                                                            </button>
+
+
+                                                        </div>
+
+                                                    </div>
+</form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+}
+
+
+

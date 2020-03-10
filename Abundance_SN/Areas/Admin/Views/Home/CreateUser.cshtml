@@ -1,0 +1,121 @@
+﻿@model Abundance_SN.Models.RegisterViewModel
+
+@{
+   // Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm("CreateUser", "Home", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <br />
+
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                    <h3 class="content-header-title mb-0 d-inline-block">Create User</h3>
+                    <div class="row breadcrumbs-top d-inline-block">
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb">
+                                @*<li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Home")">Home</a></li>*@
+                                <li class="breadcrumb-item"><a href="#">Create User</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right col-md-6 col-12">
+                    <div class="dropdown float-md-right">
+                        <button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
+                            <a class="dropdown-item" href="#"><i class="la la-calendar-check-o"></i> Calender</a>
+                            <a class="dropdown-item" href="#"><i class="la la-cart-plus"></i> Cart</a>
+                            <a class="dropdown-item" href="#"><i class="la la-life-ring"></i> Support</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="la la-cog"></i> Settings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="container">
+                    <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 offset-sm-0 col-sm-12">
+                       @if (TempData["Message"] != null)
+                       {
+                        @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                       }
+                    </div>
+                    <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 offset-sm-0 col-sm-12">
+                        <div class="card">
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <form class="form">
+                                        <div class="form-body">
+                                            <h4 class="form-section"><i class="ft-plus-square"></i> Create User</h4>
+                                            <div class="row">
+ 
+                                                               
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+
+                                                                            @Html.LabelFor(model => model.Person.Surname, "Surname", new { @class = "control-label" })
+                                                                            @Html.TextBoxFor(model => model.Person.Surname, new { placeholder = "Surname", required = "required", @class = "form-control" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 mt-2">
+                                                                        <div class="form-group">
+                                                                            @Html.LabelFor(model => model.Person.FirstName, "First Name", new { @class = "control-label" })
+                                                                            @Html.TextBoxFor(model => model.Person.FirstName, new { placeholder = "First Name", required = "required", @class = "form-control" })
+                                                                        </div>
+                                                                        </div>
+                                                <div class="col-md-12 mt-2">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Person.OtherName, "Other Name", new { @class = "control-label" })
+                                                        @Html.TextBoxFor(model => model.Person.OtherName, new { placeholder = "Other Name", @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Person.PhoneNumber, "Mobile No*", new { @class = "control-label" })
+                                                        @Html.TextBoxFor(model => model.Person.PhoneNumber, new { placeholder = "Mobile No", required = "required", @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Person.Email, "Email Address", new { @class = "control-label" })
+                                                        @Html.TextBoxFor(model => model.Person.Email, new { placeholder = "Email Address", required = "required", @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                @*<div class="col-md-12 mt-2">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Roles.Id, "Role", new { @class = "control-label " })
+                                                        @Html.DropDownListFor(model => model.Roles.Id, (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "form-control", required = true })
+                                                        @Html.ValidationMessageFor(model => model.Roles.Id)
+                                                    </div>
+                                                </div>*@
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <div class="col--2"></div>
+                                                                        <div class="col-sm-10">
+                                                                            <input class="btn btn-success mr5" type="submit" name="submit" value="Save" />
+                                                                        </div>
+                                                                    </div>
+
+                                                            </div>
+
+                                                        </div>
+                                        </form>
+                                                    </div>
+                                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                                }
+

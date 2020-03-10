@@ -1,0 +1,670 @@
+﻿@model Abundance_SN.Areas.Admin.Models.CourierViewModel
+
+@{
+// Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script type="text/javascript">
+    var noConflict = $.noConflict(true)
+
+    var courierServiceDataTable = null;
+    var courierAreaDataTable = null;
+    var courierChargeDataTable = null;
+
+    noConflict(document).ready(function () {
+        PopulateCourierSetupTables(1);
+        PopulateCourierSetupTables(2);
+        PopulateCourierSetupTables(3);
+
+        //courierServiceDataTable = noConflict('#courierServiceTable').DataTable();
+        //courierAreaDataTable = noConflict('#courierAreaTable').DataTable();
+        //courierChargeDataTable = noConflict('#courierChargesTable').DataTable();
+    });
+
+
+    function showCreateModal(tableId) {
+        hideControls();
+
+        switch (tableId) {
+            case 1:
+                $('#divCourierPhoneNo').show();
+                $('#divCourierName').show();
+                $('#divCourierEmail').show();
+                $('#divCourierAddress').show();
+                $('#btnCreateCourierService').show();
+                $('#addCourierService').show();
+                break;
+            case 2:
+                $('#divCourierArea').show();
+                $('#btnCreateCourierArea').show();
+                $('#divstateDropdown').show();
+                $('#addCourierArea').show();
+                break;
+            case 3:
+                $('#divCourierCharges').show();
+                $('#btnCreateCourierCharges').show();
+                $('#addCharges').show();
+                break;
+
+            default:
+                break;
+        }
+
+        $('#createModal').modal('show');
+    }
+
+    //this hides all the controls in the modal
+    function hideControls() {
+        $('#addCourierService').hide();
+        $('#editCourierService').hide();
+        //$('#addCourierRegion').hide();
+        //$('#editCourierRegion').hide();
+        $('#addCourierArea').hide();
+        $('#editCourierArea').hide();
+        $('#addCharges').hide();
+        $('#editCharges').hide();
+        $('#idCourier').hide();
+        $('#divCourierName').hide();
+        $('#divCourierPhoneNo').hide();
+        $('#divCourierAddress').hide();
+        $('#divCourierEmail').hide();
+        $('#divCourierArea').hide();
+        $('#divCourierCharges').hide();
+        $('#divCourierServiceDropdown').hide();
+        $('#idCourierArea').hide();
+        $('#idCourierCharges').hide();
+        $('#btnCreateCourierService').hide();
+        $('#btnSaveCourierService').hide();
+        $('#btnCreateCourierArea').hide();
+        $('#btnSaveCourierArea').hide();
+        $('#btnCreateCourierCharges').hide();
+        $('#btnSaveCourierCharges').hide();
+        $('#divstateDropdown').hide();
+        $(".Load").hide();
+    }
+    //Clear content of modal textboxes
+    function clearControlsContent() {
+        $("#idEdit").val('');
+        $('#stateDropdown').val('');
+        $('#courierPhoneNo').val('');
+        $('#courierName').val('');
+        $('#courierEmail').val('');
+        $('#courierAddress').val('');
+        $('#courierArea').val('');
+        $('#courierCharges').val('');
+    }
+    //Ajax Create Method that send values to the json creat method of the controller
+    function createRecord(tableType) {
+        if (tableType != null && tableType > 0) {
+
+            var valueArray = populateRecords();
+            var myJson = JSON.stringify(valueArray);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CreateRecord")',
+                    dataType: 'json',
+                    data: { tableType: tableType, myRecordArray: myJson },
+                    beforeSend: function () {
+                        $(".Load").show();
+                    },
+                    complete: function () {
+                        $(".Load").hide();
+                    },
+                    success: function (result) {
+                        if (result.IsError === false) {
+
+                            swal("Operation Successful", result.Message, "success");
+
+                            switch (tableType) {
+                                case 1:
+                                    courierServiceDataTable = noConflict('#courierServiceTable2').DataTable();
+                                    courierServiceDataTable.destroy();
+                                    break;
+                                case 2:
+                                    courierAreaDataTable = noConflict('#courierAreaTable2').DataTable();
+                                    courierAreaDataTable.destroy();
+                                    break;
+                                case 3:
+                                    courierChargesDataTable = noConflict('#courierChargesTable2').DataTable();
+                                    courierChargesDataTable.destroy();
+                                    break;
+                                default:
+                                    break;
+                            }
+                            clearControlsContent();
+                            $('#createModal').modal('hide');
+                            PopulateCourierSetupTables(tableType);
+
+                        } else {
+                            swal("Operation Fail", result.Message, "success");
+                        }
+                    },
+                    error: function (ex) {
+                        alert('Create failed.' + ex);
+                    }
+                });
+
+            }
+        }
+    //collect the values in an array
+    function populateRecords() {
+        var valueArray = { "Id": $("#idEdit").val(), "CourierServiceId": $('#courierServiceDropdown').val(), "StateId": $('#stateDropdown').val(), "CourierPhone": $('#courierPhoneNo').val(), "CourierName": $('#courierName').val(), "CourierEmail": $('#courierEmail').val(), "CourierAddress": $('#courierAddress').val(), "CourierArea": $('#courierArea').val(), "CourierCharges": $('#courierCharges').val() }
+
+        return valueArray;
+    }
+    function PopulateCourierSetupTables(tableType) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("PopulateCourierSetupTables")',
+                traditional: true,
+                data: { tableType: tableType},
+                beforeSend: function () {
+                    $(".Load").show();
+                },
+                complete: function () {
+                    $(".Load").hide();
+                },
+                success: function (result) {
+                    if (result[0] != undefined && result[0].IsError === false) {
+                        var i;
+                        switch (tableType) {
+                            case 1:
+
+                                $("#courierServiceTable").empty();
+
+                                for (i = 0; i < result.length; i++) {
+                                    result[i].index = result[i].Id;
+                                    $("#courierServiceTable").append('<tr><td>' + result[i].CourierServiceId + '</td>' + '<td>' + result[i].CourierName + '</td>' + '<td>' + result[i].CourierAddress + '</td>' + '<td>' + result[i].CourierPhone + '</td>' + '<td>' + result[i].CourierEmail + '</td>' + ' <td><input onclick="editRecord(' + result[i].CourierServiceId + ', 1)" class="btn btn-sm btn-success editTableRow" value="Edit" type="button" /></td>' + ' <td><input onclick="deleteRecord(' + result[i].CourierServiceId + ', 1)" class="btn btn-sm btn-success removeTableRow" value="Delete" type="button" /></td></tr>');
+
+                                }
+                                    courierServiceDataTable = noConflict('#courierServiceTable2').DataTable();
+
+
+                                break;
+                            case 2:
+                                $("#courierAreaTable").empty();
+
+                                for (i = 0; i < result.length; i++) {
+                                    result[i].index = result[i].Id;
+                                    $("#courierAreaTable").append('<tr><td>' + result[i].CourierAreaId + '</td>' + '<td>' + result[i].CourierArea + '</td>' + '<td>' + result[i].state + '</td>' + ' <td><input onclick="editRecord(' + result[i].CourierAreaId + ', 2)" class="btn btn-sm btn-success editTableRow" value="Edit" type="button" /></td>' + ' <td><input onclick="deleteRecord(' + result[i].CourierAreaId + ', 2)" class="btn btn-sm btn-success removeTableRow" value="Delete" type="button" /></td></tr>');
+
+                                }
+                                    courierAreaDataTable = noConflict('#courierAreaTable2').DataTable();
+
+                                break;
+                            case 3:
+                                $("#courierChargesTable").empty();
+
+                                for (i = 0; i < result.length; i++) {
+                                    result[i].index = result[i].Id;
+                                    $("#courierChargesTable").append('<tr><td>' + result[i].CourierChargeId + '</td>' + '<td>' + result[i].CourierCharges + '</td>' + ' <td><input onclick="editRecord(' + result[i].CourierChargeId + ', 3)" class="btn btn-sm btn-success editTableRow" value="Edit" type="button" /></td>' + ' <td><input onclick="deleteRecord(' + result[i].CourierChargeId + ', 3)" class="btn btn-sm btn-success removeTableRow" value="Delete" type="button" /></td></tr>');
+
+                                }
+                                    courierChargeDataTable = noConflict('#courierChargesTable2').DataTable();
+                                //courierChargeDataTable = $('#courierChargesTable').DataTable();
+                                //courierChargeDataTable;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    } else {
+                        //alert(result.Message);
+                    }
+                },
+                error: function (ex) {
+                    alert('Operation Failed.' + ex);
+                }
+            });
+    }
+
+            function editRecord(id, tableType) {
+            if (tableType != null && tableType > 0) {
+
+                var valueArray = populateRecords();
+                var myJson = JSON.stringify(valueArray);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("EditRecord")',
+                    dataType: 'json',
+                    data: { tableType: tableType, recordId: id, myRecordArray: myJson, action: "edit" },
+                    beforeSend: function () {
+                        $(".Load").show();
+                    },
+                    complete: function () {
+                        $(".Load").hide();
+                    },
+                    success: function (result) {
+                        if (result.IsError === false) {
+
+                            hideControls();
+
+                            $("#idEdit").val(result.Id);
+                            $("#idEdit").attr("readonly", "readonly");
+                            $("#idTextBox").show();
+
+                            switch (tableType) {
+                                case 1:
+                                    $('#divCourierPhoneNo').show();
+                                    $('#courierPhoneNo').val(result.CourierPhone);
+                                    $('#divCourierName').show();
+                                    $('#courierName').val(result.CourierName);
+                                    $('#divCourierEmail').show();
+                                    $('#courierEmail').val(result.CourierEmail);
+                                    $('#divCourierAddress').show();
+                                    $('#courierAddress').val(result.CourierAddress);
+                                    $('#btnSaveCourierService').show();
+                                    $('#editCourierService').show();
+                                    break;
+                                case 2:
+                                    $('#divCourierArea').show();
+                                    $('#courierArea').val(result.CourierArea);
+                                    $('#btnSaveCourierArea').show();
+                                    $('#editCourierArea').show();
+                                    break;
+                                case 3:
+                                    $('#divCourierCharges').show();
+                                    $('#courierCharges').val(result.CourierCharges);
+                                    $('#btnSaveCourierCharges').show();
+                                    $('#editCharges').show();
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            $('#createModal').modal('show');
+                        } else {
+                            alert(result.Message);
+                        }
+                    },
+                    error: function (ex) {
+                        alert('Edit failed.' + ex);
+                    }
+                });
+
+            }
+    }
+    function saveRecord(tableType) {
+            if (tableType != null && tableType > 0) {
+
+                var valueArray = populateRecords();
+                var myJson = JSON.stringify(valueArray);
+                var id = 0;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("EditRecord")',
+                    dataType: 'json',
+                    data: { tableType: tableType, recordId: id, myRecordArray: myJson, action: "save" },
+                    beforeSend: function () {
+                        $(".Load").show();
+                    },
+                    complete: function () {
+                        $(".Load").hide();
+                    },
+                    success: function (result) {
+                        if (result.IsError === false) {
+                            swal("Operation Successful", result.Message, "success");
+                            switch (tableType) {
+                                case 1:
+                                    if (courierServiceDataTable) {
+                                        courierServiceDataTable.destroy();
+                                        //courierServiceDataTable = noConflict('#courierServiceTable2').DataTable();    
+                                    }
+                                    else {
+                                        courierServiceDataTable = noConflict('#courierServiceTable2').DataTable();
+                                    }
+                                    break;
+                                case 2:
+
+                                    if (courierAreaDataTable) {
+                                        courierAreaDataTable.destroy();
+                                        //courierServiceDataTable = noConflict('#courierAreaDataTable2').DataTable();
+                                    }
+                                    else {
+                                        courierAreaDataTable = noConflict('#courierAreaTable2').DataTable();
+                                    }
+                                    break;
+                                case 3:
+                                    if (courierChargeDataTable) {
+                                        courierChargeDataTable.destroy();
+                                        //courierServiceDataTable = noConflict('#courierChargesTable2').DataTable();
+                                    }
+                                    else {
+                                        courierChargeDataTable = noConflict('#courierChargesTable2').DataTable();
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            clearControlsContent();
+                            $('#createModal').modal('hide');
+                            PopulateCourierSetupTables(tableType);
+                        } else {
+                            alert(result.Message);
+                        }
+                    },
+                    error: function (ex) {
+                        alert('Save operation failed.' + ex);
+                    }
+                });
+
+            }
+            }
+            function deleteRecord(id, tableType) {
+            if (tableType != null && tableType > 0) {
+
+                var deleteConfirmation = confirm("Confirm Delete!");
+
+                if (deleteConfirmation === true) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteRecord")',
+                        dataType: 'json',
+                        data: { tableType: tableType, recordId: id },
+                        beforeSend: function () {
+                            $(".Load").show();
+                        },
+                        complete: function () {
+                            $(".Load").hide();
+                        },
+                        success: function (result) {
+                            if (result.IsError === false) {
+
+                                swal("Operation Successful", result.Message, "success");
+
+                                switch (tableType) {
+                                    case 1:
+                                        if (courierServiceDataTable) {
+                                            courierServiceDataTable.destroy();
+                                            //courierServiceDataTable = noConflict('#courierServiceTable2').DataTable();    
+                                        }
+                                        else {
+                                            courierServiceDataTable = noConflict('#courierServiceTable2').DataTable();
+                                        }
+                                        break;
+                                    case 2:
+                                        if (courierAreaDataTable) {
+                                            courierAreaDataTable.destroy();
+                                            //courierServiceDataTable = noConflict('#courierAreaDataTable2').DataTable();
+                                        }
+                                        else {
+                                            courierAreaDataTable = noConflict('#courierAreaTable2').DataTable();
+                                        }
+                                        break;
+                                    case 3:
+                                        if (courierChargeDataTable) {
+                                            courierChargeDataTable.destroy();
+                                            //courierServiceDataTable = noConflict('#courierChargesTable2').DataTable();
+                                        }
+                                        else {
+                                            courierChargeDataTable = noConflict('#courierChargesTable2').DataTable();
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                PopulateCourierSetupTables(tableType);
+                            } else {
+                                swal("Operation Successful", result.Message, "error");
+                            }
+                        },
+                        error: function (ex) {
+                            swal("Operation Failed", result.Message, "error");
+                        }
+                    });
+                }
+            } else {
+                swal("Operation Failed", result.Message, "error");;
+            }
+        }
+</script>
+    <br />
+
+    <div class="app-content content">
+        <div class="content-wrapper" style="padding:0px;">
+            <div class="content-header row">
+                <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                    <h3 class="content-header-title mb-0 d-inline-block ml-2">Courier Setup</h3>
+                    <div class="row breadcrumbs-top d-inline-block">
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb">
+                                @*<li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Home")">Home</a></li>*@
+                                @*<li class="breadcrumb-item"><a href="#">Setup Courier Service</a></li>*@
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="container">
+                    <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 offset-sm-0 col-sm-12">
+                        @if (TempData["Message"] != null)
+                        {
+                            @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                        }
+                    </div>
+                    <div class="col-md-12 table-responsive">
+                        @*<h2 style="text-align: center">Courier Setup &nbsp; <span class="Load"><img src="~/Content/Images/bx_loader.gif" /></span> </h2>*@
+                        @*<h2 style="text-align: center">Courier Setup &nbsp;</h2>
+                        <hr />*@
+
+                        <div class="card p-2">
+                            <div class="row table-responsive">
+
+                                <div class="col-md-12">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading"><h3 class="col-md-10 col-sm-7 pull-left" style="text-align: center">SERVICE</h3>
+                                        <div class="col-md-2 col-sm-5 pull-right text-right"><button id="btnFeeCreate" class="btn btn-success btn-sm" onclick="showCreateModal(1)"><i class="fa fa-plus"> Add</i></button></div></div>
+                                                <div class="panel-body table-responsive">
+                                                    <table class="table table-striped table-hover" id="courierServiceTable2">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Courier Service Name</th>
+                                                                <th>Address</th>
+                                                                <th>Phone No</th>
+                                                                <th>Email</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="courierServiceTable"></tbody>
+                                                    </table>
+                                                </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                       
+                            <div class="row">
+
+                                
+                                    <div class="col-md-8">
+                                        <div class="card p-2">
+                                            <div class="panel panel-success">
+                                                <div class="panel-heading">
+                                                    <div class="col-md-10 col-sm-6 pull-left"><h3 style="text-align: center">AREA</h3></div>
+                                                <div class="col-md-2 col-sm-6 pull-right"><button id="btnFeeCreate" class="btn btn-success btn-sm" onclick="showCreateModal(2)"><i class="fa fa-plus"> Add</i></button></div>
+                                                </div>
+                                                <div class="panel-body table-responsive">
+
+                                                    <table class="table table-striped table-hover" id="courierAreaTable2">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Courier Area</th>
+                                                                <th>State</th>
+                                                                @*<th>Courier Service</th>*@
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="courierAreaTable"></tbody>
+                                                    </table>
+                                                   
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="card p-2">
+                                            <div class="panel panel-success">
+                                            
+
+                                                <div class="panel-heading">
+                                                    <div class="col-md-8 col-sm-6 pull-left"><h3 style="text-align: center">CHARGES</h3></div>
+                                                    <div class="col-md-3 col-sm-6 pull-right  pl-0"><button id="btnFeeCreate" class="btn btn-success btn-sm" onclick="showCreateModal(3)"><i class="fa fa-plus"> Add</i></button></div>
+                                                </div>
+
+
+                                                <div class="panel-body table-responsive">
+
+                                                    <table class="table table-striped table-hover" id="courierChargesTable2">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Charges</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="courierChargesTable"></tbody>
+                                                    </table>
+                                                    @*<button id="btnFeeCreate" class="btn btn-success" onclick="showCreateModal(3)"><i class="fa fa-plus"> Add</i></button>*@
+
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                        </div>
+                                </div>
+                        
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                            @*Modals*@
+
+                            <div class="modal fade" role="dialog" id="createModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            
+                                            <h4 style="display: none" id="addCourierService" class="modal-title">Add Courier Service</h4>
+
+                                            <h4 style="display: none" id="editCourierService" class="modal-title">Edit Courier Service</h4>
+
+                                            @*<h4 style="display: none" id="addCourierRegion" class="modal-title">Add Courier Region</h4>
+
+                                            <h4 style="display: none" id="editCourierRegion" class="modal-title">Edit Courier Region</h4>*@
+
+                                            <h4 style="display: none" id="addCourierArea" class="modal-title">Add Courier Area</h4>
+
+                                            <h4 style="display: none" id="editCourierArea" class="modal-title">Edit Courier Area</h4>
+
+                                            <h4 style="display: none" id="addCharges" class="modal-title">Add Charges</h4>
+
+                                            <h4 style="display: none" id="editCharges" class="modal-title">Edit Charges</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group" style="display: none" id="idTextBox">
+                                                @Html.LabelFor(model => model.CourierService.Courier_Id, "ID:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierService.Courier_Id, new { @class = "form-control", id = "idEdit" })
+                                                @Html.ValidationMessageFor(model => model.CourierService.Courier_Id)
+                                            </div>
+                                            <div class="form-group" style="display: none" id="divCourierName">
+                                                @Html.LabelFor(model => model.CourierService.Courier_Name, "Name:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierService.Courier_Name, new { @class = "form-control", id = "courierName" })
+                                                @Html.ValidationMessageFor(model => model.CourierService.Courier_Name)
+                                            </div>
+                                            <div class="form-group" style="display: none" id="divCourierAddress">
+                                                @Html.LabelFor(model => model.CourierService.Address, "Address:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierService.Address, new { @class = "form-control", id = "courierAddress" })
+                                                @Html.ValidationMessageFor(model => model.CourierService.Address)
+                                            </div>
+                                            <div class="form-group" style="display: none" id="divCourierPhoneNo">
+                                                @Html.LabelFor(model => model.CourierService.Phone_Number, "Phone No.:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierService.Phone_Number, new { @class = "form-control", id = "courierPhoneNo" })
+                                                @Html.ValidationMessageFor(model => model.CourierService.Phone_Number)
+                                            </div>
+                                            <div class="form-group" style="display: none" id="divCourierEmail">
+                                                @Html.LabelFor(model => model.CourierService.Email, "Email:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierService.Email, new { @class = "form-control", id = "courierEmail" })
+                                                @Html.ValidationMessageFor(model => model.CourierService.Email)
+                                            </div>
+                                            
+                                            @*<div class="form-group" style="display: none" id="divCourierServiceDropdown">
+                                                @Html.LabelFor(model => model.CourierService.Courier_Id, "Courier:", new { @class = "control-label" })
+                                                @Html.DropDownListFor(model => model.CourierService.Courier_Id, (IEnumerable<SelectListItem>)ViewBag.CourierServiceId, new { @class = "form-control", id = "courierServiceDropdown" })
+                                                @Html.ValidationMessageFor(model => model.CourierService.Courier_Id)
+                                            </div>*@
+                                            <div class="form-group" style="display: none" id="divstateDropdown">
+                                                @Html.LabelFor(model => model.State.StateId, "State: ", new { @class = "control-label" })
+                                                @Html.DropDownListFor(model => model.State.StateId, (IEnumerable<SelectListItem>)ViewBag.StateId, new { @class = "form-control", id = "stateDropdown" })
+                                                @Html.ValidationMessageFor(model => model.State.StateId)
+                                            </div>
+                                            @*<div class="form-group" style="display: none" id="divCourierRegion">
+                                                @Html.LabelFor(model => model.CourierRegion.Region_Name, "Region:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierRegion.Region_Name, new { @class = "form-control", id = "courierRegion" })
+                                                @Html.ValidationMessageFor(model => model.CourierRegion.Region_Name)
+                                            </div>*@
+                                            <div class="form-group" style="display: none" id="idCourierArea">
+                                                @Html.LabelFor(model => model.CourierAreaCharges.Id, "ID:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierAreaCharges.Id, new { @class = "form-control", id = "idEditArea" })
+                                                @Html.ValidationMessageFor(model => model.CourierAreaCharges.Id)
+                                            </div>
+                                            <div class="form-group" style="display: none" id="divCourierArea">
+                                                @Html.LabelFor(model => model.CourierAreaCharges.Area, "Area:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierAreaCharges.Area, new { @class = "form-control", id = "courierArea" })
+                                                @Html.ValidationMessageFor(model => model.CourierAreaCharges.Area)
+                                            </div>
+                                            <div class="form-group" style="display: none" id="idCourierCharges">
+                                                @Html.LabelFor(model => model.CourierCharges.Id, "ID:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierCharges.Id, new { @class = "form-control", id = "idEditCharges" })
+                                                @Html.ValidationMessageFor(model => model.CourierCharges.Id)
+                                            </div>
+                                            
+                                            <div class="form-group" style="display: none" id="divCourierCharges">
+                                                @Html.LabelFor(model => model.CourierCharges.Charges, "Charge:", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.CourierCharges.Charges, new { @class = "form-control", id = "courierCharges" })
+                                                @Html.ValidationMessageFor(model => model.CourierCharges.Charges)
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer form-group">
+                                            <span style="display: none"class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+
+                                            <button style="display: none" type="button" id="btnCreateCourierService" class="btn btn-success" onclick="createRecord(1)">Create Courier Service</button>
+                                            <button style="display: none" type="button" id="btnSaveCourierService" class="btn btn-success" onclick="saveRecord(1)">Save Courier Service</button>
+                                            <button style="display: none" type="button" id="btnCreateCourierArea" class="btn btn-success" onclick="createRecord(2)">Create Courier Area</button>
+                                            <button style="display: none" type="button" id="btnSaveCourierArea" class="btn btn-success" onclick="saveRecord(2)">Save Courier Area</button>
+                                            <button style="display: none" type="button" id="btnCreateCourierCharges" class="btn btn-success" onclick="createRecord(3)">Create Courier Charges</button>
+                                            <button style="display: none" type="button" id="btnSaveCourierCharges" class="btn btn-success" onclick="saveRecord(3)">Save Courier Charges</button>
+
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>

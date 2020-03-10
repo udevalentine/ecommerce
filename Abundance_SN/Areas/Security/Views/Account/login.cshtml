@@ -1,0 +1,72 @@
+﻿@model Abundance_SN.Models.RegisterViewModel
+@{
+    ViewBag.Title = "login";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (localStorage.products == null || localStorage.products == "" || localStorage.products == "[]") {
+            $('#checkoutbtn').hide();
+
+        }
+        else {
+            $('#checkoutbtn').show();
+        }
+    })
+</script>
+<main class="site-main product-list product-grid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-sm-4">
+
+            <div class="col-md-11 shadow" id="checkoutbtn" style="background:#fff; padding:25px; margin-bottom:19px; text-align:center;">
+                <p>Don't need an Account?</p>
+                <a href="@Url.Action("Checkout", "Checkout", new {area = "Customer", id = "anonymous"})" class="btn btn-primary btn-md btn-block margin-bottom-none">CONTINUE TO CHECKOUT</a>
+            </div>
+
+            
+
+            <div class="col-md-11 shadow" style="background:#fff; padding: 25px;">
+                <div class="col-md-12">
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                    }
+                </div>
+                <h5 class="title-login">Log in to your account</h5>
+                @*<p class="p-title-login">Welcome to your account.</p>*@
+                @using (Html.BeginForm("Login", "Account", new { Area = "Security" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <form class="login" method="post">
+                        <p class="form-row form-row-wide">
+                            @Html.LabelFor(model => model.UserName, "Email Address", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.UserName, new { placeholder = "Type your email address", required = "required", @class = "form-control" })
+                        </p>
+                        <p class="form-row form-row-wide">
+                            @Html.LabelFor(model => model.Password, "Password", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Password, new { placeholder = "************", required = "required", type = "password", @class = "form-control" })
+                        </p>
+                        <ul class="inline-block">
+                            <li style="list-style:none;"><label class="inline"><input type="checkbox"><span class="input" id="remember_me"></span>Remember me</label></li>
+                        </ul>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                        <p class="form-row">
+                            <input type="submit" value="Login" name="Login" class="button-submit btn btn-primary" style="background: #31639f;">
+                        </p>
+                    </form>
+                }
+                <div class="row" id="checkoutbtn">
+                    <div class="col-md-12">
+                        <p>
+                            Don't have an Account?
+                            @Html.ActionLink("Register", "Register", "Account", new { Area = "Security" })
+                        </p>
+                    </div>
+                </div>
+               
+            </div>
+
+        </div>
+        
+    </div>
+    </main>

@@ -1,0 +1,70 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+}
+
+@using (Html.BeginForm("Create", "WareHouse", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <br />
+
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.WareHouse.Name, "Name", new { @class = "control-label " })
+                                @Html.TextBoxFor(model => model.WareHouse.Name, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.WareHouse.Name, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.WareHouse.Address, "Address", new { @class = "control-label " })
+                                @Html.TextBoxFor(model => model.WareHouse.Address, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.WareHouse.Address, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WareHouse.PhoneNumber, "Mobile Number", new { @class = "control-label " })
+                                @Html.TextBoxFor(model => model.WareHouse.PhoneNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.WareHouse.PhoneNumber, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-5">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WareHouse.Active, "Active", new { @class = "control-label " })
+                                @Html.CheckBoxFor(model => model.WareHouse.Active, new { @class = "" })
+                                @Html.ValidationMessageFor(model => model.WareHouse.Active, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col--2"></div>
+                            <div class="col-sm-10">
+                                <input class="btn btn-success mr5" type="submit" name="submit" value="Create" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

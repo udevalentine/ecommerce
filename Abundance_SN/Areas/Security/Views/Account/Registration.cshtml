@@ -1,0 +1,117 @@
+﻿@model Abundance_SN.Models.RegisterViewModel
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (localStorage.products == null || localStorage.products == "" || localStorage.products == "[]") {
+            $('#checkoutbtn').hide();
+
+        }
+        else {
+            $('#checkoutbtn').show();
+        }
+    })
+</script>
+
+<style>
+    .button-submit {
+        background: #31639f !important;
+    }
+</style>
+<main class="site-main site-login" style="padding-bottom: 20px;">
+    @if (TempData["Message"] != null)
+    {
+        var tempDatamessage = TempData["Message"];
+        @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+    }
+    <div class="customer-login" style="margin-top:-1px; padding-top:20px;">
+        <div class="container">
+          
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="col-md-11 shadow" style="background:#fff; padding: 25px;">
+                        <h5 class="title-login">Log in to your account</h5>
+                        <p class="p-title-login">Welcome to your account.</p>
+@using (Html.BeginForm("Login", "Account", new { Area = "Security" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+                        <form class="login" method="post">
+                            <p class="form-row form-row-wide">
+                                @Html.LabelFor(model => model.UserName, "Email Address", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.UserName, new { placeholder = "Type your email address", required = "required", @class = "form-control" })
+                            </p>
+                            <p class="form-row form-row-wide">
+                                @Html.LabelFor(model => model.Password, "Password", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.Password, new { placeholder = "************", required = "required", type = "password", @class = "form-control" })
+                            </p>
+                            <ul class="inline-block">
+                                <li style="list-style:none;"><label class="inline"><input type="checkbox"><span class="input" id="remember_me" ></span>Remember me</label></li>
+                            </ul>
+                            <a href="#" class="forgot-password">Forgotten password?</a>
+                            <p class="form-row">
+                                <input type="submit" value="Login" name="Login" class="button-submit">
+                            </p>
+                        </form>
+}
+                    </div>
+
+                </div>
+                <div class="col-sm-5 border-after">
+                  
+                        <div class="row"id="checkoutbtn">
+                            <div class="col-md-12 m-b-10">
+                                <a href="@Url.Action("Checkout", "Checkout", new {area = "Customer", id = "anonymous"})" class="btn btn-primary margin-bottom-none">CONTINUE TO CHECKOUT</a>
+                          </div>
+                        </div>
+                    <br />
+                  
+
+                    <h5 class="title-login col-md-12">Create an account</h5>
+@using (Html.BeginForm("Register", "Account", new { Area = "Security" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+                    <form class="register col-md-12" method="post">
+                        <p class="form-row form-row-wide col-md-6 padding-left">
+                            @Html.LabelFor(model => model.Person.Surname, "Surname", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Person.Surname, new { placeholder = "Surname", required = "required", @class = "form-control" })
+                        </p>
+                        <p class="form-row form-row-wide col-md-6 padding-right">
+                            @Html.LabelFor(model => model.Person.FirstName, "First Name", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Person.FirstName, new { placeholder = "First Name", required = "required", @class = "form-control" })
+                        </p>
+                        <p class="form-row form-row-wide col-md-6 padding-left">
+                           @Html.LabelFor(model => model.Person.OtherName, "Other Name", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Person.OtherName, new { placeholder = "Other Name", @class = "form-control" })
+                        </p>
+                        <p class="form-row form-row-wide col-md-6 padding-right">
+                            @Html.LabelFor(model => model.Person.PhoneNumber, "Mobile No*", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Person.PhoneNumber, new { placeholder = "Mobile No", required = "required", @class = "form-control" })
+                        </p>
+                        <p class="form-row form-row-wide col-md-12">
+                            @Html.LabelFor(model => model.Person.Email, "Email Address", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Person.Email, new { placeholder = "Email Address", required = "required", @class = "form-control" })
+                        </p>
+                        @*<ul>
+                            <li><label class="inline"><input type="checkbox"><span class="input"></span>Sign Up for Newsletter</label></li>
+                        </ul>*@
+                        <p class="form-row form-row-wide col-md-6 padding-left">
+                            @Html.LabelFor(model => model.Password, "Password", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Password, new { placeholder = "Password", type = "password", required = "required", @class = "form-control" })
+                        </p>
+                        <p class="form-row form-row-wide col-md-6 padding-right">
+                            @Html.LabelFor(model => model.ConfirmPassword, "Confirm Password", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.ConfirmPassword, new { placeholder = "Confirm Password", type = "password", required = "required", @class = "form-control" })
+                        </p>
+                        <p class="form-row col-md-12">
+                            @*<button class="btn btn-primary margin-bottom-none" type="submit">Register</button>*@
+                            <input type="submit" value="Register" name="Submit" class="button-submit">
+                        </p>
+                    </form>
+}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

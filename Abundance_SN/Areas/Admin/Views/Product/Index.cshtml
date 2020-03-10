@@ -1,0 +1,912 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+@using Abundance_SN.Business
+@using Abundance_SN.Models
+
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .form-group {
+        margin: 15px !important;
+    }
+
+
+    /*#wrapper
+    {
+        position:absolute;
+        left:50%;
+        top:50%;
+        width:600px;
+        height:150px;
+        margin:-150px 0 0 -300px;
+    }*/
+
+    .tags-input {
+        list-style: none;
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 5px;
+        height: 50px;
+        font-size: 14px;
+        background: #fff;
+        width: 300px;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+        .tags-input li {
+            float: left;
+        }
+
+    .tags {
+        background: #28343d;
+        padding: 5px 20px 5px 8px;
+        border-radius: 2px;
+        margin-right: 5px;
+        position: relative;
+        color: #fff;
+    }
+
+        .tags i {
+            position: absolute;
+            right: 6px;
+            top: 3px;
+            width: 8px;
+            height: 8px;
+            content: '';
+            cursor: pointer;
+            opacity: .7;
+            font-size: 12px;
+        }
+
+            .tags i:hover {
+                opacity: 1;
+            }
+
+    .tags-new input[type="text"] {
+        border: 0;
+        margin: 0;
+        padding: 0 0 0 3px;
+        font-size: 14px;
+        margin-top: 5px;
+        background: #fff;
+    }
+
+        .tags-new input[type="text"]:focus {
+            outline: none;
+        }
+</style>
+
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    var productId;
+    var clickArray = [];
+    var productProp = [];
+    $(document).ready(function () {
+
+        $('.Load').hide();
+        $('#divOption0').show();
+        $('#txtbox').show();
+        $('#deleteBtn0').hide();
+        $('#btnOption0').show();
+        $('#createModal').modal('hide');
+        var files = null;
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+				{
+				    extend: 'copy',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'csv',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+				},
+				{
+				    extend: 'excel',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'pdf',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				},
+				{
+				    extend: 'print',
+				    exportOptions: {
+				        columns: ':visible'
+				    }
+
+
+				}, , 'colvis'
+            ]
+        });
+
+        $("#submitBtn").on('click', function (e) {
+
+            $('.Load').show();
+            var productVariantKey1 = $("#ProductVariant_Key1").val();
+            var productVariantKey2 = $("#ProductVariant_Key2").val();
+            var productVariantKey3 = $("#ProductVariant_Key3").val();
+            var productVariantValue1 = '';
+            [].forEach.call(document.querySelectorAll('#keyValue1Ul li'), function (item) { return productVariantValue1 += item.innerText + ","; });
+            var productVariantValue2 = '';
+            [].forEach.call(document.querySelectorAll('#keyValue2Ul li'), function (item) { return productVariantValue2 += item.innerText + ","; });
+            var productVariantValue3 = '';
+            [].forEach.call(document.querySelectorAll('#keyValue3Ul li'), function (item) { return productVariantValue3 += item.innerText + ","; });
+
+            var productData = {
+                'productVariantKey1': productVariantKey1,
+                'productVariantKey2': productVariantKey2,
+                'productVariantKey3': productVariantKey3,
+                'productVariantValue1': productVariantValue1,
+                'productVariantValue2': productVariantValue2,
+                'productVariantValue3': productVariantValue3
+            }
+
+            var productVariantArray = JSON.stringify(productProp);
+            var productArray = JSON.stringify(productData);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CreateProductVariant", "Product")', // we are calling json method
+                dataType: 'json',
+                //contentType:"application/json",
+                data: { productId: productId, productItems: productArray, productVariantArray: productVariantArray },
+                success: function (types) {
+                    if (types === "Error") {
+                        swal("Operation Failed", "SomeThing Went Wrong Kindly Try Again", "error");
+                    } else {
+                        swal("Operation Successful", "Product Variant has been Created", "success");
+                    }
+                    location.reload(true);
+                },
+                error: function (ex) {
+                    alert('Failed to Create Product Variant.' + ex);
+                    $('.Load').hide();
+                    console.log(ex);
+                }
+            });
+        });
+        $("#keyValue1Input").keyup(function (event) {
+            var tag = $(this).val().trim(),
+			  length = tag.length;
+
+            if ((tag.charAt(length - 1) == ',') && (tag != ",") || event.keyCode === 13) {
+                tag = tag.substring(0, length - 1);
+                var id = $(this);
+
+                if (!existingTag(tag, id)) {
+
+                    var variantValueSplit;
+                    var variantValueArray = [];
+                    if (tag.indexOf(",") !== -1) {
+                        variantValueSplit = tag.split(",");
+                        $.each(variantValueSplit, function (i, myItem) {
+                            if (myItem != "") {
+                                variantValueArray.push(myItem);
+                            }
+
+                        });
+                    } else {
+                        variantValueArray.push(tag);
+                    }
+
+                    var variantObj;
+                    var newName;
+
+                    for (var i = 0; i < variantValueArray.length; i++) {
+
+                        var variantValue = variantValueArray[i];
+
+                        if (productProp && productProp.length > 0) {
+                            //1=type1, 2=type2, 3=type3, 4=type12, 5=type13, 6=type123, 7=type23
+                            var newProdProp = [];
+                            switch (productProp[0].Type) {
+                                case "1":
+                                    variantObj = { Type: "1", Select: true, Name: variantValue, Price: "0.00", Barcode: "" };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                                case "2":
+                                    $.each(productProp, function (i, item) {
+                                        newName = tag + " - " + item.Name;
+                                        variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        if (checkIfItemExist(variantObj.Name)) {
+                                            newProdProp.push(newName);
+                                        };
+                                    });
+                                    productProp = newProdProp;
+                                case "3":
+                                    $.each(productProp, function (i, item) {
+                                        newName = tag + " - " + item.Name;
+                                        variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        if (checkIfItemExist(variantObj.Name)) {
+                                            newProdProp.push(newName);
+                                        };
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "4":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        $.each(productProp, function (i, item) {
+                                            newName = tag + " - " + item.Name.split(" - ")[1];
+                                            variantObj = { Id: i, Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                            var result = newProdProp.filter(function (item) {
+                                                return (item.Name == variantObj.Name);
+                                            });
+                                            if (result.length == 0) {
+                                                newProdProp.push(variantObj);
+                                            }
+                                        });
+                                        productProp = productProp.concat(newProdProp);
+                                    };
+                                    break;
+                                case "5":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "5", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                                case "6":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[1] + " - " + productProp[0].Name.split(" - ")[2];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                                case "7":
+                                    newName = tag + " - " + productProp[0].Name.split(" - ")[0] + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        productProp.push(variantObj);
+                                    };
+                                    break;
+                            }
+
+                            $('<li class="tags"><span>' + variantValueArray[i] + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValuel"));
+                            $(this).val("");
+                            generateVariantTable();
+                        } else {
+                            variantObj = { Type: "1", Select: true, Name: tag, Price: "0.00", Barcode: "" };
+                            productProp.push(variantObj);
+                            generateVariantTable();
+                            $('<li class="tags"><span>' + tag + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValuel"));
+                            $(this).val("");
+                        }
+                    }
+                }
+                else {
+                    $(this).val(tag);
+                }
+            }
+
+        });
+
+
+
+        $('#keyvalue2input').keyup(function (event) {
+
+            var tag = $(this).val().trim(),
+			  length = tag.length;
+
+            if ((tag.charAt(length - 1) == ',') && (tag != ",") || event.keyCode === 13) {
+                tag = tag.substring(0, length - 1);
+                var id = $(this);
+
+                if (!existingTag(tag, id)) {
+
+                    var variantValueSplit;
+                    var variantValueArray = [];
+                    if (tag.indexOf(",") !== -1) {
+                        variantValueSplit = tag.split(",");
+                        $.each(variantValueSplit, function (i, myItem) {
+                            if (myItem != "") {
+                                variantValueArray.push(myItem);
+                            }
+                        });
+                    } else {
+                        variantValueArray.push(tag);
+                    }
+
+                    var variantObj;
+                    var newName;
+
+                    for (var i = 0; i < variantValueArray.length; i++) {
+
+                        var variantValue = variantValueArray[i];
+
+                        if (productProp && productProp.length > 0) {
+                            //1=type1, 2=type2, 3=type3, 4=type12, 5=type13, 6=type123, 7=type23
+                            var newProdProp = [];
+                            switch (productProp[0].Type) {
+                                case "1":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name + " - " + variantValue;
+                                        variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "2":
+                                    variantObj = { Type: "2", Select: true, Name: variantValue, Price: "0.00", Barcode: "" };
+                                    productProp.push(variantObj);
+                                case "3":
+                                    $.each(productProp, function (i, item) {
+                                        newName = variantValue + " - " + item.Name;
+                                        variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "4":
+                                    newName = productProp[0].Name.split(" - ")[0] + " - " + variantValue;
+                                    variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        $.each(productProp, function (i, item) {
+                                            newName = item.Name.split(" - ")[0] + " - " + variantValue;
+                                            variantObj = { Id: i, Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                            var result = newProdProp.filter(function (item) {
+                                                return (item.Name == variantObj.Name);
+                                            });
+                                            if (result.length == 0) {
+                                                newProdProp.push(variantObj);
+                                            }
+                                        });
+                                        productProp = productProp.concat(newProdProp);
+                                    }
+                                    break;
+                                case "5":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name.split(" - ")[0] + " - " + variantValue + " - " + item.Name.split(" - ")[1];
+                                        variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "6":
+                                    newName = productProp[0].Name.split(" - ")[0] + " - " + variantValue + " - " + productProp[0].Name.split(" - ")[2];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    productProp.push(variantObj);
+                                    break;
+                                case "7":
+                                    newName = variantValue + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    productProp.push(variantObj);
+                                    break;
+                            }
+
+                            $('<li class="tags"><span>' + variantValueArray[i] + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue2"));
+                            $(this).val("");
+                            generateVariantTable();
+                        } else {
+                            variantObj = { Type: "2", Select: true, Name: tag, Price: "0.00", Barcode: "" };
+                            productProp.push(variantObj);
+                            generateVariantTable();
+                            $('<li class="tags"><span>' + tag + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue2"));
+                            $(this).val("");
+                        }
+                    }
+                }
+            }
+        });
+
+        $('.tags-new input').keyup(function (event) {
+            var tag = $(this).val().trim(),
+			  length = tag.length;
+
+            if ((tag.charAt(length - 1) == ',') && (tag != ",") || event.keyCode === 13) {
+                tag = tag.substring(0, length - 1);
+                var id = $(this);
+
+                if (!existingTag(tag, id)) {
+
+                    var variantValueSplit;
+                    var variantValueArray = [];
+                    if (tag.indexOf(",") !== -1) {
+                        variantValueSplit = tag.split(",");
+                        $.each(variantValueSplit, function (i, myItem) {
+                            if (myItem != "") {
+                                variantValueArray.push(myItem);
+                            }
+
+                        });
+                    } else {
+                        variantValueArray.push(tag);
+                    }
+
+                    var variantObj;
+                    var newName;
+
+                    for (var i = 0; i < variantValueArray.length; i++) {
+
+                        var variantValue = variantValueArray[i];
+
+                        if (productProp && productProp.length > 0) {
+                            //1=type1, 2=type2, 3=type3, 4=type12, 5=type13, 6=type123, 7=type23
+                            var newProdProp = [];
+                            switch (productProp[0].Type) {
+                                case "1":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name + " - " + variantValue;
+                                        variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "2":
+                                    variantObj = { Type: "2", Select: true, Name: variantValue, Price: "0.00", Barcode: "" };
+                                    productProp.push(variantObj);
+                                case "3":
+                                    $.each(productProp, function (i, item) {
+                                        newName = variantValue + " - " + item.Name;
+                                        variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "4":
+                                    newName = productProp[0].Name.split(" * ")[0] + " * " + variantValue;
+                                    variantObj = { Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    if (checkIfItemExist(variantObj.Name)) {
+                                        $.each(productProp, function (i, item) {
+                                            newName = item.Name.split(" * ")[0] + " * " + variantValue;
+                                            variantObj = { Id: i, Type: "4", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                            var result = newProdProp.filter(function (item) {
+                                                return (item.Name == variantObj.Name);
+                                            });
+                                            if (result.length == 0) {
+                                                newProdProp.push(variantObj);
+                                            }
+                                        });
+                                        productProp = productProp.concat(newProdProp);
+                                    }
+                                    break;
+                                case "5":
+                                    $.each(productProp, function (i, item) {
+                                        newName = item.Name.split(" - ")[0] + " - " + variantValue + " - " + item.Name.split(" - ")[1];
+                                        variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                        newProdProp.push(variantObj);
+                                    });
+                                    productProp = newProdProp;
+                                    break;
+                                case "6":
+                                    newName = productProp[0].Name.split(" - ")[0] + " - " + variantValue + " - " + productProp[0].Name.split(" - ")[2];
+                                    variantObj = { Type: "6", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    productProp.push(variantObj);
+                                    break;
+                                case "7":
+                                    newName = variantValue + " - " + productProp[0].Name.split(" - ")[1];
+                                    variantObj = { Type: "7", Select: true, Name: newName, Price: "0.00", Barcode: "" };
+                                    productProp.push(variantObj);
+                                    break;
+                            }
+
+                            $('<li class="tags"><span>' + variantValueArray[i] + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue3"));
+                            $(this).val("");
+                            generateVariantTable();
+                        } else {
+                            variantObj = { Type: "2", Select: true, Name: tag, Price: "0.00", Barcode: "" };
+                            productProp.push(variantObj);
+                            generateVariantTable();
+                            $('<li class="tags"><span>' + tag + '</span><i class="fa fa-times"></i></i></li>').insertBefore($("#keyValue3"));
+                            $(this).val("");
+                        }
+                    }
+                }
+            }
+
+        });
+
+        $(document).on("click", ".tags i", function () {
+
+            var text = $(this).parent("li").text();
+            var newProductProp = [];
+
+
+            for (var i = 0; i < productProp.length; i++) {
+
+                if (productProp[i].Name != undefined && productProp[i].Name.indexOf(text) > -1) {
+                    newProductProp.push(productProp);
+                }
+            }
+            $.each(newProductProp, function (i, itemToBeRemoved) {
+                productProp.pop(itemToBeRemoved);
+            });
+            $(this).parent("li").remove();
+            generateVariantTable();
+
+        });
+
+
+    });
+    function deleteOption(deleteButton) {
+        var clicks = deleteButton.id.replace('deleteBtn', '');
+        var oldClickNumber = parseInt(clicks) - 1;
+        if (clicks == 1) {
+            $('#deleteBtn0').hide();
+            $('#divOption' + clicks).find('input:text').val('');
+            $('#divOption' + clicks).hide();
+            $('#btnOption' + clicks).show();
+            $('#btnOption' + clicks).attr('id', 'btnOption' + oldClickNumber);
+
+        } else {
+            $('#divOption' + clicks).find('input:text').val('');
+            $('#divOption' + clicks).hide();
+            $('#btnOption' + oldClickNumber).show();
+            $('#deleteBtn0').show();
+        }
+
+
+    }
+
+    function generateVariantTable() {
+
+        if (productProp.length > 0) {
+            $("#tblVariantBody").empty();
+            for (var i = 0; i < productProp.length; i++) {
+                var product = productProp[i];
+                if (product.Select == true) {
+                    $("#tblVariantBody").append('<tr><td><input type="checkbox" onclick="changeOptionStatus(' + i + ')" checked="' + product.Select + '" /><p>' + product.Name + '</p></td><td><input type="text" value="' + product.Price + '"/></td>' +
+											'<td><input type="text" value="' + product.Barcode + '"/></td></tr>');
+                } else {
+                    $("#tblVariantBody").append('<tr><td><input type="checkbox" onclick="changeOptionStatus(' + i + ')"/><p>' + product.Name + '</p></td><td><input type="text" value="' + product.Price + '"/></td>' +
+											'<td><input type="text" value="' + product.Barcode + '"/></td></tr>');
+                }
+
+
+            }
+
+            $("#tblVariant").show();
+        } else {
+            $("#tblVariant").hide();
+        }
+    }
+    function checkIfItemExist(name) {
+
+        var existing = true,
+			text = name.toLowerCase();
+
+        $.each(productProp, function (i, item) {
+            if (item.Name.toLowerCase() == text) {
+                existing = false;
+                return "";
+            }
+        });
+
+        return existing;
+    }
+
+    function changeOptionStatus(id) {
+
+        if (productProp[id].Select) {
+            productProp[id].Select = false;
+        } else {
+            productProp[id].Select = true;
+        }
+
+        generateVariantTable();
+    }
+
+
+    function existingTag(text, tag) {
+
+        var existing = false;
+        $.each(productProp, function (i, item) {
+            if (item.Name.indexOf(text) > -1) {
+                existing = true;
+            }
+        });
+        return existing;
+    }
+
+    function showMoreOption(optionButton) {
+        var clicks = optionButton.id.replace('btnOption', '');
+        clicks = parseInt(clicks) + 1;
+        var oldClickNumber = parseInt(clicks) - 1;
+
+        if (clicks == 2) {
+            $('#btnOption' + oldClickNumber).hide();
+            $('#divOption2').show();
+        } else if (clicks < 3 && clicks !== 2) {
+
+            $('#divOption1').show();
+            $('#btnOption' + oldClickNumber).attr('id', 'btnOption' + clicks);
+        }
+
+
+    }
+
+    function CreateProductVariant(id) {
+
+        if (id != null) {
+            productId = parseInt(id);
+            $('#productIdBtn').val(productId);
+            $('#createModal').modal('show');
+            $('#btnValue').show();
+        } else {
+            $('#createModal').modal('hide');
+        }
+    }
+</script>
+@{ 
+    
+}
+        <div class="app-content content">
+            <div class="content-wrapper">
+                <div class="content-header row">
+                    
+                    <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
+                        <h3 class="content-header-title mb-0 d-inline-block">Products</h3>
+                        <div class="row breadcrumbs-top d-inline-block">
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb">
+                                    @*<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>*@
+                                    <li class="breadcrumb-item"><a href="#">Manage Products</a></li>
+                                    <!-- <li class="breadcrumb-item active"><a href="#">Basic Forms</a>
+                                    </li> -->
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="content-body">
+                    <!-- Basic form layout section start -->
+                    <section id="basic-form-layouts">
+                        <div class="col-md-12">
+                            @if (TempData["Message"] != null)
+                            {
+                                @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+
+                                    <div class="card-content collapse show">
+                                        <div class="card-body">
+                                            <div id="DataTables_Table_10_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                                <div class="row">
+                                                    <div class="dt-buttons btn-group col-md-7 pt-2">
+                                                        @*<a class="btn btn-secondary buttons-copy buttons-html5 btn-primary mr-1" tabindex="0" aria-controls="MyTable"
+                                                           href="#">
+                                                            <span>Download</span>
+                                                        </a>
+                                                        <a class="btn btn-secondary buttons-print btn-primary mr-1" tabindex="0" aria-controls="MyTable" href="#">
+                                                            <span>Print</span>
+                                                        </a>*@
+                                                    </div>
+
+                                                    <div id="DataTables_Table_10_filter" class="dataTables_filter col-md-3 ">
+                                                        @*<label>
+                                                            Search:
+                                                            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="MyTable">
+                                                        </label>*@
+                                                    </div>
+                                                    <div class="col-md-2 pt-1 text-right">
+                                                        <a class="btn btn-secondary buttons-print ml-auto btn-warning mr-1" tabindex="0" aria-controls="MyTable" href="@Url.Action("Create", "Product", new {area = "Admin"})">
+                                                            <span>Create New</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <table class="table table-striped table-bordered file-export dataTable" id="MyTable" role="grid" aria-describedby="DataTables_Table_10_info">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending"
+                                                                aria-label="Name: activate to sort column descending" style="width: 126px;">Product</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                                style="width: 202px;">Name</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                                style="width: 202px;">Price</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                                style="width: 202px;">Product Type</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                                style="width: 202px;">Re-order Level</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                                style="width: 202px;">Inventory</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1"
+                                                                aria-label="Office: activate to sort column ascending" style="width: 92px;">Edit</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"
+                                                                style="width: 28px;">Delete</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (int i = 0; i < Model.Products.Count; i++)
+                                                        {
+                                                            var productId = Model.Products[i].Id;
+                                                            InventoryLogic inventoryLogic = new InventoryLogic();
+                                                            var invent=inventoryLogic.GetModelsBy(x => x.Product_Id == productId).Sum(y=>y.Quantity);
+                                                            <tr role="row" class="odd">
+                                                                <td class="sorting_1 text-center">
+                                                                    <img src="@Url.Content(Model.Products[i].ImageUrl)"  alt=" "  class="img-responsive" height="100px">
+                                                                </td>
+                                                                <td class="text-center" >@Model.Products[i].Name</td>
+                                                                <td class="text-center">@Model.Products[i].Price</td>
+                                                                <td class="text-center">@Model.Products[i].ProductType.Name</td>
+                                                                <td class="text-center">@Model.Products[i].ReorderLevel</td>
+                                                                <td class="text-center">@invent</td>
+                                                                <td class="text-center">@Html.ActionLink("Edit", "Edit", new { ProNo = @Model.Products[i].Id, area = "admin", controller = "Product" }, new { @class = "btn btn-outline-primary btn-sm box-shadow-1 ft-edit-2" })</td>
+                                                                <td class="text-center">@Html.ActionLink("Delete", "Delete", new { ProNo = @Model.Products[i].Id, area = "admin", controller = "Product" }, new { @class = "btn btn-outline-primary btn-sm box-shadow-1 ft-x", id = "deleteId", disabled = "disabled" })</td>
+
+                                                            </tr>
+                                                        }
+
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th rowspan="1" colspan="1">Product</th>
+                                                                <th rowspan="1" colspan="1">Name</th>
+                                                                <th rowspan="1" colspan="1">Price</th>
+                                                                <th rowspan="1" colspan="1">Product-Type</th>
+                                                                <th rowspan="1" colspan="1">Re-order Level</th>
+                                                                <th rowspan="1" colspan="1">Inventory</th>
+                                                                <th rowspan="1" colspan="1">Edit</th>
+                                                                <th rowspan="1" colspan="1">Delete</th>
+                                                            </tr>
+
+                                                        </tfoot>
+                                                    </table>
+
+                                                    @*//previous*@
+
+
+
+                                                <div class="modal fade" role="dialog" id="createModal">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                Enter Product Variant  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body" id="modalBody">
+                                                                @*@using (Html.BeginForm("CreateProductVariant", "Product", new { enctype = "multipart/form-data" }, FormMethod.Post))
+                        {*@
+                                                                @Html.HiddenFor(model => model.Product.Id, new { Id = "productIdBtn" })
+                                                                @Html.HiddenFor(model => model.MyFile2, new { Id = "productVariantImage" })
+                                                                <div class="form-group col-md-12" id="divOption0" style="display: none">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+
+                                                                            @Html.LabelFor(model => model.ProductVariant.Key1, "Option Name", new { @class = "col-md-12 control-label" })
+                                                                            @Html.TextBoxFor(model => model.ProductVariant.Key1, new { @class = "form-control", placeHolder = "Size" })
+                                                                            @Html.ValidationMessageFor(model => model.ProductVariant.Key1, null, new { @class = "text-danger" })
+                                                                        </div>
+
+                                                                        <div class="col-md-7">
+                                                                            <br />
+                                                                            <ul class="tags-input" id="keyValue1Ul">
+                                                                                <li class="tags-new" id="keyValuel">
+                                                                                    <input type="text" id="keyValue1Input" placeholder=" e.g Big,">
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-1">
+                                                                            <label class="col-md-12 control-label">&nbsp;</label><br />
+                                                                            <button class="btn fa fa-trash  btn-danger btn-lg" id="deleteBtn0" style="display: none"></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group col-md-12" id="divOption1" style="display: none">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+
+                                                                            @Html.LabelFor(model => model.ProductVariant.Key2, "Option Name", new { @class = "col-md-12 control-label" })
+                                                                            @Html.TextBoxFor(model => model.ProductVariant.Key2, new { @class = "form-control", placeHolder = "Colour" })
+                                                                            @Html.ValidationMessageFor(model => model.ProductVariant.Key2, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                        <div class="col-md-7">
+                                                                            <br />
+                                                                            <ul class="tags-input" id="keyValue2Ul">
+                                                                                <li class="tags-new" id="keyValue2">
+                                                                                    <input type="text" id="keyvalue2input" placeholder=" e.g Red,">
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-1">
+                                                                            <label class="col-md-12 control-label">&nbsp;</label><br />
+                                                                            <button class="btn fa fa-trash  btn-danger btn-lg" id="deleteBtn1" onclick="deleteOption(this)"></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-12" id="divOption2" style="display: none">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+
+                                                                            @Html.LabelFor(model => model.ProductVariant.Key3, "Option Name", new { @class = "col-md-12 control-label" })
+                                                                            @Html.TextBoxFor(model => model.ProductVariant.Key3, new { @class = "form-control", placeHolder = "Material" })
+                                                                            @Html.ValidationMessageFor(model => model.ProductVariant.Key3, null, new { @class = "text-danger" })
+                                                                        </div>
+                                                                        <div class="col-md-7">
+                                                                            <br />
+                                                                            <ul class="tags-input" id="keyValue3Ul">
+                                                                                <li class="tags-new" id="keyValue3">
+                                                                                    <input type="text" id="keyvalue3input" placeholder="e.g Cotton,">
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-1">
+                                                                            <label class="col-md-12 control-label">&nbsp;</label><br />
+                                                                            <button class="btn fa fa-trash btn-danger btn-lg" id="deleteBtn2" onclick="deleteOption(this)"></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12"><button class="btn btn-info pull-right" id="btnOption0" onclick="showMoreOption(this)" style="display: none"> Add New Option</button></div>
+                                                                <div class="table-responsive">
+
+                                                                </div>
+
+                                                                <table style="display: none" id="tblVariant" class="table table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Variant</th>
+                                                                            <th>Price</th>
+                                                                            <th>Barcode</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="tblVariantBody"></tbody>
+                                                                </table>
+
+                                                                <div class="row" style="padding-top:20px">
+                                                                    <div class="form-group">
+                                                                        <div class="col--2"></div>
+                                                                        <div class="col-sm-10 pt-2">
+                                                                            <input class="btn btn-success mr5" type="submit" name="submit" value="Create" Id="submitBtn" />
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @*}*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>

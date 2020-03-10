@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="width:100%; background:#f2f2f2;">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/plugins/images/favicon.png">
+    <title>Best Sellers Dashboard</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap_Admin/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link href="~/Content/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="~/Content/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <!-- morris CSS -->
+    <link href="~/Content/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="~/Content/css/css_Admin/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Content/css/css_Admin/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all" />
+    <link href="~/Content/css/css_Admin/colors/blue-dark.css" id="" rel="stylesheet">
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/sweetalert.min.js"></script>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div>
+        <!-- Page Content -->
+        <div style="width:100%; background:#f2f2f2;">
+            <div class="container-fluid">
+                <!--row -->
+                <!-- row -->
+                <div class="row">
+
+                    @RenderBody()
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            @*<footer class="footer text-center">
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-6">
+                        &copy; @DateTime.Now.Year - Lloydant-Ecommerce
+                    </div>
+                    <div class="col-md-6" style="text-align: right">
+                        Powered by <img class="image" style="height: 30px; width: 30px" src="~/Content/images/lloydant.jpeg" />
+                    </div>
+                </div>
+            </footer>*@
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="~/Content/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/bootstrap_Admin/dist/js/bootstrap.min.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="~/Content/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="~/Content/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="~/Content/js/waves.js"></script>
+    <!--Counter js -->
+    <script src="~/Content/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+    <script src="~/Content/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+    <!--Morris JavaScript -->
+    <script src="~/Content/plugins/bower_components/raphael/raphael-min.js"></script>
+    <script src="~/Content/plugins/bower_components/morrisjs/morris.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Content/js/custom.min.js"></script>
+    <script src="~/Content/js/dashboard1.js"></script>
+    <script src="~/Content/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+
+
+</body>
+
+
+
+</html>
+

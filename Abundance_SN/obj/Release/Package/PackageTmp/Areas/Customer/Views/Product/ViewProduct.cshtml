@@ -1,0 +1,799 @@
+﻿@using System.Globalization
+@using Abundance_SN.Business
+@using Abundance_SN.Model.Model
+@using Microsoft.Ajax.Utilities
+@using PagedList.Mvc;
+@using PagedList;
+@model Abundance_SN.Models.ProductViewModel
+@{
+//Layout = "~/Views/Shared/_Layout2.cshtml";
+
+}
+
+
+@*@section Scripts{
+    @Scripts.Render(("~/bundles/jquery"))*@
+
+
+@*<link href="~/Content/css/iziToast.css" rel="stylesheet" />
+    <script src="~/Scripts/iziToast.js"></script>*@
+<script type="text/javascript">
+        var noconflict = $.noConflict(true);
+        var optionId = 0;
+        noconflict(document).ready(function () {
+
+            var urlString = location.href;
+            if (location.href.match(/Id/)) {
+                var stringSplit = urlString.split('&');
+                var minimumFilter = stringSplit[1].split('=');
+                var maximumFilter = stringSplit[2].split('=');
+
+                $('#minfilterValue').val(minimumFilter[1]);
+                $('#maxfilterValue').val(maximumFilter[1]);
+            }
+
+            //$('.my-cart-btn').on('click', function (e) {
+            //    var clickId = this.id;
+            //    var btnId = clickId.split('-');
+
+            //    if (btnId[0] == "btnSaveforLater") {
+
+            //        var OptionArray = [];
+            //        var isValid = true;
+            //        var avaliableOptions = document.getElementsByClassName('variantOptions' + btnId[1]);
+            //        for (var i = 0; i < avaliableOptions.length; i++) {
+            //            var id = avaliableOptions[i].id;
+            //            OptionArray.push(id);
+
+            //            if (!$("#" + id).val() || $("#" + id).val() == "--select--") {
+            //                isValid = false;
+            //                break;
+            //            }
+            //        }
+
+            //        if (!isValid) {
+
+            //            $('#btnSaveforLater-' + btnId[1]).attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times" });
+
+            //            $('#btnkey-' + btnId[1]).css({
+            //                "border": "2px solid red"
+            //            });
+            //            $('#btnkey2-' + btnId[1]).css({
+            //                "border": "2px solid red"
+            //            });
+            //            $('#btnkey3-' + btnId[1]).css({
+            //                "border": "2px solid red"
+            //            });
+
+            //            iziToast.error({
+            //                rtl: false,
+            //                layout: 1,
+            //                drag: false,
+            //                timeout: 10000,
+            //                close: true,
+            //                overlay: true,
+            //                toastOnce: true,
+            //                id: 'question',
+            //                progressBar: true,
+            //                title: 'Error',
+            //                message: 'Please Select Product Options to be able to continue',
+            //                position: 'center'
+            //            });
+            //            e.preventDefault();
+            //        } else {
+
+            //            var productVarintId = $('#btnkey-' + btnId[1]).find('option:selected').val();;
+            //            $('#btnSaveforLater-' + btnId[1]).data('size', productVarintId);
+
+            //            $('#btnkey-' + btnId[1]).css({ "border": "" });
+            //            $('#btnkey2-' + btnId[1]).css({ "border": "" });
+            //            $('#btnkey3-' + btnId[1]).css({ "border": "" });
+
+            //            $('#btnSaveforLater-' + btnId[1]).attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times", 'data-size': optionId });
+
+            //            iziToast.success({
+            //                title: 'Product',
+            //                message: 'successfuly added to cart!',
+            //                position: 'topRight',
+            //                backgroundColor: "dodgerblue",
+            //                messageColor: 'white',
+            //                icon: "fa fa-check",
+            //                iconColor: 'white',
+            //                titleColor: 'white'
+            //            });
+            //        }
+            //    }
+
+            //});
+            //$('#anyPrice').on('click', function () {
+            $('#anyPrice').click(function () {
+                var urlString = location.href;
+                if (location.href.match(/Id/)) {
+                    var stringSplit = urlString.split('&');
+                    window.location.href = stringSplit[0];
+
+                } else {
+                    location.reload(true);
+                }
+            });
+            noConflict('#filterBtn').click(function () {
+                var min = $('.from').text();
+                var max = $('.to').text();
+                var minValue = min.replace("₦", " ");
+                var maxValue = max.replace("₦", " ");
+            })
+        });
+
+        function Key1change(model) {
+
+            var clickId = model.id;
+            var btnId = clickId.split('-');
+
+            if ($('#btnkey-' + btnId[1]).val() != "" && $('#btnkey-' + btnId[1]).val() != undefined) {
+                $("#btnkey2-" + btnId[1]).empty();
+                $("#btnkey3-" + btnId[1]).empty();
+
+                var selectedSize = $('#btnkey-' + btnId[1]).find('option:selected').text();
+                var productVarintId = $('#btnkey-' + btnId[1]).find('option:selected').val();
+                noconflict.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("PopulateKey2DropDown", "Product", new { area = "Customer" })',
+                    dataType: 'json',
+                    data: { key2: selectedSize, Id: productVarintId },
+                    success: function (values) {
+                        $("#btnkey2-" + btnId[1]).append('<option value="' + "" + '">--' +
+                            values[0].ProductVariant.Key2 + '--</option>');
+                        $.each(values, function (i, values) {
+                            $("#btnkey2-" + btnId[1]).append('<option value="' + values.ProductVariant.Id + '">' +
+                                values.ProductOptionName + '</option>');
+                        });
+                        var variantImage = values.splice(-1, 1);
+
+                        $('#btnSaveforLater-' + btnId[1]).attr('image', variantImage[0].ImageUrl);
+                        $('#btnSaveforLater-' + btnId[1]).attr('size', variantImage[0].Id);
+                        $('#btnSaveforLater-' + btnId[1]).attr('key1', variantImage[0].ProductVariant.Key1);
+                        $('#btnSaveforLater-' + btnId[1]).attr('Value1', variantImage[0].ProductVariant.Value1);
+                        $('#btnSaveforLater-' + btnId[1]).attr('price', variantImage[0].Price);
+                          $('#priceSpan-' + variantImage[0].ProductVariant.Product.Id).replaceWith('<span id="priceSpan-' + variantImage[0].ProductVariant.Product.Id + '">₦' + variantImage[0].Price + '</span>');
+
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve dropdown' + ex);
+                        console.log(ex);
+                    }
+                });
+            } else {
+                $("#btnkey2-" + btnId[1]).empty();
+                $("#btnkey3-" + btnId[1]).empty();
+            }
+        }
+
+        function Key2change(model) {
+
+            var clickId = model.id;
+            var btnId = clickId.split('-');
+
+            if ($('#btnkey2-' + btnId[1]).val() != "" && $('#btnkey-' + btnId[1]).val() != undefined) {
+                $("#btnkey3-" + btnId[1]).empty();
+
+                var selectedKey2 = $('#btnkey2-' + btnId[1]).find('option:selected').text();
+                var productVarintId = $('#btnkey2-' + btnId[1]).find('option:selected').val();
+                var selectedKey1 = $('#btnkey-' + btnId[1]).find('option:selected').text();
+                noconflict.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("PopulateKey3DropDown", "Product", new { area = "Customer" })',
+                    dataType: 'json',
+                    data: { key2: selectedKey2, Id: productVarintId, key1: selectedKey1 },
+                    success: function (values) {
+
+                        $("#btnkey3-" + btnId[1]).append('<option value="' + "" + '">--' +
+                            values[0].ProductVariant.Key3 + '--</option>');
+                        $.each(values, function (i, values) {
+                            $("#btnkey3-" + btnId[1]).append('<option value="' + values.Id + '">' +
+                                values.ProductOptionName + '</option>');
+                        });
+                        var variantPrice = values.splice(-1, 1);
+
+                        optionId = variantPrice[0].Id;
+                        $('#btnSaveforLater-' + btnId[1]).attr('size', optionId);
+                        $('#btnSaveforLater-' + btnId[1]).attr('image', variantPrice[0].ImageUrl);
+                        $('#btnSaveforLater-' + btnId[1]).attr('key1', variantPrice[0].ProductVariant.Key1);
+                        $('#btnSaveforLater-' + btnId[1]).attr('key2', variantPrice[0].ProductVariant.Key2);
+                        $('#btnSaveforLater-' + btnId[1]).attr('Value1', variantPrice[0].ProductVariant.Value1);
+                        $('#btnSaveforLater-' + btnId[1]).attr('Value2', variantPrice[0].ProductVariant.Value2);
+                        $('#btnSaveforLater-' + btnId[1]).attr('price', variantPrice[0].Price);
+                        $('#priceSpan-' + variantPrice[0].ProductVariant.Product.Id).replaceWith('<span id="priceSpan-' + variantPrice[0].ProductVariant.Product.Id + '">₦' + variantPrice[0].Price + '</span>');
+
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve dropdown' + ex);
+                    }
+                });
+            } else {
+                $("#btnkey3-" + btnId[1]).empty();
+            }
+        }
+
+        function Key3change(model) {
+
+            var clickId = model.id;
+            var btnId = clickId.split('-');
+            if ($('#btnkey2-' + btnId[1]).val() != "" && $('#btnkey-' + btnId[1]).val() != undefined) {
+
+
+                var selectedKey2 = $('#btnkey2-' + btnId[1]).find('option:selected').text();
+                var selectedKey3 = $('#btnkey3-' + btnId[1]).find('option:selected').text();
+                var selectedKey1 = $('#btnkey-' + btnId[1]).find('option:selected').text();
+                noconflict.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetProductVariantOptions", "Product", new { area = "Customer" })',
+                    dataType: 'json',
+                    data: { key1: selectedKey1, key2: selectedKey2, key3: selectedKey3, },
+                    success: function (values) {
+
+                        if (values != null) {
+
+                            $('#btnSaveforLater-' + btnId[1]).attr('size', values.Id);
+                            $('#btnSaveforLater-' + btnId[1]).attr('image', values.ImageUrl);
+                            $('#btnSaveforLater-' + btnId[1]).attr('key1', values.ProductVariant.Key1);
+                            $('#btnSaveforLater-' + btnId[1]).attr('key2', values.ProductVariant.Key2);
+                            $('#btnSaveforLater-' + btnId[1]).attr('key3', values.ProductVariant.Key3);
+                            $('#btnSaveforLater-' + btnId[1]).attr('Value1', values.ProductVariant.Value1);
+                            $('#btnSaveforLater-' + btnId[1]).attr('Value2', values.ProductVariant.Value2);
+                            $('#btnSaveforLater-' + btnId[1]).attr('Value3', values.ProductVariant.Value3);
+                            $('#btnSaveforLater-' + btnId[1]).attr('price', values.Price);
+                            $('#priceSpan-' + values.ProductVariant.Product.Id).replaceWith('<span id="priceSpan-' + values.ProductVariant.Product.Id + '">₦' + values.Price + '</span>');
+
+                        }
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve dropdown' + ex);
+                    }
+                });
+            } else {
+                $("#btnkey3-" + btnId[1]).empty();
+            }
+        }
+
+
+</script>
+<style>
+    .child .card {
+        border-radius: 0px;
+        height: 360px;
+    }
+
+
+    * {
+        border-radius: 0px;
+    }
+
+    .grid-item {
+        display: inline-block;
+        position: absolute;
+    }
+
+    @@media (max-width: 656px) {
+
+        .grid-item {
+            position: static !important;
+        }
+
+        .product-card:hover {
+            height: 560px;
+        }
+    }
+
+
+
+    .grid-item:hover {
+        box-shadow: 0px 0px 50px rgba(0, 0, 0, .2);
+        z-index: 2;
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1);
+        -ms-transition: all 200ms ease-in;
+        -ms-transform: scale(1);
+        -moz-transition: all 200ms ease-in;
+        -moz-transform: scale(1);
+        transition: all 200ms ease-in;
+        transform: scale(1);
+    }
+
+    .product-card:hover {
+        min-height: 470px;
+    }
+
+        .product-card:hover .bobby {
+            display: block;
+            position: absolute;
+        }
+
+    .product-card .bobby {
+        display: none;
+    }
+
+    .list-group-item {
+        padding: 8px !important;
+    }
+
+    .heightProduct {
+        height: 240px;
+    }
+
+    .products-grid .single-add-to-cart {
+        padding: 0 !important;
+    }
+</style>
+<!-- Off-Canvas Wrapper-->
+@{
+    CategoryLogic categoryLogic = new CategoryLogic();
+    var categories = categoryLogic.GetAll();
+    List<Category> otherCategories = new List<Category>();
+    ProductTypeLogic productTypeLogic = new ProductTypeLogic();
+
+}
+<main class="site-main product-list product-grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-8 pull-right padding-left-5">
+                <div class="main-content">
+                    <div class="toolbar-products" style="margin-top:-10px;">
+                        <h4 class="title-product">@ViewBag.ProductTypeName</h4>
+                        @*<div class="toolbar-option">
+                                <div class="toolbar-sort">
+                                    <select class="chosen-select sorter-options form-control">
+                                        <option selected="selected" value="position">Sort by popularity</option>
+                                        <option value="name">Name</option>
+                                        <option value="price">Price</option>
+                                    </select>
+                                </div>
+                                <div class="toolbar-per">
+                                    <select class="chosen-select limiter-options form-control">
+                                        <option selected="selected" value="6">20 per page</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+
+                            </div>*@
+                    </div>
+                    <div class="products products-list products-grid equal-container col-md-12">
+                        @{
+                            var products = Model.PagedProducts;
+                            if (products.Count > 0)
+                            {
+
+                                for (int j = 0; j < products.Count; j++)
+                                {
+                                <div class="product-item style1 width-33 padding-0 col-md-3 col-sm-6 col-xs-6 equal-elem">
+
+                                    <div class="product-inner">
+                                        <div class="product-thumb">
+                                            <div class="thumb-inner heightProduct">
+                                                <a href="#"><img src="@Url.Content(products[j].ImageUrl)" alt="@products[j].Name"></a>
+                                            </div>
+                                            <span class="onsale">-@products[j].Discount %</span>
+                                        </div>
+                                        <div class="product-innfo">
+                                            <div class="product-name"><a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", id = @products[j].Id })">@products[j].Name</a></div>
+                                            <span class="price">
+                                                <sub class="text-danger" style="display:block; font-weight:bold; color:#333; text-transform:uppercase; padding:8px 0;">Starting @@</sub>
+                                                <ins> From ₦ @string.Format("{0:0,0.00}", products[j].DiscountAmount)</ins>
+                                                <del>₦ @string.Format("{0:0,0.00}", products[j].Price)</del>
+                                            </span>
+                                            <span class="star-rating">
+                                                @{
+                                                    CustomerReviewLogic reviewLogic = new CustomerReviewLogic();
+                                                    var rating = reviewLogic.GetAll().Where(x => x.Product.Id == products[j].Id).ToList();
+                                                    if (rating.Count > 0)
+                                                    {
+                                                        int ratingValue = products[j].Rating;
+                                                        if (ratingValue == 1)
+                                                        {
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <span class="review">@ratingValue Review(s)</span>
+                                                        }
+                                                        else if (ratingValue == 2)
+                                                        {
+
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <span class="review">@ratingValue Review(s)</span>
+                                                        }
+                                                        else if (ratingValue == 3)
+                                                        {
+
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <span class="review">@ratingValue Review(s)</span>
+                                                        }
+                                                        else if (ratingValue == 4)
+                                                        {
+
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                            <span class="review">@ratingValue Review(s)</span>
+                                                        }
+                                                        else if (ratingValue == 5)
+                                                        {
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <span class="review">@ratingValue Review(s)</span>
+                                                        }
+                                                        else
+                                                        {
+
+                                                        }
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <span class="review">0 Review(s)</span>
+                                                    }
+
+
+                                                }
+                                            </span>
+                                            <div class="single-add-to-cart">
+                                                <a href="#" class="add-to-cart" data-id="@products[j].Id" data-name="@products[j].Name" data-desc="@products[j].Description" data-discount="@products[j].DiscountAmount" data-price="@products[j].Price" data-image="@products[j].ImageUrl.Replace("~", "")">Add to cart</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <div class="col-md-12" style="background:#fff; padding:15px;">
+                                                            <div class="alert alert-info"><p> No Product is Found for this Sub-category</p></div>
+                                                        </div>
+
+                                                    }
+                        }
+
+                    </div>
+                    @Html.PagedListPager(products, page => Url.Action("ViewProduct", "Product", new { area = "Customer", page, Id = @ViewBag.Id }),
+new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+
+
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 pull-left">
+                <div class="col-sidebar">
+                    <div class="filter-options">
+                        <div class="block-title">Shop by</div>
+                            <div class="block-content">
+                                @Html.DropDownListFor(model => model.Category.Id, (IEnumerable<SelectListItem>)ViewBag.ProductTypeDropDown, new { @class = "form-control", id = "selectedSubCategory" })
+                                @*<div class="filter-options-item filter-categori">
+                                    <div class="filter-options-title">Categories</div>
+                                    <div class="filter-options-content">
+                                        <ul>
+                                            @for (int i = 0; i < categories.Count; i++)
+                                            {
+                                                <li><label class="inline"><input type="checkbox"><span class="input"></span>@categories[i].Name</label></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>*@
+                                @*<section class="widget widget-categories">
+                                    <h3 class="widget-title">Price Range <button class="btn btn-outline-primary btn-sm " style="margin-left:40px" type="submit" id="anyPrice">Any Price</button></h3>
+                                    <form class="price-range-slider" method="post" data-start-min="200" data-start-max="50000" data-min="2000" data-max="50000" data-step="1">
+                                        <div class="ui-range-slider noUi-target noUi-ltr noUi-horizontal noUi-background"><div class="noUi-base"><div class="noUi-origin noUi-connect"><div class="noUi-handle noUi-handle-lower"></div></div><div class="noUi-origin noUi-background"><div class="noUi-handle noUi-handle-upper"></div></div></div></div>
+                                        <footer class="ui-range-slider-footer">
+                                            <div class="column">
+                                                <button class="btn btn-outline-primary btn-sm" type="submit" id="btnfilter1">Filter</button>
+                                            </div>
+                                            <div class="column">
+                                                <div class="ui-range-values">
+                                                    <div class="ui-range-value-min">
+                                                        ₦<span>250</span>
+                                                        <input id="minfilterValue" type="hidden">
+                                                    </div>&nbsp;-&nbsp;
+                                                    <div class="ui-range-value-max">
+                                                        ₦<span>650</span>
+                                                        <input type="hidden" id="maxfilterValue">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </footer>
+                                    </form>
+                                </section>*@
+                        @*<div class="filter-options-item filter-price">
+                                <div class="filter-options-title">Price</div>
+                                <div class="filter-options-content">
+                                    <div class="price_slider_wrapper">
+                                        <div data-label-reasult="Price:" data-min="0" data-max="3000" data-unit="₦" class="slider-range-price " data-value-min="85" data-value-max="2000">
+                                            <span class="text-right">Filter</span>
+                                        </div>
+                                        <div class="price_slider_amount">
+                                            <div class="price_label">
+                                                Price: <span class="from"></span>-<span class="to"></span>
+                                            </div>
+
+                                        </div>
+                                        <div><button class="btn btn-primary" id="filterBtn"></button></div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*</div>*@
+                    </div>
+                    <div class="block-banner-sidebar">
+                        @*<a href="#"><img src="~/Content/Default/images/product/banner-sidebar.jpg" alt="banner-sidebar"></a>*@
+                    </div>
+                        <div class="block-latest-roducts">
+                            <div class="block-title">Latest Products</div>
+                            <div class="block-latest-roducts-content">
+                                @{
+                                    var topProducts = Model.Products.Where(s => s.Visits > 1).Take(4).ToList();
+                                }
+                                <div class="nav-style2">
+                                    @if (topProducts.Count > 0)
+                                    {
+                                        for (int d = 0; d < topProducts.Count; d++)
+                                        {
+
+                                            <div class="product-item style1" style="min-height:70px;">
+                                                <div class="product-inner" style="padding:5px 0;">
+                                                    <div class="product-thumb heightProduct">
+                                                        <div class="thumb-inner">
+                                                            <a href="#"><img src="@Url.Content(topProducts[d].ImageUrl).Replace("~","")" style="width:50px" alt="p1"></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-innfo">
+                                                        <div class="product-name"><a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", id = @topProducts[d].Id })">@topProducts[d].Name</a></div>
+                                                        <span class="price">
+                                                            <sub class="text-danger" style="display:block; font-weight:bold; color:#333; text-transform:uppercase; padding:8px 0;">Starting @@</sub>
+                                                            <ins>₦ @string.Format("{0:0,0.00}", topProducts[d].DiscountAmount)</ins>
+                                                            <del>₦ @string.Format("{0:0,0.00}", topProducts[d].Price)</del>
+                                                        </span>
+                                                        <span class="star-rating">
+                                                            @{
+                                                                CustomerReviewLogic reviewLogic = new CustomerReviewLogic();
+                                                                var rating = reviewLogic.GetAll().Where(x => x.Product.Id == topProducts[d].Id).ToList();
+                                                                if (rating.Count > 0)
+                                                                {
+                                                                    var getratingValue = rating.First(x => x.Rating == rating.Max(y => y.Rating));
+                                                                    int ratingValue = getratingValue.Rating;
+                                                                    if (ratingValue == 1)
+                                                                    {
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <span class="review">@ratingValue Review(s)</span>
+                                                                    }
+                                                                    else if (ratingValue == 2)
+                                                                    {
+
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <span class="review">@ratingValue Review(s)</span>
+                                                                    }
+                                                                    else if (ratingValue == 3)
+                                                                    {
+
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <span class="review">@ratingValue Review(s)</span>
+                                                                    }
+                                                                    else if (ratingValue == 4)
+                                                                    {
+
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                        <span class="review">@ratingValue Review(s)</span>
+                                                                    }
+                                                                    else if (ratingValue == 5)
+                                                                    {
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        <span class="review">@ratingValue Review(s)</span>
+                                                                    }
+                                                                    else
+                                                                    {
+
+                                                                    }
+
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                                    <span class="review">0 Review(s)</span>
+                                                                }
+
+
+                                                            }
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix" ></div>
+
+                                                                    }
+
+                                                                }
+
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+        </div>
+    <div class="block-recent-view">
+        <div class="container">
+            <div class="title-of-section">Recently Viewed Products</div>
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+                @{
+                    var newlyAddedProducts = Model.Products.Where(x => x.Active = true && x.ReorderLevel > 0).OrderByDescending(x => x.Visits).Take(6).ToList();
+                    if (newlyAddedProducts.Count > 0)
+                    {
+                        for (int s = 0; s < newlyAddedProducts.Count; s++)
+                        {
+                            <div class="product-item style1">
+                                <div class="product-inner equal-elem">
+                                    <div class="product-thumb">
+                                        <div class="thumb-inner heightProduct">
+                                            <a href="#"><img src='@Url.Content(@newlyAddedProducts[s].ImageUrl.Replace("~", ""))' alt="productImage"></a>
+                                        </div>
+                                        <span class="onsale">-@newlyAddedProducts[s].Discount %</span>
+                                        @*<a href="#" class="quick-view">35% Off</a>*@
+                                    </div>
+                                    <div class="product-innfo">
+                                        <div class="product-name"><a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", id = @newlyAddedProducts[s].Id })">@newlyAddedProducts[s].Name</a></div>
+                                        <span class="price">
+                                            <sub class="text-danger" style="display:block; font-weight:bold; color:#333; text-transform:uppercase; padding:8px 0;">Starting @@</sub>
+                                            <ins> From ₦ @string.Format("{0:0,0.00}", newlyAddedProducts[s].DiscountAmount)</ins>
+                                            <del>₦ @string.Format("{0:0,0.00}", newlyAddedProducts[s].Price)</del>
+                                        </span>
+                                        <span class="star-rating">
+                                            @{
+                                                CustomerReviewLogic reviewLogic = new CustomerReviewLogic();
+                                                var rating = reviewLogic.GetAll().Where(x => x.Product.Id == newlyAddedProducts[s].Id).ToList();
+                                                if (rating.Count > 0)
+                                                {
+                                                    var getratingValue = rating.First(x => x.Rating == rating.Max(y => y.Rating));
+                                                    int ratingValue = getratingValue.Rating;
+                                                    if (ratingValue == 1)
+                                                    {
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <span class="review">@ratingValue Review(s)</span>
+                                                    }
+                                                    else if (ratingValue == 2)
+                                                    {
+
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <span class="review">@ratingValue Review(s)</span>
+                                                    }
+                                                    else if (ratingValue == 3)
+                                                    {
+
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <span class="review">@ratingValue Review(s)</span>
+                                                    }
+                                                    else if (ratingValue == 4)
+                                                    {
+
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                        <span class="review">@ratingValue Review(s)</span>
+                                                    }
+                                                    else if (ratingValue == 5)
+                                                    {
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <span class="review">@ratingValue Review(s)</span>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+
+
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">0 Review(s)</span>
+                                                }
+                                            }
+                                        </span>
+
+                                        <div class="group-btn-hover">
+                                            <a href="#" class="add-to-cart" data-id="@newlyAddedProducts[s].Id" data-name="@newlyAddedProducts[s].Name" data-desc="@newlyAddedProducts[s].Description" data-discount="@newlyAddedProducts[s].DiscountAmount" data-price="@newlyAddedProducts[s].Price" data-image="@newlyAddedProducts[s].ImageUrl.Replace("~","")">Add to cart</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    }
+                                                }
+                }
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery-2.1.4.min.js"></script>
+<script src="~/Content/DefaultCss/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript">
+        $('#selectedSubCategory').on('change', function () {
+            var subcatId = $('#selectedSubCategory').val();
+            @*var myUrl = '@Url.Action("ViewProductByCategory", "Product")';*@
+
+
+            @*$.get('@Url.Action("ViewProductByCategory", "Product",new {Id=' + c}) *@
+
+            window.location.href = "/Customer/Product/ViewProduct?Id=" + subcatId;
+
+        });
+</script>
+

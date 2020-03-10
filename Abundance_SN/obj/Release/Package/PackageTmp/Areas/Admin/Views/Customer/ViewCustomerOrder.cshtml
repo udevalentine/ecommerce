@@ -1,0 +1,233 @@
+﻿@model Abundance_SN.Areas.Admin.Models.CustomerViewModel
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    $(document).ready(function () {
+
+        $('#createModal').modal('hide');
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                }, , 'colvis'
+            ]
+        });
+    });
+
+    function ViewDetails(orderNumber) {
+
+
+        var number = $(orderNumber).data('assigned-id');
+        $('#modalBody').html('');
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ViewOrdersByNumber", "Customer", new { area = "Admin" })",
+            dataType: "json",
+            data: { orderNumber: number },
+            success: function (arrayJsonModel) {
+                
+                for (i = 0; i < arrayJsonModel.length; i++) {
+                    $('#customerName').text('');
+                    $('#customerPhone').text('');
+                    $('#address').text('');
+                    var customerName = '';
+                    var customerPhone = '';
+                    var address = '';
+                    var state = '';
+                    
+                    customerName = arrayJsonModel[i].Person.Surname;
+                    customerPhone = arrayJsonModel[i].Person.PhoneNumber;
+                    address = arrayJsonModel[i].DeliveryAddress.Address;
+                    state = arrayJsonModel[i].DeliveryAddress.State.StateName;
+                    $('#modalBody').append('<div class="row"><div class="col-md-4"><img src="' + arrayJsonModel[i].ImageUrl + '" alt="product image" width="100%"></div><div class="col-md-6" style="float:right"><h4 class="card-title b text-bold">' + arrayJsonModel[i].Name + '</h4><hr> <div><b>Quantity:   </b> <span>' + arrayJsonModel[i].Quantity + '</span></div> <div class="mb-2"><b>Total:    </b>' + arrayJsonModel[i].Amount + '</div><div class="mb-2"><b>Product Option:   </b>' + arrayJsonModel[i].ProductVariantOptions.ProductOptionName + '</div> </div></div>');
+                    $('#customerPhone').append('Phone Number:' + customerPhone + '');
+                    $('#customerName').append('Customer Name:' + customerName.toUpperCase()+'');
+                }
+                
+            },
+
+            traditional: true
+        });
+        $('#createModal').modal('show');
+    }
+
+</script>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Customer Order</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            @*<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>*@
+                            <li class="breadcrumb-item"><a href="#">Customer Order Details</a></li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="content-body">
+            <!-- Basic form layout section start -->
+            <section id="basic-form-layouts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <div id="DataTables_Table_10_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                        <div class="row">
+                                            <div class="dt-buttons btn-group col-md-7 pt-2">
+                                                @*<a class="btn btn-secondary buttons-copy buttons-html5 btn-primary mr-1" tabindex="0" aria-controls="MyTable"
+                                                       href="#">
+                                                        <span>Download</span>
+                                                    </a>
+                                                    <a class="btn btn-secondary buttons-print btn-primary mr-1" tabindex="0" aria-controls="MyTable" href="#">
+                                                        <span>Print</span>
+                                                    </a>*@
+                                            </div>
+
+                                            <div id="DataTables_Table_10_filter" class="dataTables_filter col-md-3 ">
+                                                @*<label>
+                                                        Search:
+                                                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="MyTable">
+                                                    </label>*@
+                                            </div>
+                                            <div class="col-md-2 pt-1 text-right">
+                                                <a class="btn btn-secondary buttons-print ml-auto btn-warning mr-1" tabindex="0" aria-controls="MyTable" href="@Url.Action("ViewPaidOrder", "Customer", new {area = "Admin"})">
+                                                    <span>View Paid Order</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <table class="table table-striped table-bordered file-export dataTable" id="MyTable" role="grid" aria-describedby="DataTables_Table_10_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                        style="width: 126px;">User Name</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Order Name</th>
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                        style="width: 126px;">Amount</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Details</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @for (int i = 0; i < Model.GroupCountString.Count; i++)
+                                                {
+                                                    var oderNumber = Model.GroupCountString[i];
+                                                    var curentSalesLog = Model.SalesLogses.Where(s => s.CartHash == oderNumber);
+                                                    <tr role="row" class="odd">
+                                                        <td class="sorting_1">@curentSalesLog.LastOrDefault().User.Name</td>
+                                                        <td>@Model.GroupCountString[i]</td>
+                                                        <td>@curentSalesLog.Sum(s => s.Amount)</td>
+                                                        <td><a href="#" onclick="ViewDetails(this)" data-assigned-id="@Model.GroupCountString[i]"><b>Details</b></a></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">User Name</th>
+                                                    <th rowspan="1" colspan="1">Order Name</th>
+                                                    <th rowspan="1" colspan="1">Amount</th>
+                                                    <th rowspan="1" colspan="1">Details</th>
+                                                </tr>
+                                            </tfoot>
+                                            </table>
+
+                                            @*//previous*@
+                                         
+                                                    </div>
+                                                </div>
+                                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+                                            <div class="modal fade" role="dialog" id="createModal">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header"><h5 id="customerName"></h5>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body" id="modalBody"> </div>
+                                                        <div class="modal-footer text-left">
+                                                            <div class="row">
+                                                                <div id="address" class="col-md-12 pull-left">Address</div>
+                                                                <div id="customerPhone" class="col-md-12 pull-left">Phone Number</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+        </div>
+    </div>

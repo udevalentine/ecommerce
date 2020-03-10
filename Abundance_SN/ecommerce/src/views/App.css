@@ -1,0 +1,301 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:300|Open+Sans:300|Raleway|Source+Sans+Pro:300');
+
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('bootstrap.min.css');
+*{
+ font-size:1.02em;
+font-family: 'Raleway', sans-serif ;
+font-family: 'Dosis', sans-serif;
+font-family: 'Open Sans', sans-serif  !important;
+font-family: 'Source Sans Pro', sans-serif;
+}
+.pl-0{
+  padding-left: 0px !important;
+}
+.p-0{
+  padding:0 !important;
+}
+.p-1{
+  padding:10px;
+}
+.p-2{
+  padding:20px;
+}
+.p-4{
+  padding:40px;
+}
+.f2em{
+  font-size:1.4em;
+}
+
+.f2em{
+  font-size:2.9em !important;
+}
+
+.span300{
+  font-weight:300 !important;
+}
+.product{
+  position:relative;
+}
+.product .price-context{
+  display: none;
+}
+
+.productCart{
+  width:50%;
+}
+.price-context{
+ width:100%;
+  padding: 35px 0 !important;
+  text-align: center !important;
+  height:220px !important;
+  background:rgba(0, 0, 0, .5);
+  /* transform: translateX(0); */
+  transition: ease-in 3s;
+  z-index:100000;
+  position: absolute;
+  bottom: 0;
+}
+
+.price-context .btn{
+  border-radius: 50px !important;
+  padding:10px;
+  outline: none;
+}
+
+.product:hover .price-context{
+  
+  display:block;
+ 
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+
+.carousel-item{
+  height:400px !important;
+}
+
+  .slick-prev, .slick-next {
+    position: absolute;
+    top: 1%;
+    border:none;
+    background:transparent;
+    font-size:4em !important;  
+    margin-top:-35px;
+   
+  }
+
+  .slick-prev {
+      right: 10%;
+    z-index:10000;
+   
+  }
+
+  .slick-prev:before {
+    font-family: FontAwesome;
+    content: "\f104";
+}
+
+  .slick-next {
+    right: 5%;
+  } 
+
+ .slick-next:before {
+    font-family: FontAwesome;
+    content: "\f105";
+}
+
+
+
+
+
+.form-control, select, .btn, .form-control:focus {
+  height:45px !important;
+  outline: 1px solid transparent !important;
+}
+.Twoem{
+  font-size:1.5em !important;
+  font-weight:600;
+  color:#333;
+}
+.bg-danger-gradient,.bg-primary-gradient,.bg-info-gradient{
+  color:#fff;
+  font-size: 1.3em;
+  padding: 20px;
+}
+
+.bgUrl1{
+  background: url(https://images-na.ssl-images-amazon.com/images/G/01/xba/2_Gift_DBB_440x200._CB488227245_.jpg) !important;
+  
+  background-size: contain;
+}
+
+.bgUrl2{
+   background: url('https://images-na.ssl-images-amazon.com/images/G/01/xba/Unrec_Men_Apparel_DBB_440x200._CB487643117_.jpg') !important;
+   background-size:contain;
+}
+.bgUrl3{
+  background: url('https://images-na.ssl-images-amazon.com/images/G/01/xba/1_Unrec_DBB_440x200_Feb2018._CB488338716_.jpg') !important;
+  background-size:contain;
+}
+.bgUrl4{
+  background: url('https://s3.ca-central-1.amazonaws.com/shopperplusca/uploads/selling_topic_group/image/1111/free-shipping-banner-2018-01-17-update-en.jpg') !important;
+  background-size:contain;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+.bgUrl5{
+  background: url('http://www.mail-customersupport.com/images/home-banner.png');
+    background-size:cover;
+     background-repeat: no-repeat;
+}
+.bgUrl6{
+  background: url('https://i.pinimg.com/originals/73/7d/b7/737db783ffc8cc131dbdfa2e1e5f0062.jpg');
+  height:510px;
+}
+.bg-danger-gradient{
+  background: #ee0979;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ff6a00, #ee0979); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg-primary-gradient{
+  background: #396afc;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2948ff, #396afc);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2948ff, #396afc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg-info-gradient{
+  background: #667db6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.progress{
+  border-radius: 25px !important;
+}
+.h200{
+  min-height:220px;
+}
+.h100{
+  min-height:170px;
+}
+.h70{
+  min-height:70px;
+  text-transform: uppercase !important;
+  box-shadow:0px 8px 74px -21px rgba(0, 0, 0, 0.20);
+}
+.fs9em{
+  font-size:.9em;
+}
+.quickLinks a{
+height:40px;
+color:#fff !important;
+display: block;
+padding: 10px;
+}
+.border-gray{
+  border-top:1px solid rgba(0, 0, 0, 0.40);
+}
+.bg-dark-opacity{
+  background: rgba(0, 0, 0, 0.20);
+  min-height:400px;
+  display: block;
+}
+
+.text-white{
+  color:#fff;
+}
+.quickLinks a:hover{
+  text-decoration: none;
+background: rgba(0, 0, 0, 0.20);
+}
+.btn:hover{
+   box-shadow:0px 8px 74px -21px rgba(0, 0, 0, 0.20);
+}
+
+.bg-lighti{
+  background: #f8f8f8;
+  padding:5px 20px 20px 20px;
+}
+.h50{
+  min-height:60px;
+  padding:20px 15px;
+}
+.NamelgText{
+  font-size:1.4em;
+  text-transform: uppercase;
+  display:block;
+  margin-bottom:2em;
+}
+.mainBanner {
+  background-color: #f2f2f2;
+  min-height: 300px;
+  padding:0px !important;
+  color: white;
+}
+.carousel-item{
+  padding: 0px !important;
+}
+.carousel-item img{
+  width:100% !important;
+  height: 400px !important;
+}
+
+.form-inline .form-control{
+  width:100%;
+}
+
+*{
+  text-align: left;
+  border-radius: 0px !important;
+  outline: 0px !important;
+  outline-color: transparent !important;
+}
+.mainProducts{
+   background-color: #fff;
+  min-height: 300px;
+  color: #333;
+}
+.yoi{
+ z-index:1000000;
+}
+.mainProducts1{
+   background-color: rgba(242, 242, 242, 0.56);
+  height: 100%;
+  width:100%;
+  display: block;
+  padding: 20px;
+  color: #333;
+ 
+}
+
+.mainProducts2{
+   padding: 25px;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
+
+

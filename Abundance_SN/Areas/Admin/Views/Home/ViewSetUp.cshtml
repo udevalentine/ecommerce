@@ -1,0 +1,123 @@
+﻿@model Abundance_SN.Models.RegisterViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_SetupLayout.cshtml";
+}
+<div class="container p-3">
+    <div class="card" style=" box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1); padding:20px; background:#fff; margin-top:50px;">
+       <div class="container">
+           <div class="content-wrapper">
+               <div class="content-header row">
+                   <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                       <h3 class="content-header-title mb-0 d-inline-block pl-3">View Store Setup</h3>
+
+                   </div>
+
+               </div>
+           </div>
+       </div>
+            <div class="content-body">
+                <section id="basic-form-layouts">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <div id="DataTables_Table_10_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                            <div class="row">
+                                                <div class="dt-buttons btn-group col-md-7 pt-2">
+                                                    @*<a class="btn btn-secondary buttons-copy buttons-html5 btn-primary mr-1" tabindex="0" aria-controls="MyTable"
+                                                           href="#">
+                                                            <span>Download</span>
+                                                        </a>
+                                                        <a class="btn btn-secondary buttons-print btn-primary mr-1" tabindex="0" aria-controls="MyTable" href="#">
+                                                            <span>Print</span>
+                                                        </a>*@
+                                                </div>
+
+                                                <div id="DataTables_Table_10_filter" class="dataTables_filter col-md-3 ">
+                                                    @*<label>
+                                                            Search:
+                                                            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="MyTable">
+                                                        </label>*@
+                                                </div>
+                                                @*<div class="col-md-2 pt-1 text-right">
+                                                        <a class="btn btn-secondary buttons-print ml-auto btn-warning mr-1" tabindex="0" aria-controls="MyTable" href="@Url.Action("CreateHomePageSlider", "Home", new {area = "Admin"})">
+                                                            <span>Add New Slider</span>
+                                                        </a>
+                                                    </div>*@
+                                            </div>
+                                            <table class="table table-striped table-bordered file-export dataTable" id="MyTable" role="grid" aria-describedby="DataTables_Table_10_info">
+                                                <thead>
+                                                    <tr role="row">
+
+
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                            style="width: 126px;">Logo</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                            style="width: 202px;">Business Name</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                            style="width: 202px;">Business Rc.No.</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                            style="width: 202px;">Business Phone No.</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                            style="width: 202px;">Business Email</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                            style="width: 202px;">Store Description</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                            style="width: 202px;">Store Address</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                            style="width: 202px;">Store Product Type</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"
+                                                            style="width: 28px;">Edit</th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (int i = 0; i < Model.StoreSetups.Count; i++)
+                                                {
+                                                        <tr role="row" class="odd">
+                                                            <td><a href="#"><img src="@Url.Content(Model.StoreSetups[i].StoreLogoUrl)" alt=" " class="img-responsive" style="max-width:100%;"></a></td>
+                                                            <td>@Model.StoreSetups[i].BusinessName</td>
+                                                            <td>@Model.StoreSetups[i].BusinessRcNo</td>
+                                                            <td>@Model.StoreSetups[i].BusinessPhone</td>
+                                                            <td>@Model.StoreSetups[i].BusinessEmail</td>
+                                                            <td>@Model.StoreSetups[i].AboutUs</td>
+                                                            <td>@Model.StoreSetups[i].StoreAddress</td>
+                                                            <td>@Model.StoreSetups[i].StoreProductType</td>
+                                                            <td>@Html.ActionLink("Edit", "EditStoreSetUp", new { storeId = @Model.StoreSetups[i].Id, area = "admin", controller = "Home" }, new { @class = "btn btn-outline-primary box-shadow-1 btn-sm ft-edit-2" })</td>
+                                                            @*<td>@Html.ActionLink("Delete", "DeleteEditHomePageSlider", new { sliderId = @Model.StoreSetup[i].Id, area = "admin", controller = "Home" }, new { @class = "btn btn-outline-primary box-shadow-1 btn-sm ft-x", id = "deleteId" })</td>*@
+                                                        </tr>
+                                                }
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+
+                                                        <th rowspan="1" colspan="1">Image</th>
+                                                        <th rowspan="1" colspan="1">Business Name</th>
+                                                        <th rowspan="1" colspan="1">Business Rc.No.</th>
+                                                        <th rowspan="1" colspan="1">Business Phone No.</th>
+                                                        <th rowspan="1" colspan="1">Business Email.</th>
+                                                        <th rowspan="1" colspan="1">Store Description</th>
+                                                        <th rowspan="1" colspan="1">Store Address</th>
+                                                        <th rowspan="1" colspan="1">Store Product Type</th>
+                                                        <th rowspan="1" colspan="1">Edit</th>
+                                                        @*<th rowspan="1" colspan="1">Delete</th>*@
+
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

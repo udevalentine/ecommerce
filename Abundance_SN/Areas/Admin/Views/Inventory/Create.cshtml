@@ -1,0 +1,128 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+    //Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@*@section Scripts{
+    @Scripts.Render(("~/bundles/jquery"))*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#productId").change(function () {
+
+                var productId = $('#productId').find('option:selected').val();
+                $("#productvariantOptionId").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetProductVariantOption", "Inventory")', // we are calling json method
+                    dataType: 'json',
+                    data: { productId: productId },
+                    success: function (variantOptions) {
+                        $("#productvariantOptionId").append('<option value="' + 0 + '"> -- Select -- </option>');
+                        $.each(variantOptions, function (i, option) {
+                            $("#productvariantOptionId").append('<option value="' + option.Id + '">' + option.ProductOptionName + '</option>');
+                        });
+
+                    },
+                    error: function (ex) {
+                        alert("Error Occured Variant Option Could not be Retrieved");
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+
+@using (Html.BeginForm("Create", "Inventory", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <br />
+
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+                    <h3 class="content-header-title mb-0 d-inline-block">Inventory</h3>
+                    <div class="row breadcrumbs-top d-inline-block">
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Create Inventory</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right col-md-6 col-12">
+                    <div class="dropdown float-md-right">
+                        <button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
+                            <a class="dropdown-item" href="#"><i class="la la-calendar-check-o"></i> Calender</a>
+                            <a class="dropdown-item" href="#"><i class="la la-cart-plus"></i> Cart</a>
+                            <a class="dropdown-item" href="#"><i class="la la-life-ring"></i> Support</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="la la-cog"></i> Settings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="container">
+                    <div class="col-md-6 offset-md-3 offset-sm-0">
+                        <div class="card">
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <form class="form">
+                                        <div class="form-body">
+                                            <h4 class="form-section"><i class="ft-plus-square"></i> Create Inventory</h4>
+                                            <div class="row">
+                                                @if (TempData["Message"] != null)
+                                                {
+                                                    @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                                                }
+
+
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.Inventory.Product.Id, "Product", new { @class = "control-label " })
+                                                                        @Html.DropDownListFor(model => model.Inventory.Product.Id, (IEnumerable<SelectListItem>)ViewBag.ProductId, new { @class = "form-control", required = true, Id = "productId" })
+                                                                        @Html.ValidationMessageFor(model => model.Inventory.Product.Id, null, new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Inventory.Quantity, "Quantity", new { @class = "control-label " })
+                                                        @Html.TextBoxFor(model => model.Inventory.Quantity, new { @class = "form-control", required = true })
+                                                        @Html.ValidationMessageFor(model => model.Inventory.Quantity, null, new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Inventory.ProductVariantOptions.Id, "Product Variant Options", new { @class = "control-label " })
+                                                        @Html.DropDownListFor(model => model.Inventory.ProductVariantOptions.Id, (IEnumerable<SelectListItem>)ViewBag.ProductVariantOption, new { @class = "form-control", required = true, Id = "productvariantOptionId" })
+                                                        @Html.ValidationMessageFor(model => model.Inventory.ProductVariantOptions.Id, null, new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col--2"></div>
+                                                                    <div class="col-sm-10">
+                                                                        <input class="btn btn-success mr5" type="submit" name="submit" value="Create" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                            }

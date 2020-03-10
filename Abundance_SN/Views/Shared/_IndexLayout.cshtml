@@ -1,0 +1,939 @@
+﻿@using Abundance_SN.Business
+@using Abundance_SN.Model.Model
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @{
+        StoreSetupLogic storeSetupLogic = new StoreSetupLogic();
+        var storeName = storeSetupLogic.GetAll().ToList();
+        if (storeName.Count > 0)
+        {
+            var Title = storeName.Select(x => x.ShopName).FirstOrDefault().ToUpper();
+            var email = storeName.Select(x => x.BusinessEmail).FirstOrDefault();
+            var phone = storeName.Select(x => x.BusinessPhone).FirstOrDefault();
+            var aboutUs = storeName.Select(x => x.AboutUs).FirstOrDefault();
+            var address = storeName.Select(x => x.StoreAddress).FirstOrDefault();
+
+            var storeLogo = storeName.FirstOrDefault().StoreLogoUrl;
+            if (storeLogo != null && storeLogo != "")
+            {
+                var displayLogo = storeLogo.Replace("~", "");
+                ViewBag.Logo = displayLogo;
+            }
+
+            ViewBag.Title = Title;
+            ViewBag.Email = email;
+            ViewBag.PhoneNo = phone;
+            ViewBag.AboutUs = aboutUs;
+            ViewBag.Address = address;
+        }
+
+
+    }
+    @*@if (Title!=null && Title!="")
+        {
+            <meta name="description" content="@ViewBag.Title  - Universal E-Commerce Template">
+            <meta name="keywords" content="@ViewBag.Title , e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+            <meta name="author" content="lloydant">
+        }*@
+    <meta name="description" content="EasyShop- Universal E-Commerce Template">
+    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+    <meta name="author" content="lloydant">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    @if (storeName != null && storeName.Count > 0)
+    {
+        <title>
+            @ViewBag.Title
+        </title>
+    }
+    else
+    {
+        <title>
+
+            EasyShop
+
+        </title>
+    }
+    <link href="~/Content/DefaultCss/css/animate.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/chosen.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/jquery.bxslider.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/style.css">
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/sweetalert.min.js"></script>
+
+    <style>
+        .heightProduct {
+            height: 240px;
+        }
+
+        .product-image {
+            margin-right: 10px;
+        }
+
+        /*.product-image a img {
+                width: 100% !important;
+            }*/
+    </style>
+</head>
+<body class="index-opt-2">
+    @{
+        CategoryLogic categoryLogic = new CategoryLogic();
+        var categories = categoryLogic.GetAll().Take(10).ToList();
+        List<Category> otherCategories = new List<Category>();
+        ProductTypeLogic productTypeLogic = new ProductTypeLogic();
+
+    }
+    <div class="wrapper">
+        <form id="block-search-mobile" method="get" class="block-search-mobile">
+            <div class="form-content">
+                <div class="control">
+                    <a href="#" class="close-block-serach"><span class="icon fa fa-times"></span></a>
+                    <input type="text" name="search" placeholder="Search" id="seacrhtxtbox" class="input-subscribe">
+                    <button type="submit" id="searchBtn" class="btnsearch">
+                        <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div id="block-quick-view-popup" class="block-quick-view-popup">
+            <div class="quick-view-content">
+                <a class="popup-btn-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+                <div class="slide-quick">
+                    @*<div class="product-thumbs">
+                            <a href="#" class="img-product-thumb"><img src="images/s-pop1.jpg" alt="p1"></a>
+                            <a href="#" class="img-product-thumb"><img src="images/s-pop2.jpg" alt="p1"></a>
+                            <a href="#" class="img-product-thumb"><img src="images/s-pop3.jpg" alt="p1"></a>
+                            <a href="#" class="img-product-thumb"><img src="images/s-pop4.jpg" alt="p1"></a>
+                        </div>*@
+                </div>
+                <div class="product-items">
+                    <div class="product-image">
+                        <a href="#"><img id="image" src="" alt="productImage" style="height:200px"></a>
+                    </div>
+                    <div class="product-info">
+                        <div id="product-name" style="font-size:large;"><a href="#"></a></div>
+                            <span class="star-rating">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <span class="review">5 Review(s)</span>
+                            </span>
+                            <a href="#" class="wishlist"><i class="fa fa-user" aria-hidden="true"></i>Add to Wishlist</a>
+                            <div class="product-infomation" style="font-size:large">
+
+                            </div>
+                        </div>
+                    <div class="product-info-price">
+                        <span class="price">
+                            <ins class="discounted"></ins>
+                            <del class="real"></del>
+                        </span>
+
+                        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+                        <div class="row">
+                            <div class="quantity col-md-4">
+                                <h6 class="quantity-title" id="key1Text">Size</h6>
+                                <select class="form-control" id="variantSize"></select>
+                            </div>
+
+
+                            <div class="quantity col-md-4" id="variantDiv2">
+                                <h6 class="quantity-title" id="key2Text">Colour:</h6>
+                                <select class="form-control" id="variantColour"></select>
+                            </div>
+                            <div class="quantity col-md-4" id="variantDiv3">
+                                <h6 class="quantity-title" id="key3Text">Material:</h6>
+                                <select class="form-control" id="variantMaterial"></select>
+                            </div>
+                        </div>
+                        <div class="clearfix"><br /></div>
+                        @*<a href="#" class="btn-add-to-cart">Add to cart</a>*@
+                        <a href="#" class="btn-add-to-cart my-cart-btn" id="add-to-cart-Id" data-id="" data-name="" data-summary="" data-Price="" data-quantity="1" data-image="" data-key1="" data-key2="" data-key3="">Add to cart</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- HEADER -->
+        <header class="site-header header-opt-1">
+            <!-- header-top -->
+            <!-- <div class="header-top">
+            <div class="container">
+                 hotline -->
+            <!-- <ul class="nav-top-left" >
+                <li><a href="#">Welcome to EasyShop - Always free delivery</a></li>
+            </ul>hotline -->
+            <!-- heder links -->
+            <!-- <ul class="nav-top-right krystal-nav">
+
+
+                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>Register / Sign in</a></li>
+            </ul>heder links -->
+            <!-- </div>
+            </div>  -->
+            <!-- header-top -->
+            <!-- header-content -->
+            <div class="header-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2 nav-left">
+                            <!-- logo -->
+
+                            <strong class="logo">
+                                @if (@ViewBag.Logo != null)
+                                {
+                                    <a href="@Url.Action("Index", "Home", new { area = "" })"><img src='@Url.Content(@ViewBag.Logo)' alt="logo"></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Index", "Home", new { area = "" })">@ViewBag.Title</a>
+                                }
+
+                            </strong><!-- logo -->
+
+
+
+                        </div>
+
+
+
+
+                        <div class="col-md-7 nav-mind">
+                            <!-- block search -->
+                            <div class="block-search">
+                                <div class="block-content">
+
+                                    <div class="form-search">
+                                        <form>
+                                            <div class="box-group">
+                                                <input type="text" class="form-control" id="seacrhtxtbox2" placeholder="Search entire store here...">
+                                                <button class="btn btn-search" type="button">
+                                                    <span>search</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div><!-- block search -->
+                        </div>
+                        <div class="col-md-3 nav-right">
+
+                            <a href="#" class="hidden-md search-hidden"><span class="pe-7s-search"></span></a>
+
+
+
+
+                            <div class="block-minicart dropdown col-md-6 col-sm-4 pull-right" style="padding: 15px 0;">
+                                <a class="minicart" href="@Url.Action("Cart", "Payment", new { area = "Customer" })">
+                                    <span class="counter-qty">
+                                        <span class="cart-icon my-cart-icon">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="counter-number my-cart-badge">0</span>
+                                    </span>
+                                    <span class="counter-your-cart">
+                                        <span class="counter-label">Your Cart</span>
+                                        <span class="counter-price subtotal" id="sumTotal2">₦00.00</span>
+
+                                    </span>
+                                </a>
+                                <div class="parent-megamenu">
+                                    <form>
+                                        <div class="minicart-content-wrapper">
+                                            <div class="subtitle">
+                                                You have
+                                                <span class="my-cart-badge" id="cartCounter"></span> item(s) in your cart
+                                            </div>
+                                            <div class="minicart-items-wrapper">
+                                                <ol class="minicart-items" id="cartBody"></ol>
+
+                                            </div>
+                                            <div class="subtotal">
+                                                <span class="label">Total :</span>
+                                                <span class="subtotal" id="sumTotal">₦0.00</span>
+                                            </div>
+                                            <div class="actions">
+                                                <a class="btn btn-viewcart" href="@Url.Action("Cart","Payment",new {area = "Customer"})">Cart</a>
+                                                <a class="btn btn-checkout" href="@Url.Action("Checkout","Checkout", new {area = "Customer"})">Checkout</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            @*<div class="cart">
+                                    <a class="hidden-md-up" href="@Url.Action("Cart", "Payment", new { area = "Customer" })"></a><span class="fa fa-shopping-cart my-cart-icon" id="cartClick"></span><span class="count badge-notify my-cart-badge">0</span><span class="subtotal">₦0</span>
+                                </div>*@
+
+
+                            <div class="dropdown col-md-3 pull-right">
+                                <div class="dropdown-toggle" id="login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <a class="wishlist-minicart" href="#" style="  padding-right: 0px;
+    text-align: right; width:45px; height:45px; text-align:center; border-radius:50%;"><i class="fa fa-user" aria-hidden="true"></i></a>
+
+                                </div>
+                                <ul class="dropdown-menu" aria-labelledby="login">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        var email = @User.Identity.Name;
+                                        UserLogic userLogic = new UserLogic();
+                                        var userInfo = userLogic.GetModelBy(x => x.Email == email);
+                                        var name = userInfo != null ? userInfo.Name : "";
+                                        <li style="text-transform:capitalize;"> <a class="user-name">@name</a></li>
+
+                                        <li><a href="@Url.Action("ViewOrders", "Checkout", new {area = "Customer"})">Orders List</a></li>
+                                        <li><a href="@Url.Action("ChangePassword", "Account", new {area = "Security"})">Change Password</a></li>
+                                        <li class="sub-menu-separator"></li>
+
+                                        using (Html.BeginForm("LogOff", "Account", new { Area = "Security" }, FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <li style="padding-left:21px;"><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("Login", "Account", new { area = "Security" })">Login</a></li>
+                                        <li><a href="@Url.Action("Register", "Account", new { area = "Security" })">Sign Up</a></li>
+                                    }
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- header-content -->
+            <!-- header-menu-bar -->
+            <div class="header-menu-bar header-sticky">
+                <div class="header-menu-nav menu-style-2">
+                    <div class="container">
+                        <div class="header-menu-nav-inner">
+                            <div id="box-vertical-megamenus" class="box-vertical-megamenus nav-toggle-cat">
+                                <h4 class="title active">
+                                    <span class="btn-open-mobile home-page">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </span>
+                                    <span class="title-menu">Categories</span>
+                                </h4>
+
+                                @*//*@
+
+                                <div class="vertical-menu-content">
+                                    <span class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                    <ul class="vertical-menu-list">
+                                        @for (int i = 0; i < categories.Count; i++)
+                                        {
+
+                                            var categoryId = categories[i].Id;
+                                            List<ProductType> productType = productTypeLogic.GetModelsBy(x => x.Category_Id == categoryId);
+
+
+                                            <li class="menu-item-has-children arrow item-megamenu">
+                                                <a href="@Url.Action("ViewProductByCategory", "Product", new {area = "Customer", Id = categories[i].Id})" class="dropdown-toggle">@categories[i].Name</a>
+                                                <span class="toggle-submenu hidden-md"></span>
+                                                @if (categories[i].ImageUrl != null)
+                                                {
+                                                    <div class="submenu parent-megamenu megamenu" style="background: #fff url('@Url.Content(@categories[i].ImageUrl)'); background-size:contain; background-position:center right; background-repeat:no-repeat; min-width: 700px;">
+                                                        <div class="row">
+                                                            @if (productType != null)
+                                                            {
+                                                                
+                                                                <div class="submenu-banner submenu-banner-menu-1">
+                                                                    <div class="col-md-4">
+                                                                        <div class="dropdown-menu-info">
+
+
+                                                                            <div class="dropdown-menu-content">
+                                                                                @for (int z = 0; z < productType.Count; z++)
+                                                                                {
+                                                                                    <ul class="menu">
+                                                                                        <li class="menu-item"><a href="@Url.Action("ViewProduct", "Product", new { area = "Customer", Id = productType[z].Id })">@productType[z].Name</a></li>
+                                                                                    </ul>
+                                                                                }
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+
+                                                            @*<div class="submenu-banner submenu-banner-menu-1">
+                                                                    <div class="col-md-4">
+                                                                        <div class="dropdown-menu-info">
+                                                                            @if (productType != null)
+                                                                            {
+
+                                                                                <div class="dropdown-menu-content">
+                                                                                    @for (int z = 0; z < productType.Count; z++)
+                                                                                    {
+                                                                                        <ul class="menu">
+                                                                                            <li class="menu-item"><a href="@Url.Action("ViewProduct", "Product", new {area = "Customer", Id = productType[z].Id})">@productType[z].Name</a></li>
+                                                                                        </ul>
+                                                                                    }
+                                                                                </div>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>*@
+
+
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="submenu parent-megamenu megamenu">
+                                                        <div class="row">
+                                                            <div class="submenu-banner submenu-banner-menu-1">
+                                                                <div class="col-md-4">
+                                                                    <div class="dropdown-menu-info">
+                                                                        @if (productType != null)
+                                                                        {
+                                                                            <h6 class="dropdown-menu-title">@categories[i].Name</h6>
+                                                                            <div class="dropdown-menu-content">
+                                                                                @for (int z = 0; z < productType.Count; z++)
+                                                                                {
+                                                                                    <ul class="menu">
+                                                                                        <li class="menu-item"><a href="@Url.Action("ViewProduct", "Product", new {area = "Customer", Id = productType[z].Id})">@productType[z].Name</a></li>
+                                                                                    </ul>
+                                                                                }
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header><!-- end HEADER -->
+        <div class="site-main">
+            @RenderBody()
+        </div>
+        <!-- // Basic form layout section end -->
+        <!-- FOOTER -->
+        <footer class="site-footer footer-opt-2">
+
+            <div class="footer-column equal-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 equal-elem">
+                            <h3 class="title-of-section">About Us</h3>
+                            <div class="contacts">
+                                <p class="contacts-info">@ViewBag.AboutUs</p>
+                                <span class="contacts-info info-address ">@ViewBag.Address</span>
+                                <span class="contacts-info info-phone">@ViewBag.PhoneNo</span>
+                                <span class="contacts-info info-support">@ViewBag.Email</span>
+                                <!-- <div class="socials">
+                                    <a href="#" class="social"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    <a href="#" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#" class="social"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                    <a href="#" class="social"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#" class="social"><i class="fa fa-vimeo" aria-hidden="true"></i></a>
+                                    <a href="#" class="social"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6 equal-elem">
+                            <div class="links">
+                                <h3 class="title-of-section">My account</h3>
+                                <ul>
+                                    <li><a href="@Url.Action("Login", "Account", new { area = "Security" })">Sign In</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6 equal-elem">
+                            <div class="links">
+                                <h3 class="title-of-section">Information</h3>
+                                <ul>
+                                    <li><a href="#">Specials</a></li>
+                                    <li><a href="#">Best sellers</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 equal-elem">
+                            <div class="col-md-12">
+                                <div class="newsletter-title">
+                                    <h3 class="title-of-section" style="color:#333; padding:0; margin:0;">Sign up for newsletter</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="newsletter-form">
+                                    <form id="newsletter-validate-detail" class="form subscribe">
+                                        <div class="control">
+                                            <input type="email" placeholder="Enter your email address" id="newsletter" name="email" class="input-subscribe">
+                                            <button type="submit" title="Subscribe" class="btn subscribe btn-block" actions="http://lloydant.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544">
+                                                <i class="fa fa-envelope"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="socials">
+                                    <a href="#" class="social">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="social">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="social">
+                                        <i class="fa fa-pinterest" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="social">
+                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright full-width">
+                <div class="container">
+                    <div class="copyright-right">
+                        © Copyright 2018<span>AppStade</span>. All Rights Reserved.
+                    </div>
+                    <div class="pay-men">
+                        <a href="#"><img src="~/Content/DefaultCss/images/home1/pay1.jpg" alt="pay1"></a>
+                        <a href="#"><img src="~/Content/DefaultCss/images/home1/pay2.jpg" alt="pay2"></a>
+                        <a href="#"><img src="~/Content/DefaultCss/images/home1/pay3.jpg" alt="pay3"></a>
+                        <a href="#"><img src="~/Content/DefaultCss/images/home1/pay4.jpg" alt="pay4"></a>
+                    </div>
+                </div>
+            </div>
+        </footer><!-- end FOOTER -->
+        <!--back-to-top  -->
+        <!-- <a href="#" class="back-to-top">
+            <i aria-hidden="true" class="fa fa-angle-up"></i>
+        </a> -->
+    </div>
+    <a href="#" id="scrollup" title="Scroll to Top">Scroll</a>
+    <!-- jQuery -->
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/wow.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery.actual.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery.sticky.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery.elevateZoom.min.js"></script>
+
+    <script src="~/Content/DefaultCss/js/fancybox/source/jquery.fancybox.pack.js"></script>
+    <script src="~/Content/DefaultCss/js/fancybox/source/helpers/jquery.fancybox-media.js"></script>
+    <script src="~/Content/DefaultCss/js/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/function.min.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/Modernizr.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery.plugin.js"></script>
+    <script type="text/javascript" src="~/Content/DefaultCss/js/jquery.countdown.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    @*<script src="~/Scripts/vendor.min.js"></script>
+        <script src="~/Scripts/customizer.min.js"></script>
+        <script src="~/Scripts/scripts.min.js"></script>
+        <script src="~/Scripts/owl.carousel.js"></script>
+        <script src="~/Scripts/jqzoom.js"></script>
+        <script src="~/Scripts/jquery.mycart.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/sweetalert.min.js"></script>*@
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script type='text/javascript' src="~/Scripts/bootstrap.min.js"></script>
+    <script type='text/javascript' src="~/Scripts/jquery.mycart.js"></script>
+    <script src="~/Scripts/iziToast.js"></script>
+
+    <script type="text/javascript">
+        var noConflict = $.noConflict(true);
+        var productVariantId, key1, key2, key3, value1, value2, value3, image, price,inventoryQuantity;
+
+        $(document).ready(function () {
+
+            $('.btn-search').on('click', function () {
+                var searchContent = $('#seacrhtxtbox2').val();
+                if (searchContent != null && searchContent != "") {
+                    window.location.href = ($("#searchUrl").val()) + '?fliter=' + searchContent;
+                }
+                else {
+                    swal("Operation Failed", "Enter a key word To Search", "error");
+                }
+            });
+
+            //$('#add-to-cart-Id').prop('disabled', true);
+
+            $('#variantSize').on('change', function () {
+                    var variantId = $('#variantSize').val();
+                    var variantKey1Value = $('#variantSize option:selected').text();
+                    value1 = variantKey1Value;
+                    $('#variantColour').empty();
+                    noConflict.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("PopulateKey2ValueDropdown", "Home", new { area = "" })', // we are calling json method
+                        dataType: 'json',
+                        data: { variantId: variantId, key1Value: variantKey1Value },
+                        success: function (value2SelectListItems) {
+                            var key1Variant = value2SelectListItems[0].ProductVariant.Key1;
+                            var key2Variant = value2SelectListItems[0].ProductVariant.Key2;
+                            $('#key1Text').text('');
+                            $('#key1Text').text(key1Variant);
+                            if (value2SelectListItems.length > 0 && key2Variant != "" && key2Variant != undefined) {
+                                $("#variantColour").append('<option value="' + 0 + '">----Select----</option>');
+                                $.each(value2SelectListItems, function (i, values) {
+                                    $('#variantColour').append('<option value="' + values.ProductVariant.Id + '">' + values.ProductOptionName + '</option>');
+
+                                });
+                                $('#key2Text').text(key2Variant);
+                                $('#variantDiv2').show();
+                                $('.discounted').empty();
+                                $('.real').empty();
+                                var productVariantData = value2SelectListItems.splice(-1, 1);
+                                key1 = productVariantData[0].ProductVariant.Key1;
+                                value1 = productVariantData[0].ProductVariant.Value1;
+                                productVariantId = productVariantData[0].Id;
+                                price = productVariantData[0].Price;
+                                image = productVariantData[0].ImageUrl;
+                                inventoryQuantity = productVariantData[0].VariantQuantity;
+                                $('.discounted').text("₦" + price);
+                            } else {
+                                //$('.discounted').empty();
+                               // $('.real').empty();
+                                //$('.btn-add-to-cart').attr('disabled', false);
+                                key1 = $("#key1Text").text();
+                                key2 = "";
+                                key3 = "";
+                                value2 = "";
+                                value3 = "";
+                                image = "";
+                                productVariantId = value2SelectListItems[0].ProductVariant.Id;
+                                inventoryQuantity = value2SelectListItems[0].VariantQuantity;
+                                //price = value2SelectListItems[0].productVariantData.price;
+                                //$('.discounted').text("₦" + price);
+                                $('#add-to-cart-Id').prop("disabled", false);
+                            }
+
+                        },
+                        error: function(ex) {
+                            alert('Failed to retrieve PopulateKey3ValueDropdown.' + ex);
+                        }
+                    });
+                });
+                $('#variantColour').on('change', function() {
+                    var variantId = $('#variantColour').val();
+                    var variantKey1Value = $('#variantSize option:selected').text();
+                    var variantKey2Value = $('#variantColour option:selected').text();
+                    value2 = variantKey2Value;
+                    $('#variantMaterial').empty();
+                    noConflict.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("PopulateKey3ValueDropdown", "Home", new { area = "" })', // we are calling json method
+                        dataType: 'json',
+                        data: { variantId: variantId, key1Value: variantKey1Value, key2Value: variantKey2Value },
+                        success: function (value3SelectListItems) {
+
+                            var key3Variant = value3SelectListItems[0].ProductVariant.Key3;
+
+                                if (value3SelectListItems.length > 0 && key3Variant != "" && key3Variant != undefined) {
+
+                                $("#variantMaterial").append('<option value="' + 0 + '">----Select----</option>');
+                                $.each(value3SelectListItems, function (i, values) {
+                                    $('#variantMaterial').append('<option value="' + values.ProductVariant.Id + '">' + values.ProductOptionName + '</option>');
+                                });
+                                $('#key3Text').text(key3Variant);
+                                $('#variantDiv3').show();
+                                $('.discounted').empty();
+                                $('.real').empty();
+                                var productVariantData = value3SelectListItems.splice(-1, 1);
+
+                                productVariantId = productVariantData[0].Id;
+                                price = productVariantData[0].Price;
+                                image = productVariantData[0].ImageUrl;
+                                value2 = productVariantData[0].ProductVariant.Value2;
+                                key2 = productVariantData[0].ProductVariant.Key2;
+                                inventoryQuantity = productVariantData[0].VariantQuantity;
+                                $('.discounted').text("₦" + price);
+
+                                } else {
+                                    $('.discounted').empty();
+                                    $('.real').empty();
+                                //$('.btn-add-to-cart').attr('disabled', false);
+                                    $('#add-to-cart-Id').prop("disabled", false);
+                                    key2 = $("#key2Text").text();
+                                    //price = value3SelectListItems[0].productVariantData.price;
+                                key3 = "";
+                                value3 = "";
+                                $('.discounted').text("₦" +price);
+                            }
+
+                        },
+                        error: function(ex) {
+                            alert('Failed to retrieve PopulateKey3ValueDropdown.' + ex);
+                        }
+                    });
+                });
+                $('#variantMaterial').on('change', function () {
+                    var variantId = $('#variantColour').val();
+                    var variantKey1Value = $('#variantSize option:selected').text();
+                    var variantKey2Value = $('#variantColour option:selected').text();
+                    var variantKey3Value = $('#variantMaterial option:selected').text();
+
+                    noConflict.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetProductVariantProperties", "Home", new { area = "" })', // we are calling json method
+                        dataType: 'json',
+                        data: { key1Value: variantKey1Value, key2Value: variantKey2Value, key3Value: variantKey3Value, variantId: variantId },
+                        success: function (values) {
+                            if (values != null) {
+                                $('.discounted').empty();
+                                $('.real').empty();
+                                productVariantId = values.Id;
+                                price = values.Price;
+                                image = values.ImageUrl;
+                                value3 = values.ProductVariant.Value3;
+                                key3 = values.ProductVariant.Key3;
+                                inventoryQuantity = productVariantData[0].VariantQuantity;
+                                $('.discounted').text("₦" + price);
+                            }
+                            //$('.btn-add-to-cart').attr('disabled', false);
+                            $('#add-to-cart-Id').prop("disabled", false);
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve PopulateKey3ValueDropdown.' + ex);
+                        }
+                    });
+                });
+                //function addToCartBtnClicked(){
+                $('#add-to-cart-Id').click(function (event) {
+                    if (inventoryQuantity >= 1)
+                    {
+                        if (key1 == null && value1 == null && productVariantId == null) {
+                            swal("Attention!", "Choose Product Variant Before Adding to Cart", "error");
+                        }
+                        else {
+                            if (image != "" && image != undefined) {
+                                $('#add-to-cart-Id').attr({ 'data-quantity': 1, 'data-price': price, 'data-image': image, 'data-size': productVariantId, 'data-valuekey1': key1, 'data-valuekey2': key2, 'data-valuekey3': key3, 'data-Value1': value1, 'data-Value2': value2, 'data-Value3': value3 });
+
+                            }
+                            else {
+                                $('#add-to-cart-Id').attr({ 'data-quantity': 1, 'data-price': price, 'data-size': productVariantId, 'data-valuekey1': key1, 'data-valuekey2': key2, 'data-valuekey3': key3, 'data-Value1': value1, 'data-Value2': value2, 'data-Value3': value3 });
+
+
+                                //$(function () {
+                                //    $("#add-to-cart-Id").on('click', function () {
+                                //        $('#block-quick-view-popup').modal('hide');
+                                //    });
+                                //});
+                            }
+                            //close the pop up modal
+                            $(".block-quick-view-popup").removeClass("open");
+                            //give alert after adding to cart
+                            iziToast.success({
+                                title: 'Product',
+                                message: 'successfuly added to cart!',
+                                position: 'topRight',
+                                backgroundColor: "dodgerblue",
+                                messageColor: 'white',
+                                icon: "fa fa-check",
+                                iconColor: 'white',
+                                titleColor: 'white'
+                            });
+                            window.location.reload(true);
+                            //$('#block-quick-view-popup').modal('hide');
+                        }
+                    }
+                    else {
+                        $(".block-quick-view-popup").removeClass("open");
+                        iziToast.error({
+
+                            rtl: false,
+                            layout: 1,
+                            drag: false,
+                            timeout: 10000,
+                            close: true,
+                            overlay: true,
+                            toastOnce: true,
+                            id: 'question',
+                            progressBar: true,
+                            title: 'Info',
+                            message: 'The Selected Product Variant is Out of Stock, Check again Later',
+                            position: 'center'
+                        });
+                        window.location.reload(true);
+                    }
+
+
+                });
+
+                $('#sumTotal').text('');
+                $('#sumTotal2').text('');
+                $('#cartCounter').text('');
+                if (localStorage.products != null && localStorage.products != "" && localStorage.products != "[]") {
+                    var allProducts = JSON.parse(localStorage.products);
+                    var sumPrice = 0;
+                    var sumQuantity = 0;
+                    $('#cartBody').html(' ');
+                    for (var i = 0; i < allProducts.length; i++) {
+                        $('#cartBody').append('<li class="product-inner "><div class="product-thumb style1"> <div class="thumb-inner"><a href="#">  <img id="cartProductImage" src="' + allProducts[i].image + '" alt="Product" style="height:50px; width:70px;"></a></div> </div> <div class="product-innfo" id="' + allProducts[i].id + '" size="' + allProducts[i].productOptionId + '"><div class="product-name"> <a href="#">' + allProducts[i].name + '</a></div><a href="#" class="remove my-product-remove">  <i class="fa fa-times" aria-hidden="true"></i> </a><span class="price"><ins id="discountedAmount">₦' + allProducts[i].price + '</ins> <del id="realPrice">₦' + allProducts[i].price + '</del></span></div> </li>');
+                        sumPrice += parseInt(allProducts[i].quantity) * parseInt(allProducts[i].price);
+                        sumQuantity += allProducts[i].quantity;
+                    }
+                    $('#sumTotal').append('₦' + sumPrice);
+                    $('#sumTotal2').append('₦' + sumPrice);
+                    $('#cartCounter').append(sumQuantity);
+                } else {
+                    $('#cartBody').append('<div class="alert alert-danger" role="alert"> Your cart is empty</div>');
+                }
+                var holdProducts = function (products, totalPrice, totalQuantity) {
+                    $('#cartBody').html(' ');
+                    $('#sumTotal').text('');
+                    $('#sumTotal2').text('');
+                    $('#cartCounter').text('');
+
+                    for (var i = 0; i < products.length; i++) {
+
+                        $('#cartBody').append('<li class="product-inner "><div class="product-thumb style1"> <div class="thumb-inner"><a href="#">  <img id="cartProductImage" src="' + products[i].image + '" alt="Product" style="height:50px;"></a></div> </div> <div class="product-innfo"  id="' + products[i].id + '" size="' + products[i].productOptionId + '"><div class="product-name"> <a href="#">' + products[i].name + '</a></div><a href="#" class="remove my-product-remove">  <i class="fa fa-times" aria-hidden="true"></i> </a><span class="price"><ins id="discountedAmount">₦' + products[i].price + '</ins> <del id="realPrice">₦' + products[i].price + '</del></span></div> </li>');
+                    }
+                    $('#sumTotal').append('₦' + totalPrice);
+                    $('#sumTotal2').append('₦' + totalPrice);
+                    $('#cartCounter').append(totalQuantity);
+                }
+                var goToCartIcon = function ($addTocartBtn) {
+                    var $cartIcon = $(".my-cart-icon");
+                    var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({ "position": "fixed", "display": "none", "z-index": "999" });
+                    $addTocartBtn.prepend($image);
+                    var position = $cartIcon.position();
+                    $image.animate({
+                        top: position.top,
+                        right: position.right
+                        //left: position.left
+                    }, 500, "linear", function () {
+                        $image.remove();
+                    });
+                }
+
+                noConflict('#cart-id-add').myCart({
+                currencySymbol: '₦',
+                classCartBadge: 'my-cart-badge',
+                classProductQuantity: 'my-product-quantity',
+                classProductRemove: 'my-product-remove',
+                classCheckoutCart: 'my-cart-checkout',
+                showCheckoutModal: true,
+                numberOfDecimals: 2,
+                clickOnAddToCart: function ($addTocart) {
+                    goToCartIcon($addTocart);
+                },
+                afterAddOnCart: function (products, totalPrice, totalQuantity) {
+                    holdProducts(products, totalPrice, totalQuantity);
+                },
+                clickOnCartIcon: function ($cartIcon, products, totalPrice, totalQuantity) {
+                    console.log("cart icon clicked", $cartIcon, products, totalPrice, totalQuantity);
+                },
+                checkoutCart: function (products, totalPrice, totalQuantity) {
+                    var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
+                    checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
+                    $.each(products, function () {
+                        checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
+                    });
+                    alert(checkoutString);
+                    console.log("checking out", products, totalPrice, totalQuantity);
+                },
+                getDiscountPrice: function (products, totalPrice, totalQuantity) {
+                    console.log("calculating discount", products, totalPrice, totalQuantity);
+                    return totalPrice * 0.5;
+                }
+
+            });
+
+
+
+
+            $('#btnfilter1').on('click', function (e) {
+
+
+                var miniFliterValue = $('#minfilterValue').val();
+                var maxFliterValue = $('#maxfilterValue').val();
+                var urlString = location.href;
+                var Id = null;
+                var url = null;
+
+                if (maxFliterValue != null && maxFliterValue != "" && miniFliterValue != null && miniFliterValue != "") {
+                    if (location.href.match(/Id/)) {
+                        var stringSplit = urlString.split('&');
+                        Id = stringSplit[0].slice(-1);
+                        url = stringSplit[0].replace("?Id=" + Id, "");
+                    } else {
+                        Id = urlString.slice(-1);
+                        url = urlString.replace("/" + Id, "");
+                    }
+
+                    noConflict.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("ViewProductByFilteredPrice", "Product")', // we are calling json method
+                        dataType: 'json',
+                        data: { fiilterurl: url, maxFliterValue: maxFliterValue, miniFliterValue: miniFliterValue, Id: Id },
+                        success: function (filterProductUrl) {
+                            window.location.href = filterProductUrl;
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve Filtered Products.' + ex);
+                        }
+                    });
+                }
+                });
+
+            //noConflict('.owl-carousel').owlCarousel({
+            //    items: 4,
+            //    loop: true,
+            //    margin: 10,
+            //    autoplay: true,
+            //    autoplayTimeout: 1000,
+            //    autoplayHoverPause: true
+            //});
+            //$('.owl-carousel').owlCarousel({
+            //    items: 4,
+            //    loop: true,
+            //    margin: 10,
+            //    autoplay: true,
+            //    autoplayTimeout: 1000,
+            //    autoplayHoverPause: true
+            //});
+
+
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+    <input value="@Url.Action("ViewProductByFilter", "Product", new { Area = "Customer" })" hidden="hidden" id="searchUrl" />
+</body>
+</html>

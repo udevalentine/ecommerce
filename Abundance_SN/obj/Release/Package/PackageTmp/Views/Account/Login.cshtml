@@ -1,0 +1,132 @@
+﻿@using System.Data.Entity.Core.Common.CommandTrees
+@using Abundance_SN.Business
+@model Abundance_SN.Models.RegisterViewModel
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="offcanvas-wrapper">
+    <!-- Page Title-->
+    <div class="page-title">
+        <div class="container">
+            <div class="column">
+                <h1>Login</h1>
+            </div>
+            <div class="column">
+                <ul class="breadcrumbs">
+                    <li>
+                        <a href="@Url.Action("Index", "Home", new {area = ""})">Home</a>
+                    </li>
+                    <li class="separator">&nbsp;</li>
+                    <li>
+                        <a href="#">Account</a>
+                    </li>
+                    <li class="separator">&nbsp;</li>
+                    <li>Login</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @if (TempData["Message"] != null)
+    {
+        var tempDatamessage = TempData["Message"];
+        @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+    }
+    <!-- Page Content-->
+    <div class="container padding-bottom-3x mb-2">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6 col-lg-offset-2 col-sm-">
+                @using (Html.BeginForm("Login", "Account", new {Area = "Security"}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                {
+                    @*<div class="row margin-bottom-1x">
+                            <div class="col-xl-4 col-md-6 col-sm-4"><a class="btn btn-sm btn-block facebook-btn" href="http://themes.#lloydant.com/#lloydant/v2.2/template-1/account-login.html#"><i class="socicon-facebook"></i>&nbsp;Facebook login</a></div>
+                            <div class="col-xl-4 col-md-6 col-sm-4"><a class="btn btn-sm btn-block twitter-btn" href="http://themes.#lloydant.com/#lloydant/v2.2/template-1/account-login.html#"><i class="socicon-twitter"></i>&nbsp;Twitter login</a></div>
+                            <div class="col-xl-4 col-md-6 col-sm-4"><a class="btn btn-sm btn-block google-btn" href="http://themes.#lloydant.com/#lloydant/v2.2/template-1/account-login.html#"><i class="socicon-googleplus"></i>&nbsp;Google+ login</a></div>
+                        </div>*@
+
+                    <h4 class="margin-bottom-1x">Login</h4>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, "User Name", new {@class = "control-label"})
+                        @Html.TextBoxFor(model => model.UserName, new {placeholder = "Password", required = "required", @class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, "Password", new {@class = "control-label"})
+                        @Html.TextBoxFor(model => model.Password, new {placeholder = "Password", required = "required", type = "password", @class = "form-control"})
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-between padding-bottom-1x">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" id="remember_me" checked="">
+                            <label class="custom-control-label" for="remember_me">Remember me</label>
+                        </div><a class="navi-link" href="#">Forgot password?</a>
+                    </div>
+                    <div class="text-center text-sm-right">
+                        <button class="btn btn-primary margin-bottom-none" type="submit">Login</button>
+                    </div>
+                }
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">Recommended For You</h3>
+        <!-- Carousel-->
+        <div class="owl-carousel owl-loaded owl-drag" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+            <!-- Product-->
+            <!-- Product-->
+            <!-- Product-->
+            <!-- Product-->
+            <!-- Product-->
+            <!-- Product-->
+
+            <div class="owl-stage-outer">
+                <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: 0s; width: 1755px;">
+
+                    @{
+                        ProductLogic productLogic = new ProductLogic();
+                        var products = productLogic.GetAll();
+                        var distinctBrand = products.Select(s => s.Brand.Id).Distinct().ToList();
+                    }
+                    @for (int i = 0; i < distinctBrand.Count; i++)
+                    {
+
+                        var currentProductByBrands = products.Where(s => s.Brand.Id == distinctBrand[i]).Take(4).ToList();
+                        for (int j = 0; j < currentProductByBrands.Count; j++)
+                        {
+                            <div class="owl-item active" style="width: 262.5px; margin-right: 30px;">
+                                <div class="grid-item">
+                                    <div class="product-card">
+                                        <div class="product-badge text-danger">@currentProductByBrands[i].Discount% Off</div><a class="product-thumb" href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = currentProductByBrands[0].Id })"><img src="@Url.Content(currentProductByBrands[0].ImageUrl)" alt=" product" style="padding-top:30px"></a>
+                                        <h3 class="product-title">
+                                            <a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = currentProductByBrands[i].Id })">@currentProductByBrands[i].Name.ToUpper()</a>
+                                        </h3>
+                                        <h4 class="product-price">
+                                            <del>₦@currentProductByBrands[i].Price.ToString("N2")</del>₦@currentProductByBrands[i].DiscountAmount.ToString("N2")
+                                        </h4>
+                                        <div class="product-buttons">
+                                 
+                                            @{
+                                                  var cartImage = currentProductByBrands[j].ImageUrl.Replace('~', ' ');
+                                            }
+                                          
+                                            <a class="btn btn-outline-success btn-sm" href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = currentProductByBrands[i].Id })">Buy Now</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                </div>
+            </div><div class="owl-nav disabled"><div class="owl-prev"></div><div class="owl-next"></div></div><div class="owl-dots"><div class="owl-dot active"><span></span></div><div class="owl-dot"><span></span></div></div>
+        </div>
+
+
+
+    </div>
+
+</div>
+<!-- Back To Top Button--><a class="scroll-to-top-btn" href="http://themes.#lloydant.com/#lloydant/v2.2/template-1/account-login.html#"><i class="fa fa-arrow-up"></i></a>
+

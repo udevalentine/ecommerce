@@ -1,0 +1,570 @@
+﻿@using Abundance_SN.Business
+@model Abundance_SN.Models.ProductViewModel
+@{
+    ViewBag.Title = "title";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<script src="~/Scripts/jquery-2.2.3.min.js"></script>
+<script type="text/javascript">
+    var noConflict = $.noConflict(true);
+    noConflict(document).ready(function () {
+        $('#')
+        $('#productTable').on('click', 'div.value-plus', function () {
+            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
+
+
+            if (newVal > 0) {
+                var divId = divUpd.attr('id');
+                var arr = divId.split('_');
+                var amtId = "tdAmt" + arr[1];
+                var divAmt = $('#' + amtId).text();
+                var amountValue = divAmt.replace("₦", "");
+                var productAmount = parseInt(amountValue) / parseInt(divUpd.text(), 10);
+                var newAmt = parseInt(amountValue) + parseInt(productAmount);
+                $('#' + amtId).text('₦' + newAmt);
+                $('#cartTotal').html('');
+                var currentProductId = $(this).attr('id');
+                var currentProductOptionId = $(this).closest('tr').attr('size');
+                updatePoduct(currentProductId, newVal, currentProductOptionId);
+                var totalPrice = getTotalPrice();
+                var totalQuantity = getTotalQuantity();
+                $('#cartTotal').text('₦' + totalPrice);
+                $('.my-cart-badge').text(totalQuantity);
+                divUpd.text(newVal);
+            }
+
+        });
+
+        var products = JSON.parse(localStorage.products);
+        var sumPrice = 0;
+        for (var i = 0; i < products.length; i++) {
+            var price = parseInt(products[i].quantity) * parseInt(products[i].price);
+            sumPrice = sumPrice + price;
+            @*$("#cartTableId").append('<tr id="' + products[i].id + '" size="' + products[i].productOptionId + '"><td><div class="product-item"><a class="product-thumb" href="#"><img src="/EasyShop' + products[i].image + '" alt="Product"></a> <div class="product-info"><h4 class="product-title"><a href="#">' + products[i].name + '</a></h4><span><em>Description:</em>' + unescape(products[i].summary) + '</span><span> </div></div> </td><td class="text-center"><div class="quantity"><div class="quantity-select"><div class="entry value-minus">&nbsp;</div><div class="entry value" id="btnplus_' + i + '"><span>' + products[i].quantity + '</span></div> <div class="entry value-plus active" id="' + products[i].id + '">&nbsp;</div></div></div> </td> <td class="text-center text-lg text-medium" id="tdAmt' + i + '">₦' + price + '</td> <td class="text-center">—</td> <td class="text-center"><div><a class="remove-from-cart" href="#" ><img src="' + '@Url.Content("~/Content/images/close_1.png")' + '"alt=" " class="my-remove-product"></a></div></td> </tr>');*@
+            $("#cartTableId").append('<tr id="' + products[i].id + '" size="' + products[i].productOptionId + '"><td style="border:0;><div class="product-item"><a class="product-thumb item-photo" href="#"><img src="' + products[i].image + '" alt="Product" style="height:50px;"></a></td><td> <div class="product-info"><h4 class="product-title"><a href="#">' + products[i].name + '</a></h4><span><b>Description:</b>' + unescape(products[i].summary) + '</span><span> </div></div> </td><td class="text-center"><div class="quantity"><div class="quantity-select"><div class="entry value-minus">&nbsp;</div><div class="entry value" id="btnplus_' + i + '"><span>' + products[i].quantity + '</span></div> <div class="entry value-plus active" id="' + products[i].id + '">&nbsp;</div></div></div> </td> <td class="text-center text-lg text-medium" id="tdAmt' + i + '">₦' + price + '</td> <td class="text-center">—</td> <td class="text-center"><div><a class="remove-from-cart" href="#" ><img src="' + '@Url.Content("~/Content/images/close_1.png")' + '"alt=" " class="my-product-remove2"></a></div></td> </tr>');
+
+        }
+        $('#tableId').append('<tr><td>Cart Subtotal:</td> <td class="text-medium">₦' + sumPrice + '</td></tr><tr><td>Shipping:</td><td class="text-medium">₦ ' + 0 + '</td></tr><tr> <td>Total Charges:</td><td class="text-medium">₦ ' + 0 + '</td></tr><tr><td>Total</td><td class="text-lg text-medium">₦' + sumPrice + '</td> </tr>');
+        $('#cartTotal').text("₦" + sumPrice);
+
+        $('.my-remove-product').on('click', function () {
+
+            $('.subtotal').text('');
+            $('#cartTotal').html('');
+            var $tr = $(this).closest("tr");
+            var id = $tr.attr("id");
+            var optionId = $tr.attr("productOptionId");
+            $tr.hide(500, function () {
+
+                removeProduct(id, optionId);
+                var totalQuantity = getTotalQuantity();
+                var totalPrice = getTotalPrice();
+                $('.my-cart-badge').text(totalQuantity);
+                $('#cartTotal').text('₦' + totalPrice);
+                $('.subtotal').text('₦' + totalPrice);
+                if (totalQuantity == "0" || totalQuantity == "") {
+                    $('#cartBody').html(' ');
+                    $('#cartBody').append('<div class="alert alert-danger" role="alert"> Your cart is empty</div>');
+                } else {
+                    $('#cartBody').html('');
+                    $('.subtotal').text('');
+                    var products = JSON.parse(localStorage.products);
+                    for (var i = 0; i < products.length; i++) {
+                        $('#cartBody').append('<div class="dropdown-product-item my-product-remove"id="' + products[i].id + '"size="' + products[i].productOptionId + '"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="#"><img src="/EasyShop' + products[i].image + '" alt="Product"></a><div class="dropdown-product-info"><a class="dropdown-product-title" href="#">' + products[i].name + '</a><span class="dropdown-product-details">' + products[i].quantity + ' x ₦' + products[i].price + '</span></div></div>');
+                    }
+                    $('#cartBody').append('<div class="toolbar-dropdown-group"><div class="column"><span class="text-lg">Total:</span></div><div class="column text-right"><span class="text-lg text-medium" id="totalCartAmountId">₦' + totalPrice + '</span></div></div><div class="toolbar-dropdown-group">  <div class="column"><a class="btn btn-sm btn-block btn-secondary" href="' + '@Url.Action("Cart", "Payment", new {area = "Customer"})' + '">View Cart</a></div> <div class="column"><a class="btn btn-sm btn-block btn-success" href="' + '@Url.Action("Checkout", "Checkout", new {area = "Customer"})' + '">Checkout</a></div></div></div>');
+                    $('.subtotal').append('₦' + totalPrice);
+                }
+            });
+        });
+
+
+        //$('#productTable').on('click', 'div.value-minus', function() {
+        //    var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+        //    if (newVal >= 1) divUpd.text(newVal);
+
+        //    if (newVal > 0) {
+        //    }
+        //});
+        $('#productTable').on('click', 'div.value-minus', function () {
+            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+
+            if (newVal > 0) {
+                var divId = divUpd.attr('id');
+                var arr = divId.split('_');
+                var amtId = "tdAmt" + arr[1];
+                var divAmt = $('#' + amtId).text();
+                var amountValue = divAmt.replace("₦", "");
+                var productAmount = parseInt(amountValue) / parseInt(divUpd.text(), 10);
+                var newAmt = parseInt(amountValue) - parseInt(productAmount);
+                $('#' + amtId).text('₦' + newAmt);
+                $('#cartTotal').html('');
+                var currentProductId = $(this).closest('tr').attr('id');
+                var currentProductOptionId = $(this).closest('tr').attr('size');
+                updatePoduct(currentProductId, newVal, currentProductOptionId);
+                var totalPrice = getTotalPrice();
+                var totalQuantity = getTotalQuantity();
+                $('#cartTotal').text('₦' + totalPrice);
+                $('.my-cart-badge').text(totalQuantity);
+                if (newVal >= 1) divUpd.text(newVal);
+            }
+
+        });
+        $('#btnClearCart').on('click', function () {
+            localStorage.products = "[]";
+            $('#cartBody').html(' ');
+            $('#cartBody').append('<div class="alert alert-danger" role="alert"> Your cart is empty</div>');
+            $('#cartTotal').html('');
+            $('.my-cart-badge').text(0);
+            $('.subtotal').append('₦' + 0);
+            $("#cartTableId").html('');
+        });
+        $('#btnClearCart2').click(function () {
+            localStorage.products = "[]";
+            window.location.reload();
+
+        })
+
+        $('.my-cart-btn').on('click', function (e) {
+            var clickId = this.id;
+            var btnId = clickId.split('-');
+
+            if (btnId[0] == "btnSaveforLater") {
+
+                var OptionArray = [];
+                var isValid = true;
+                var avaliableOptions = document.getElementsByClassName('variantOptions' + btnId[1]);
+                for (var i = 0; i < avaliableOptions.length; i++) {
+                    var id = avaliableOptions[i].id;
+                    OptionArray.push(id);
+
+                    if (!$("#" + id).val() || $("#" + id).val() == "--select--") {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                if (!isValid) {
+
+                    $('#btnSaveforLater-' + btnId[1]).attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times" });
+
+                    $('#btnkey-' + btnId[1]).css({
+                        "border": "2px solid red"
+                    });
+                    $('#btnkey2-' + btnId[1]).css({
+                        "border": "2px solid red"
+                    });
+                    $('#btnkey3-' + btnId[1]).css({
+                        "border": "2px solid red"
+                    });
+
+                    iziToast.error({
+                        rtl: false,
+                        layout: 1,
+                        drag: false,
+                        timeout: 10000,
+                        close: true,
+                        overlay: true,
+                        toastOnce: true,
+                        id: 'question',
+                        progressBar: true,
+                        title: 'Error',
+                        message: 'Please Select Product Options to be able to continue',
+                        position: 'center'
+                    });
+                    e.preventDefault();
+                } else {
+
+                    var productVarintId = $('#btnkey-' + btnId[1]).find('option:selected').val();;
+                    $('#btnSaveforLater-' + btnId[1]).data('size', productVarintId);
+
+                    $('#btnkey-' + btnId[1]).css({ "border": "" });
+                    $('#btnkey2-' + btnId[1]).css({ "border": "" });
+                    $('#btnkey3-' + btnId[1]).css({ "border": "" });
+
+                    $('#btnSaveforLater-' + btnId[1]).attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times", 'data-size': optionId });
+
+                    iziToast.success({
+                        title: 'Product',
+                        message: 'successfuly added to cart!',
+                        position: 'topRight',
+                        backgroundColor: "dodgerblue",
+                        messageColor: 'white',
+                        icon: "fa fa-check",
+                        iconColor: 'white',
+                        titleColor: 'white'
+                    });
+                }
+            }
+
+        });
+    });
+
+    function Key1change(model) {
+
+        var clickId = model.id;
+        var btnId = clickId.split('-');
+        var btnkey = $('#btnkey-' + btnId[1]).find('option:selected').val();
+        if ($('#btnkey-' + btnId[1]).val() != "" && $('#btnkey-' + btnId[1]).val() != undefined) {
+            $("#btnkey2-" + btnId[1]).empty();
+            $("#btnkey3-" + btnId[1]).empty();
+
+            var selectedSize = $('#btnkey-' + btnId[1]).find('option:selected').text();
+            var productVarintId = $('#btnkey-' + btnId[1]).find('option:selected').val();
+            noConflict.ajax({
+                type: 'POST',
+                url: '@Url.Action("PopulateKey2DropDown", "Product",new { area="Customer" })',
+                dataType: 'json',
+                data: { key2: selectedSize, Id: productVarintId },
+                success: function (values) {
+                    $("#btnkey2-" + btnId[1]).append('<option value="' + "" + '">--' +
+                        values[0].ProductVariant.Key2 + '--</option>');
+                    $.each(values, function (i, values) {
+                        $("#btnkey2-" + btnId[1]).append('<option value="' + values.ProductVariant.Id + '">' +
+                            values.ProductOptionName + '</option>');
+                    });
+                    var variantImage = values.splice(-1, 1);
+
+                    $('#btnSaveforLater-' + btnId[1]).attr('image', variantImage[0].ImageUrl);
+                    $('#btnSaveforLater-' + btnId[1]).attr('size', variantImage[0].Id);
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve dropdown' + ex);
+                    console.log(ex);
+                }
+            });
+        } else {
+            $("#btnkey2-" + btnId[1]).empty();
+            $("#btnkey3-" + btnId[1]).empty();
+        }
+    }
+
+    function Key2change(model) {
+
+        var clickId = model.id;
+        var btnId = clickId.split('-');
+
+        if ($('#btnkey2-' + btnId[1]).val() != "" && $('#btnkey-' + btnId[1]).val() != undefined) {
+            $("#btnkey3-" + btnId[1]).empty();
+
+            var selectedKey2 = $('#btnkey2-' + btnId[1]).find('option:selected').text();
+            var productVarintId = $('#btnkey2-' + btnId[1]).find('option:selected').val();
+            var selectedKey1 = $('#btnkey-' + btnId[1]).find('option:selected').text();
+            noConflict.ajax({
+                type: 'POST',
+                url: '@Url.Action("PopulateKey3DropDown", "Product", new { area = "Customer" })',
+                dataType: 'json',
+                data: { key2: selectedKey2, Id: productVarintId, key1: selectedKey1 },
+                success: function (values) {
+
+                    $("#btnkey3-" + btnId[1]).append('<option value="' + "" + '">--' +
+                        values[0].ProductVariant.Key3 + '--</option>');
+                    $.each(values, function (i, values) {
+                        $("#btnkey3-" + btnId[1]).append('<option value="' + values.Id + '">' +
+                            values.ProductOptionName + '</option>');
+                    });
+                    var variantPrice = values.splice(-1, 1);
+                    if (variantPrice[0] != null && variantPrice[0] != undefined && variantPrice[0].Price != "0") {
+                        $('#priceSpan-' + values.ProductId).replaceWith('<span id="priceSpan-' + values.ProductVariant.Product.Id + '">₦' + values.Price + '</span>');
+                    }
+                    optionId = variantPrice[0].Id;
+                    $('#btnSaveforLater-' + btnId[1]).attr('size', optionId);
+                    $('#btnSaveforLater-' + btnId[1]).attr('image', variantPrice[0].ImageUrl);
+
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve dropdown' + ex);
+                }
+            });
+        } else {
+            $("#btnkey3-" + btnId[1]).empty();
+        }
+    }
+
+    function Key3change(model) {
+
+        var clickId = model.id;
+        var btnId = clickId.split('-');
+        if ($('#btnkey2-' + btnId[1]).val() != "" && $('#btnkey-' + btnId[1]).val() != undefined) {
+
+
+            var selectedKey2 = $('#btnkey2-' + btnId[1]).find('option:selected').text();
+            var selectedKey3 = $('#btnkey3-' + btnId[1]).find('option:selected').text();
+            var selectedKey1 = $('#btnkey-' + btnId[1]).find('option:selected').text();
+            noConflict.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProductVariantOptions", "Product", new { area = "Customer" })',
+                dataType: 'json',
+                data: { key1: selectedKey1, key2: selectedKey2, key3: selectedKey3, },
+                success: function (values) {
+
+                    if (values != null && values.Price != "0") {
+                        $('#priceSpan-' + values.ProductId).replaceWith('<span id="priceSpan-' + values.ProductVariant.Product.Id + '">₦' + values.Price + '</span>');
+
+                        $('#btnSaveforLater-' + btnId[1]).attr('size', values.Id);
+                        $('#btnSaveforLater-' + btnId[1]).attr('image', values.ImageUrl);
+                    }
+
+
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve dropdown' + ex);
+                }
+            });
+        } else {
+            $("#btnkey3-" + btnId[1]).empty();
+        }
+    }
+    var removeProduct = function (id, productOptionId) {
+        var products = JSON.parse(localStorage.products);
+        products = $.grep(products, function (value, index) {
+            return value.id != id || value.productOptionId != productOptionId;
+        });
+        localStorage.products = JSON.stringify(products);
+    }
+    var getTotalQuantity = function () {
+        var total = 0;
+        var products = JSON.parse(localStorage.products);
+        $.each(products, function (index, value) {
+            total += value.quantity * 1;
+        });
+        return total;
+    };
+    var getTotalPrice = function () {
+        var products = JSON.parse(localStorage.products);
+        var total = 0;
+        for (var i = 0; i < products.length; i++) {
+            total += parseInt(products[i].quantity) * parseInt(products[i].price);
+        }
+        return total;
+    };
+
+    var updatePoduct = function (id, quantity, OptionId) {
+        var productIndex = getIndexOfProduct(id, OptionId);
+        if (productIndex < 0) {
+            return false;
+        }
+        var products = JSON.parse(localStorage.products);
+        products[productIndex].quantity = typeof quantity === "undefined" ? products[productIndex].quantity * 1 + 1 : quantity;
+
+        $('#cartBody').empty();
+        $('.subtotal').text('');
+        var sumPrice = 0;
+        for (var i = 0; i < products.length; i++) {
+            $('#cartBody').append('<div class="dropdown-product-item my-product-remove"id="' + products[i].id + '" size="' + products[i].productOptionId + '"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="#"><img src="/EasyShop' + products[i].image + '" alt="Product"></a><div class="dropdown-product-info"><a class="dropdown-product-title" href="#">' + products[i].name + '</a><span class="dropdown-product-details">' + products[i].quantity + ' x ₦' + products[i].price + '</span></div></div>');
+            sumPrice += parseInt(products[i].quantity) * parseInt(products[i].price);
+        }
+        $('#cartBody').append('<div class="toolbar-dropdown-group"><div class="column"><span class="text-lg">Total:</span></div><div class="column text-right"><span class="text-lg text-medium totalCartAmountId" >₦' + sumPrice + '</span></div></div><div class="toolbar-dropdown-group">  <div class="column"><a class="btn btn-sm btn-block btn-secondary" href="' + '@Url.Action("Cart", "Payment", new {area = "Customer"})' + '">View Cart</a></div> <div class="column"><a class="btn btn-sm btn-block btn-success" href="' + '@Url.Action("Checkout", "Checkout", new {area = "Customer"})' + '">Checkout</a></div></div></div>');
+        $('.subtotal').append('₦' + sumPrice);
+        localStorage.products = JSON.stringify(products);
+        return true;
+    };
+    var getIndexOfProduct = function (id, productOptionId) {
+        var productIndex = -1;
+        var products = JSON.parse(localStorage.products);
+        $.each(products, function (index, value) {
+            if (value.id == id && value.productOptionId == productOptionId) {
+                productIndex = index;
+                return;
+            }
+        });
+        return productIndex;
+    };
+
+</script>
+
+<div id="warning-container"><i data-reactroot=""></i></div>
+<!-- Off-Canvas Wrapper-->
+<br />
+<main class="site-main shopping-cart">
+
+    <div class="container" style="padding-top:30px;">
+        <div class="row">
+            <div class="col-md-9">
+                <form class="form-cart">
+                    <div class="table-cart">
+                        <table class="table" id="productTable" style="border:0;">
+                            <thead>
+                                <tr>
+                                    <th class="tb-product">Product</th>
+                                    <th class="tb-product"> Description</th>
+                                    <th class="tb-qty">Qty</th>
+                                    <th class="tb-total">SubTotal</th>
+                                    @*<th class="tb-total">Discount</th>*@
+                                    <th class="tb-remove"><a class="btn btn-sm btn-outline-danger" href="#"></a></th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartTableId"></tbody>
+                        </table>
+                    </div>
+                    <div class="cart-actions">
+
+                            <a href="@Url.Action("Index","Home",new{area = ""})" class="btn btn-primary">Continue Shopping</a>
+
+                        @*<button type="submit" class="btn-continue">
+
+                            <span href="@Url.Action("Index","Home",new{area = ""})" >Continue Shopping</span>
+                        </button>*@
+                        <!-- <button type="submit" class="btn-clean" >
+                            <span>Update Shopping Cart</span>
+                        </button> -->
+                        <button  type="submit" class="btn-update" >
+                            <span id="btnClearCart2">Clear Shopping Cart</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 padding-left-5">
+@using (Html.BeginForm("Checkout", "Checkout", new { area = "Customer" }, FormMethod.Post))
+{
+                <div class="order-summary">
+                    <h4 class="title-shopping-cart">Order Summary</h4>
+                    <div class="checkout-element-content">
+                        <table class="table table-hover">
+                            <tbody id="tableId"> </tbody>
+                        </table><br>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <input type="checkbox" style="margin-top: -5px;" />
+                                    <span>I have a Coupon</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="collapseOne" aria-expanded="false" class="collapse">
+                            <input type="text" class="form-control" placeholder="Coupon Code">
+                        </div>
+
+                        <button type="submit" class="btn-checkout">
+                            <span>Check Out</span>
+                        </button>
+                    </div>
+                </div>
+}
+            </div>
+            </div>
+        </div>
+    <div class="block-recent-view">
+        <div class="container">
+            <div class="title-of-section">You may be also interested</div>
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+                @{
+                   
+                    var highlyOrderedProduct = Model.Products.Where(s => s.ReorderLevel>=10).Reverse().Take(6).ToList();
+                }
+                @for (int i = 0; i < highlyOrderedProduct.Count; i++)
+                {
+                    string cartImage = highlyOrderedProduct[i].ImageUrl.Replace('~', ' ');
+                    <div class="product-item style1">
+                        <div class="product-inner equal-elem">
+                            <div class="product-thumb">
+                                <div class="thumb-inner" style="height:235px;">
+                                    <a href="#">
+                                        <img src="@Url.Content(highlyOrderedProduct[i].ImageUrl)" alt=" product">
+                                    </a>
+                                </div>
+                                <span class="onsale">@highlyOrderedProduct[i].Discount% Off</span>
+                                <a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = highlyOrderedProduct[i].Id })" class="quick-view">Quick View</a>
+                            </div>
+                            <div class="product-innfo">
+                                <div class="product-name">
+                                    @*<a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = highlyOrderedProduct[i].Id })">@highlyOrderedProduct[i].Name.ToUpper()</a>*@
+                                    <a href="">@highlyOrderedProduct[i].Name.ToUpper()</a>
+                                </div>
+                                <span class="price">
+                                    <ins>@highlyOrderedProduct[i].Discount%</ins>
+                                    <del>₦@highlyOrderedProduct[i].Price.ToString("N2")</del>₦@highlyOrderedProduct[i].DiscountAmount.ToString("N2")
+                                </span>
+                                <span class="star-rating">
+                                    @{
+                                        CustomerReviewLogic reviewLogic = new CustomerReviewLogic();
+                                        var rating = reviewLogic.GetAll().Where(x => x.Product.Id == highlyOrderedProduct[i].Id).ToList();
+                                        if (rating.Count > 0)
+                                        {
+                                            var getratingValue = rating.First(x => x.Rating == rating.Max(y => y.Rating));
+                                            int ratingValue = getratingValue.Rating;
+                                            if (ratingValue == 1)
+                                            {
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                            }
+                                            else if (ratingValue == 2)
+                                            {
+
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                            }
+                                            else if (ratingValue == 3)
+                                            {
+
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                            }
+                                            else if (ratingValue == 4)
+                                            {
+
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                            }
+                                            else if (ratingValue == 5)
+                                            {
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                            }
+                                            else
+                                            {
+
+                                            }
+
+
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">0 Review(s)</span>
+                                        }
+                                    }
+                                    </span>
+                                <div class="group-btn-hover">
+                                    <div class="inner">
+
+                                        <a href="#" class="add-to-cart" data-id="@highlyOrderedProduct[i].Id" data-name="@highlyOrderedProduct[i].Name" data-desc="@highlyOrderedProduct[i].Description" data-discount="@highlyOrderedProduct[i].DiscountAmount" data-price="@highlyOrderedProduct[i].Price" data-image="@highlyOrderedProduct[i].ImageUrl.Replace("~","")">Add to cart</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    </main>
+@*  *@
+    <!-- Back To Top Button--><a class="scroll-to-top-btn" href="http://themes.rokaux.com/unishop/v2.2/template-1/cart.html#"><i class="icon-arrow-up"></i></a>
+

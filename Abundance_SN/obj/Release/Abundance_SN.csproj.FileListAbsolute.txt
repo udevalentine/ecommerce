@@ -1,0 +1,381 @@
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll.config
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\ClearScript.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\EntityFramework.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JSPool.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Owin.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\React.Core.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\React.Web.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Razor.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\VroomJs.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\WebActivatorEx.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\WebGrease.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\RestSharp.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\JSPool.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\React.Core.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\React.Web.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Razor.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\VroomJs.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\EntityFramework.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\RestSharp.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.ChakraCore.resources.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.V8.resources.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\ru-ru\MsieJavaScriptEngine.resources.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csprojResolveAssemblyReference.cache
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\bin\EPPlus.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll.config
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\ClearScript.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\EntityFramework.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JSPool.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Owin.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\React.Core.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\React.Web.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\RestSharp.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Razor.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\VroomJs.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\WebActivatorEx.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\WebGrease.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\EPPlus.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\JSPool.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\React.Core.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\React.Web.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\RestSharp.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Razor.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\VroomJs.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\zxing.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\zxing.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\EntityFramework.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.ChakraCore.resources.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.V8.resources.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\bin\ru-ru\MsieJavaScriptEngine.resources.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csprojResolveAssemblyReference.cache
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\obj\Release\Interop.MIMEDIRLib.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csproj.ResolveComReference.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll.config
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ClearScript.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JSPool.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Owin.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Core.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\RestSharp.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Razor.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\VroomJs.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\WebActivatorEx.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\WebGrease.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EPPlus.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.dll.config
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JSPool.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Core.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\RestSharp.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Razor.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\VroomJs.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.dll.config
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.ChakraCore.resources.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.V8.resources.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\MsieJavaScriptEngine.resources.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csprojResolveAssemblyReference.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csproj.ResolveComReference.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csproj.CoreCompileInputs.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.Mvc.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.Mvc.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll.config
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ClearScript.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JSPool.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Owin.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.Mvc.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Core.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\RestSharp.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\VroomJs.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\WebActivatorEx.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\WebGrease.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EPPlus.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Business.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Model.dll.config
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Antlr3.Runtime.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.ChakraCore.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Core.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.Msie.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JavaScriptEngineSwitcher.V8.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\JSPool.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\MsieJavaScriptEngine.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Newtonsoft.Json.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\PagedList.Mvc.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Core.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\React.Web.Mvc4.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\RestSharp.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Helpers.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Mvc.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.WebPages.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\System.Web.Optimization.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\VroomJs.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\EntityFramework.SqlServer.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Core.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.Owin.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Host.SystemWeb.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Facebook.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Cookies.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.OAuth.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Google.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.Twitter.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\Abundance_SN.Data.dll.config
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.ChakraCore.resources.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\JavaScriptEngineSwitcher.V8.resources.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\bin\ru-ru\MsieJavaScriptEngine.resources.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Interop.MIMEDIRLib.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csproj.ResolveComReference.cache
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN\obj\Release\Abundance_SN.pdb

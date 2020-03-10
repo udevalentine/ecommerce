@@ -1,0 +1,167 @@
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Data.dll.config
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Data.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Data.pdb
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Model.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.SqlServer.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Mvc.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Razor.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Razor.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Deployment.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Model.pdb
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.xml
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.SqlServer.xml
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Mvc.xml
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Razor.xml
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Razor.xml
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.xml
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Deployment.xml
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/obj/Debug/Abundance_SN.Data.csprojResolveAssemblyReference.cache
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/obj/Debug/Abundance_SN.Data.dll
+//Mac/Home/Desktop/OldApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/obj/Debug/Abundance_SN.Data.pdb
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Data.dll.config
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Data.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Data.pdb
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Model.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.SqlServer.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Mvc.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Razor.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Razor.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Microsoft.Web.Infrastructure.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Deployment.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Model.pdb
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/Abundance_SN.Model.dll.config
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.xml
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/EntityFramework.SqlServer.xml
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Mvc.xml
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.Razor.xml
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Razor.xml
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.xml
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/bin/Debug/System.Web.WebPages.Deployment.xml
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/obj/Debug/Abundance_SN.Data.csprojResolveAssemblyReference.cache
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/obj/Debug/Abundance_SN.Data.csproj.CoreCompileInputs.cache
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/obj/Debug/Abundance_SN.Data.dll
+/Users/bobby/Desktop/MainApp/Abundance_SN/Abundance_SN.Data/Abundance_SN.Data/obj/Debug/Abundance_SN.Data.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll.config
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csprojResolveAssemblyReference.cache
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.pdb
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll.config
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.pdb
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.pdb
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.xml
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.xml
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.xml
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.xml
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csprojResolveAssemblyReference.cache
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.dll
+C:\Users\UDE VALENTINE\Documents\Office Documents\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll.config
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll.config
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csprojResolveAssemblyReference.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csproj.CoreCompileInputs.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll.config
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll.config
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.pdb
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll.config
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Data.pdb
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.pdb
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\Abundance_SN.Model.dll.config
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.xml
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\EntityFramework.SqlServer.xml
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Mvc.xml
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.xml
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\bin\Debug\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.dll
+\\Mac\Home\Documents\OFFICE DOC\ECommerce\Ecommerce\Abundance_SN\Abundance_SN.Data\Abundance_SN.Data\obj\Debug\Abundance_SN.Data.pdb

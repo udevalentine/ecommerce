@@ -1,0 +1,343 @@
+﻿@model Abundance_SN.Areas.Admin.Models.CustomerViewModel
+@{
+    //Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    $(document).ready(function () {
+
+        $('#createModal').modal('hide');
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                }, , 'colvis'
+            ]
+        });
+
+
+        jqueryVersion.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+
+    });
+
+    function ViewDetails(orderNumber) {
+
+
+        var number = $(orderNumber).data('assigned-id');
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ViewOrdersByNumber", "Customer", new { area = "Admin" })",
+            dataType: "json",
+        data: { orderNumber: number },
+        success: function (arrayJsonModel) {
+            $('#modalBody').html('');
+            for (i = 0; i < arrayJsonModel.length; i++) {
+                $('#customerName').text('');
+                $('#customerPhone').text('');
+                $('#customerAddress').text('');
+                $('#orderType').text('');
+                var customerName = '';
+                var customerPhone = '';
+                var address = '';
+                if (arrayJsonModel[i].DeliveryAddress != null && arrayJsonModel[i].DeliveryAddress != undefined && arrayJsonModel[i].DeliveryAddress != '')
+                {
+                    address = (arrayJsonModel[i].DeliveryAddress.Address != null ? arrayJsonModel[i].DeliveryAddress.Address : '') + (arrayJsonModel[i].State.StateName != null ? " " + arrayJsonModel[i].State.StateName : '');
+                    $('#orderType').append("To be delivered to the above address");
+                    $('#customerAddress').append('Address:' + address + '');
+                }
+                else {
+                    $('#orderType').append("Order To Pick in Store");
+                }
+                    customerName = (arrayJsonModel[i].Person.Surname != null ? arrayJsonModel[i].Person.Surname : '') + (arrayJsonModel[i].Person.FirstName !=null ? " " + arrayJsonModel[i].Person.FirstName: '');
+                    customerPhone = (arrayJsonModel[i].Person.PhoneNumber !=null ? arrayJsonModel[i].Person.PhoneNumber: '');
+                $('#modalBody').append('<div class="row"><div class="col-md-4"><img src="' + arrayJsonModel[i].ImageUrl + '" alt="product image" style="width:100%; "></div><div class="col-md-6" style="float:right"><h5 class="card-title">' + arrayJsonModel[i].Name + '</h5><hr> <div><b>Quantity:</b> <span>' + arrayJsonModel[i].Quantity + '</span></div> <div class="mb-2"><b>Total:</b>' + arrayJsonModel[i].Amount + '</div></div></div>');
+                $('#customerPhone').append('Phone Number:' + customerPhone + '');
+                $('#customerName').append('Customer Name:'  + customerName.toUpperCase() + '');
+
+            }
+        },
+
+        traditional: true
+    });
+      $('#createModal').modal('show');
+    }
+
+            function EditStatus(orderNumber)  {
+            $('.Load').show();
+            var orderNumber = $(orderNumber).data('assigned-id');
+            if (orderNumber != "" && orderNumber != undefined) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GetOrderByNumber", "Report", new { area = "Admin" })",
+                    dataType: "json",
+                    data: { orderNumber: orderNumber },
+                    success: function (arrayJsonModel) {
+                        $('#modalBody').html('');
+
+                        for (i = 0; i < arrayJsonModel.length; i++) {
+                            $('#modalBody').append('<div class="row"><div class="col-md-6"><img src="' + arrayJsonModel[i].ImageUrl + '" alt="product image"></div><div class="col-md-6" style="float:right"><h5 class="card-title">' + arrayJsonModel[i].Name + '</h5><hr> <div><b>Quantity:</b> <span>' + arrayJsonModel[i].Quantity + '</span></div> <div class="mb-2"><b>Total:</b>' + arrayJsonModel[i].Amount + '</div></div></div><div class="row mt-5"></div>');
+                        }
+                        $('#statusModal').modal('show');
+                        $('.Load').hide();
+                    },
+                    error: function (ex) {
+                        swal("Error Ocurred", "An Error Occured while Updating your Request", "error");
+                    },
+                    traditional: true
+                });
+                $('#deliveryOrderNumber').val(orderNumber);
+            } else {
+                swal("Error Ocurred", "Kindly input an Order Number to Continue", "error");
+                $('.Load').hide();
+            }
+
+        };
+
+
+</script>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Processed Order</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            @*<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>*@
+                            <li class="breadcrumb-item"><a href="#">Processed Order Details</a></li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="content-body">
+            <!-- Basic form layout section start -->
+            <section id="basic-form-layouts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <div id="DataTables_Table_10_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                        @*<div class="row">
+                                            <div class="dt-buttons btn-group col-md-7 pt-2">
+                                               
+                                            </div>
+
+                                            <div id="DataTables_Table_10_filter" class="dataTables_filter col-md-3 ">
+                                                
+                                            </div>
+                                            <div class="col-md-2 pt-1 text-right">
+                                                <a class="btn btn-secondary buttons-print ml-auto btn-warning mr-1" tabindex="0" aria-controls="MyTable" href="@Url.Action("ViewPaidOrder", "Customer", new {area = "Admin"})">
+                                                    <span>View Paid Order</span>
+                                                </a>
+                                            </div>
+                                        </div>*@
+                                        <table class="table table-striped table-bordered file-export dataTable" id="MyTable" role="grid" aria-describedby="DataTables_Table_10_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                        style="width: 126px;">Customer Name</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Order Number</th>
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                        style="width: 126px;">Amount</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Status</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Transaction Date</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Detail</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Edit Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.Payments.Count; i++)
+                                                {
+                                                    var oderNumber = Model.GroupCountString[i];
+                                                    var paymentList = Model.SalesLogses.Where(s => s.CartHash == oderNumber).OrderByDescending(x => x.DateOrdered);
+                                                    var deliveryAddress = Model.DeliveryAddresses.Where(da => da.CartHash == oderNumber).FirstOrDefault();
+                                                    var amount = paymentList.Sum(s => s.Amount);
+                                                    <tr>
+                                                        <td>@Model.Payments[i].CustomerName</td>
+                                                        <td>@Model.Payments[i].InvoiceNumber</td>
+                                                        <td>@amount</td>
+                                                        @if (deliveryAddress != null && deliveryAddress != null)
+                                                        {
+                                                            <td>@deliveryAddress.DeliveryStatus.Name</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>To Pick In Store</td>
+                                                        }
+
+                                                        <td>@Model.Payments[i].Tansactiondate</td>
+                                                        <td><a href="#" onclick="ViewDetails(this)" data-assigned-id="@Model.Payments[i].InvoiceNumber"><b>Detail</b></a></td>
+                                                        <td><a href="#" onclick="EditStatus(this)" data-assigned-id="@Model.Payments[i].InvoiceNumber"><b>Edit</b></a></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">Customer Name</th>
+                                                    <th rowspan="1" colspan="1">Order Number</th>
+                                                    <th rowspan="1" colspan="1">Amount</th>
+                                                    <th rowspan="1" colspan="1">Status</th>
+                                                    <th rowspan="1" colspan="1">Transaction Date</th>
+                                                    <th rowspan="1" colspan="1">Detail</th>
+                                                    <th rowspan="1" colspan="1">Edit Status</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+                                        @*//previous*@
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="modal fade" role="dialog" id="createModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header"><h5 id="customerName"></h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="modalBody"> </div>
+                    <div class="modal-footer bg-primary text-white text-left">
+                        <div class="row">
+                            <div id="customerAddress" class="col-md-12"></div>
+                            <div id="customerPhone" class="col-md-12"></div>
+                            <div id="orderType" class="col-md-12"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" role="dialog" id="statusModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    @using (Html.BeginForm("SaveDeliveryStatus", "Report", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                        @Html.HiddenFor(model => model.DeliveryAddress.CartHash, new { Id = "deliveryOrderNumber" })
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="modalBody"></div>
+                                </div>
+                                <div class="col-md-12" style="padding-top:20px">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DeliveryStatus.Id, "Delivery Status", new { @class = "col-md-12 control-label" })
+                                        <div class="col-md-12">
+                                            @Html.DropDownListFor(model => model.DeliveryStatus.Id, (IEnumerable<SelectListItem>)ViewBag.DeliveryStatus, new { @class = "form-control custom-select", required = true })
+                                            @Html.ValidationMessageFor(model => model.DeliveryStatus.Id, null, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-success" type="submit">Save</button>
+                                                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    //var jqueryVersion = $.noConflict(true);
+    $(document).ready(function () {
+
+        $('#createModal').modal('hide');
+        $('.Load').hide();
+
+
+
+    });
+
+</script>

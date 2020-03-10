@@ -1,0 +1,115 @@
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\EntityFramework.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.xml
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.csprojResolveAssemblyReference.cache
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.dll
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.pdb
+\\Mac\Home\Desktop\MainApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\EPPlus.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.pdb
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\EntityFramework.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.xml
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.csprojResolveAssemblyReference.cache
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.dll
+\\Mac\Home\Desktop\OldApp\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.dll.config
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.pdb
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.dll.config
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\EntityFramework.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.xml
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.csprojResolveAssemblyReference.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.csproj.CoreCompileInputs.cache
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.dll
+C:\Users\udevalentine\Desktop\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Business.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Data.dll.config
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.pdb
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Abundance_SN.Model.dll.config
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\EntityFramework.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\Newtonsoft.Json.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\RestSharp.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Helpers.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Mvc.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\bin\Release\System.Web.WebPages.Razor.xml
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.dll
+\\Mac\Home\Documents\OFFICE DOC\mine\Ecommerce\Abundance_SN\Abundance_SN.Business\Abundance_SN.Business\obj\Release\Abundance_SN.Business.pdb

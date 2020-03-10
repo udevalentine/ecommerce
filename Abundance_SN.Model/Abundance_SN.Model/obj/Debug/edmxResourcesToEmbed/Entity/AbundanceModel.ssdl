@@ -1,0 +1,1083 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Abundance_SN.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BRAND">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CATEGORY">
+    <Key>
+      <PropertyRef Name="Category_Id" />
+    </Key>
+    <Property Name="Category_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Category_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Category_Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="Image_Url" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="COURIER_AREA_CHARGES">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Area" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="State_Id" Type="varchar" MaxLength="5" />
+    <Property Name="Courier_Id" Type="int" />
+    <Property Name="Charger" Type="decimal" Precision="8" Scale="2" />
+  </EntityType>
+  <EntityType Name="COURIER_CHARGES">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Charges" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="COURIER_DETAIL">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State_Id" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Area_Id" Type="int" Nullable="false" />
+    <Property Name="Courier_Id" Type="int" Nullable="false" />
+    <Property Name="Charge_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="COURIER_SERVICE">
+    <Key>
+      <PropertyRef Name="Courier_Id" />
+    </Key>
+    <Property Name="Courier_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Courier_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="250" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" />
+    <Property Name="Phone_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CUSTOMER_REVIEW">
+    <Key>
+      <PropertyRef Name="Customer_Review_Id" />
+    </Key>
+    <Property Name="Customer_Review_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Customer_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Customer_Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Customer_Review_Subject" Type="nvarchar" MaxLength="150" />
+    <Property Name="Customer_Rating" Type="int" Nullable="false" />
+    <Property Name="Customer_Review" Type="nvarchar" MaxLength="300" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CUSTOMER_VISIT">
+    <Key>
+      <PropertyRef Name="Customer_Visit_Id" />
+    </Key>
+    <Property Name="Customer_Visit_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Uuid" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Date_Of_Visit" Type="date" />
+  </EntityType>
+  <EntityType Name="DELIVERY_ADDRESS">
+    <Key>
+      <PropertyRef Name="Delivery_Address_Id" />
+    </Key>
+    <Property Name="Delivery_Address_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Delivery_Service_Id" Type="int" Nullable="false" />
+    <Property Name="Delivery_Status_Id" Type="int" Nullable="false" />
+    <Property Name="Cart_Hash" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Delivery_State_Id" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Person_Id" Type="bigint" Nullable="false" />
+    <Property Name="Date_Created" Type="date" Nullable="false" />
+    <Property Name="Date_Delivered" Type="date" />
+    <Property Name="Delivery_Option" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DELIVERY_SERVICE">
+    <Key>
+      <PropertyRef Name="Delivery_Service_Id" />
+    </Key>
+    <Property Name="Delivery_Service_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="Activated" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DELIVERY_STATUS">
+    <Key>
+      <PropertyRef Name="Delivery_Status_Id" />
+    </Key>
+    <Property Name="Delivery_Status_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Decription" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="HOME_PAGE_SLIDER">
+    <Key>
+      <PropertyRef Name="Home_Page_Slider_Id" />
+    </Key>
+    <Property Name="Home_Page_Slider_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Image_Url" Type="nvarchar" MaxLength="150" />
+    <Property Name="Activated" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="INVENTORY">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Product_Variant_Option_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NATIONALITY">
+    <Key>
+      <PropertyRef Name="Nationality_Id" />
+    </Key>
+    <Property Name="Nationality_Id" Type="int" Nullable="false" />
+    <Property Name="Nationality_Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PAYMENT">
+    <Key>
+      <PropertyRef Name="Payment_Id" />
+    </Key>
+    <Property Name="Payment_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Person_Id" Type="bigint" Nullable="false" />
+    <Property Name="Payment_Mode_Id" Type="int" Nullable="false" />
+    <Property Name="Payment_Serial_Number" Type="bigint" />
+    <Property Name="Invoice_Number" Type="varchar" MaxLength="20" />
+    <Property Name="Date_Paid" Type="datetime" Nullable="false" />
+    <Property Name="Paid" Type="bit" />
+  </EntityType>
+  <EntityType Name="PAYMENT_MODE">
+    <Key>
+      <PropertyRef Name="Payment_Mode_Id" />
+    </Key>
+    <Property Name="Payment_Mode_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Payment_Mode_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Payment_Mode_Description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PAYMENT_PAYSTACK">
+    <Key>
+      <PropertyRef Name="Payment_Id" />
+    </Key>
+    <Property Name="Payment_Id" Type="bigint" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="currency" Type="varchar" MaxLength="50" />
+    <Property Name="transaction_date" Type="datetime" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="reference" Type="varchar" MaxLength="50" />
+    <Property Name="domain" Type="varchar" MaxLength="50" />
+    <Property Name="gateway_response" Type="varchar" MaxLength="50" />
+    <Property Name="message" Type="varchar" MaxLength="50" />
+    <Property Name="channel" Type="varchar" MaxLength="50" />
+    <Property Name="ip_address" Type="varchar" MaxLength="50" />
+    <Property Name="fees" Type="varchar" MaxLength="50" />
+    <Property Name="last4" Type="varchar" MaxLength="50" />
+    <Property Name="exp_month" Type="varchar" MaxLength="50" />
+    <Property Name="exp_year" Type="varchar" MaxLength="50" />
+    <Property Name="card_type" Type="varchar" MaxLength="50" />
+    <Property Name="bank" Type="varchar" MaxLength="50" />
+    <Property Name="country_code" Type="varchar" MaxLength="50" />
+    <Property Name="brand" Type="varchar" MaxLength="50" />
+    <Property Name="reusable" Type="bit" />
+    <Property Name="signature" Type="varchar" MaxLength="50" />
+    <Property Name="authorization_url" Type="varchar(max)" />
+    <Property Name="access_code" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PERSON">
+    <Key>
+      <PropertyRef Name="Person_Id" />
+    </Key>
+    <Property Name="Person_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OtherName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone_Number" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="150" />
+    <Property Name="Country_Id" Type="int" />
+    <Property Name="State_Id" Type="varchar" MaxLength="5" />
+    <Property Name="Date_Registered" Type="datetime" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Uuid" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Slug" Type="varchar" MaxLength="255" />
+    <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="MaxPrice" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="Shipping" Type="bit" Nullable="false" />
+    <Property Name="Weight" Type="int" />
+    <Property Name="Size" Type="nvarchar" MaxLength="150" />
+    <Property Name="Color" Type="nvarchar" MaxLength="20" />
+    <Property Name="Can_Be_Delivered" Type="bit" Nullable="false" />
+    <Property Name="Product_Type_Id" Type="int" Nullable="false" />
+    <Property Name="Reorder_Level" Type="int" Nullable="false" />
+    <Property Name="Visits" Type="int" />
+    <Property Name="Image_Url" Type="varchar" MaxLength="150" />
+    <Property Name="sku" Type="varchar" MaxLength="150" />
+    <Property Name="Brand_Id" Type="bigint" Nullable="false" />
+    <Property Name="Unit_Id" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Additional_Information" Type="text" />
+  </EntityType>
+  <EntityType Name="PRODUCT_IMAGE_GALLARY">
+    <Key>
+      <PropertyRef Name="Product_Image_Gallary_Id" />
+    </Key>
+    <Property Name="Product_Image_Gallary_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Image_Url" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Activated" Type="bit" />
+  </EntityType>
+  <EntityType Name="PRODUCT_ORDER_LOG">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Vendor_Id" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Date_Requested" Type="datetime" Nullable="false" />
+    <Property Name="Unit_Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PRODUCT_SUPPLY_LOG">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Vendor_Id" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Supply_Date" Type="datetime" Nullable="false" />
+    <Property Name="Unit_Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="Product_Order_Log_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="PRODUCT_TYPE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Category_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PRODUCT_VARIANT">
+    <Key>
+      <PropertyRef Name="Product_Variant_Id" />
+    </Key>
+    <Property Name="Product_Variant_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Key_1" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Value_1" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Key_2" Type="nvarchar" MaxLength="150" />
+    <Property Name="Value_2" Type="nvarchar" MaxLength="150" />
+    <Property Name="Key_3" Type="nvarchar" MaxLength="150" />
+    <Property Name="Value_3" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="PRODUCT_VARIANT_OPTIONS">
+    <Key>
+      <PropertyRef Name="Product_Option_Id" />
+    </Key>
+    <Property Name="Product_Option_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Option_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Product_Variant_Id" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Image_Url" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="REORDER_NOTIFICATION">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="NotificationType" Type="int" Nullable="false" />
+    <Property Name="Order_Number" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ROLE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SALES_LOG">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cart_Hash" Type="nvarchar" MaxLength="255" />
+    <Property Name="Product_Id" Type="bigint" Nullable="false" />
+    <Property Name="Product_Variant_Option_Id" Type="bigint" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="discount" Type="int" />
+    <Property Name="Unit_Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Notes" Type="text" />
+    <Property Name="Date_Ordered" Type="datetime" />
+  </EntityType>
+  <EntityType Name="STATE">
+    <Key>
+      <PropertyRef Name="State_Id" />
+    </Key>
+    <Property Name="State_Id" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="State_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nationality_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="STORE_SETUP">
+    <Key>
+      <PropertyRef Name="Store_Setup_Id" />
+    </Key>
+    <Property Name="Store_Setup_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Person_Id" Type="bigint" Nullable="false" />
+    <Property Name="Shop_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Store_ProductType" Type="nvarchar" MaxLength="150" />
+    <Property Name="BusinessName" Type="nvarchar" MaxLength="150" />
+    <Property Name="BusinessRCNo" Type="nvarchar" MaxLength="150" />
+    <Property Name="BusinessPhone" Type="nvarchar" MaxLength="150" />
+    <Property Name="BusinessEmail" Type="nvarchar" MaxLength="150" />
+    <Property Name="StoreLogoUrl" Type="nvarchar" MaxLength="150" />
+    <Property Name="About_Us" Type="nvarchar(max)" />
+    <Property Name="Store_Address" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="STORE_SETUP_PRODUCTSAMPLE">
+    <Key>
+      <PropertyRef Name="Store_Setup_ProductSample_Id" />
+    </Key>
+    <Property Name="Store_Setup_ProductSample_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="STORE_TYPE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UNIT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Role_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VENDOR">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Phone_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Abundance_SN_2.dbo.VW_SALES_PAYMENT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="VW_SALES_PAYMENT">
+    <Key>
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Payment_Id" />
+      <PropertyRef Name="Person_Id" />
+      <PropertyRef Name="Payment_Mode_Id" />
+      <PropertyRef Name="Payment_Mode_Name" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" MaxLength="152" Nullable="false" />
+    <Property Name="Payment_Id" Type="bigint" Nullable="false" />
+    <Property Name="Invoice_Number" Type="varchar" MaxLength="20" />
+    <Property Name="Person_Id" Type="bigint" Nullable="false" />
+    <Property Name="Payment_Mode_Id" Type="int" Nullable="false" />
+    <Property Name="Payment_Mode_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="transaction_date" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_COURIER_AREA_CHARGES_STATE">
+    <End Role="STATE" Type="Self.STATE" Multiplicity="0..1" />
+    <End Role="COURIER_AREA_CHARGES" Type="Self.COURIER_AREA_CHARGES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STATE">
+        <PropertyRef Name="State_Id" />
+      </Principal>
+      <Dependent Role="COURIER_AREA_CHARGES">
+        <PropertyRef Name="State_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_COURIER_AREA_CHARGES">
+    <End Role="COURIER_AREA_CHARGES" Type="Self.COURIER_AREA_CHARGES" Multiplicity="1" />
+    <End Role="COURIER_DETAIL" Type="Self.COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURIER_AREA_CHARGES">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="Area_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_COURIER_CHARGES">
+    <End Role="COURIER_CHARGES" Type="Self.COURIER_CHARGES" Multiplicity="1" />
+    <End Role="COURIER_DETAIL" Type="Self.COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURIER_CHARGES">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="Charge_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_COURIER_SERVICE">
+    <End Role="COURIER_SERVICE" Type="Self.COURIER_SERVICE" Multiplicity="1" />
+    <End Role="COURIER_DETAIL" Type="Self.COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURIER_SERVICE">
+        <PropertyRef Name="Courier_Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="Courier_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_STATE">
+    <End Role="STATE" Type="Self.STATE" Multiplicity="1" />
+    <End Role="COURIER_DETAIL" Type="Self.COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STATE">
+        <PropertyRef Name="State_Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="State_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CUSTOMER_REVIEW_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="CUSTOMER_REVIEW" Type="Self.CUSTOMER_REVIEW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CUSTOMER_REVIEW">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CUSTOMER_VISIT_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="CUSTOMER_VISIT" Type="Self.CUSTOMER_VISIT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CUSTOMER_VISIT">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DELIVERY_ADDRESS_DELIVERY_SERVICE">
+    <End Role="DELIVERY_SERVICE" Type="Self.DELIVERY_SERVICE" Multiplicity="1" />
+    <End Role="DELIVERY_ADDRESS" Type="Self.DELIVERY_ADDRESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DELIVERY_SERVICE">
+        <PropertyRef Name="Delivery_Service_Id" />
+      </Principal>
+      <Dependent Role="DELIVERY_ADDRESS">
+        <PropertyRef Name="Delivery_Service_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DELIVERY_ADDRESS_DELIVERY_STATUS">
+    <End Role="DELIVERY_STATUS" Type="Self.DELIVERY_STATUS" Multiplicity="1" />
+    <End Role="DELIVERY_ADDRESS" Type="Self.DELIVERY_ADDRESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DELIVERY_STATUS">
+        <PropertyRef Name="Delivery_Status_Id" />
+      </Principal>
+      <Dependent Role="DELIVERY_ADDRESS">
+        <PropertyRef Name="Delivery_Status_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DELIVERY_ADDRESS_PERSON">
+    <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+    <End Role="DELIVERY_ADDRESS" Type="Self.DELIVERY_ADDRESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="Person_Id" />
+      </Principal>
+      <Dependent Role="DELIVERY_ADDRESS">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INVENTORY_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="INVENTORY">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INVENTORY_PRODUCT_VARIANT_OPTIONS">
+    <End Role="PRODUCT_VARIANT_OPTIONS" Type="Self.PRODUCT_VARIANT_OPTIONS" Multiplicity="1" />
+    <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_VARIANT_OPTIONS">
+        <PropertyRef Name="Product_Option_Id" />
+      </Principal>
+      <Dependent Role="INVENTORY">
+        <PropertyRef Name="Product_Variant_Option_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAYMENT_PAYMENT_MODE">
+    <End Role="PAYMENT_MODE" Type="Self.PAYMENT_MODE" Multiplicity="1" />
+    <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PAYMENT_MODE">
+        <PropertyRef Name="Payment_Mode_Id" />
+      </Principal>
+      <Dependent Role="PAYMENT">
+        <PropertyRef Name="Payment_Mode_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAYMENT_PAYSTACK_PAYMENT">
+    <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="1" />
+    <End Role="PAYMENT_PAYSTACK" Type="Self.PAYMENT_PAYSTACK" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PAYMENT">
+        <PropertyRef Name="Payment_Id" />
+      </Principal>
+      <Dependent Role="PAYMENT_PAYSTACK">
+        <PropertyRef Name="Payment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAYMENT_PERSON">
+    <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+    <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="Person_Id" />
+      </Principal>
+      <Dependent Role="PAYMENT">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PERSON_USER">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PERSON">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_BRAND">
+    <End Role="BRAND" Type="Self.BRAND" Multiplicity="1" />
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BRAND">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="Brand_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_IMAGE_GALLARY_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="PRODUCT_IMAGE_GALLARY" Type="Self.PRODUCT_IMAGE_GALLARY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_IMAGE_GALLARY">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_OPTIONS_PRODUCT_VARIANT">
+    <End Role="PRODUCT_VARIANT" Type="Self.PRODUCT_VARIANT" Multiplicity="1" />
+    <End Role="PRODUCT_VARIANT_OPTIONS" Type="Self.PRODUCT_VARIANT_OPTIONS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_VARIANT">
+        <PropertyRef Name="Product_Variant_Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_VARIANT_OPTIONS">
+        <PropertyRef Name="Product_Variant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_ORDER_LOGS_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="PRODUCT_ORDER_LOG" Type="Self.PRODUCT_ORDER_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_ORDER_LOGS_USER">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="PRODUCT_ORDER_LOG" Type="Self.PRODUCT_ORDER_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_ORDER_LOGS_VENDORS">
+    <End Role="VENDOR" Type="Self.VENDOR" Multiplicity="1" />
+    <End Role="PRODUCT_ORDER_LOG" Type="Self.PRODUCT_ORDER_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENDOR">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="Vendor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_PRODUCT_TYPE">
+    <End Role="PRODUCT_TYPE" Type="Self.PRODUCT_TYPE" Multiplicity="1" />
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_TYPE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="Product_Type_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="PRODUCT_SUPPLY_LOG" Type="Self.PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS">
+    <End Role="PRODUCT_ORDER_LOG" Type="Self.PRODUCT_ORDER_LOG" Multiplicity="0..1" />
+    <End Role="PRODUCT_SUPPLY_LOG" Type="Self.PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="Product_Order_Log_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_USER">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="PRODUCT_SUPPLY_LOG" Type="Self.PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_VENDORS">
+    <End Role="VENDOR" Type="Self.VENDOR" Multiplicity="1" />
+    <End Role="PRODUCT_SUPPLY_LOG" Type="Self.PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENDOR">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="Vendor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_TYPE_CATEGORY">
+    <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="1" />
+    <End Role="PRODUCT_TYPE" Type="Self.PRODUCT_TYPE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORY">
+        <PropertyRef Name="Category_Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_TYPE">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_UNIT">
+    <End Role="UNIT" Type="Self.UNIT" Multiplicity="1" />
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UNIT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="Unit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PROUCT_VARIANT_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="PRODUCT_VARIANT" Type="Self.PRODUCT_VARIANT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_VARIANT">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS">
+    <End Role="PRODUCT_VARIANT_OPTIONS" Type="Self.PRODUCT_VARIANT_OPTIONS" Multiplicity="0..1" />
+    <End Role="SALES_LOG" Type="Self.SALES_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_VARIANT_OPTIONS">
+        <PropertyRef Name="Product_Option_Id" />
+      </Principal>
+      <Dependent Role="SALES_LOG">
+        <PropertyRef Name="Product_Variant_Option_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SALES_LOGS_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="SALES_LOG" Type="Self.SALES_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SALES_LOG">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SALES_LOGS_USER">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="SALES_LOG" Type="Self.SALES_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SALES_LOG">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STATE_NATIONALITY">
+    <End Role="NATIONALITY" Type="Self.NATIONALITY" Multiplicity="1" />
+    <End Role="STATE" Type="Self.STATE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NATIONALITY">
+        <PropertyRef Name="Nationality_Id" />
+      </Principal>
+      <Dependent Role="STATE">
+        <PropertyRef Name="Nationality_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STORE_SETUP_PERSON">
+    <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+    <End Role="STORE_SETUP" Type="Self.STORE_SETUP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="Person_Id" />
+      </Principal>
+      <Dependent Role="STORE_SETUP">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE">
+    <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+    <End Role="USER" Type="Self.USER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="USER">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Abundance_SNModelStoreContainer">
+    <EntitySet Name="BRAND" EntityType="Self.BRAND" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COURIER_AREA_CHARGES" EntityType="Self.COURIER_AREA_CHARGES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COURIER_CHARGES" EntityType="Self.COURIER_CHARGES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COURIER_DETAIL" EntityType="Self.COURIER_DETAIL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COURIER_SERVICE" EntityType="Self.COURIER_SERVICE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CUSTOMER_REVIEW" EntityType="Self.CUSTOMER_REVIEW" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CUSTOMER_VISIT" EntityType="Self.CUSTOMER_VISIT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DELIVERY_ADDRESS" EntityType="Self.DELIVERY_ADDRESS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DELIVERY_SERVICE" EntityType="Self.DELIVERY_SERVICE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DELIVERY_STATUS" EntityType="Self.DELIVERY_STATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOME_PAGE_SLIDER" EntityType="Self.HOME_PAGE_SLIDER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="INVENTORY" EntityType="Self.INVENTORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NATIONALITY" EntityType="Self.NATIONALITY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PAYMENT" EntityType="Self.PAYMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PAYMENT_MODE" EntityType="Self.PAYMENT_MODE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PAYMENT_PAYSTACK" EntityType="Self.PAYMENT_PAYSTACK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT_IMAGE_GALLARY" EntityType="Self.PRODUCT_IMAGE_GALLARY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT_ORDER_LOG" EntityType="Self.PRODUCT_ORDER_LOG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT_SUPPLY_LOG" EntityType="Self.PRODUCT_SUPPLY_LOG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT_TYPE" EntityType="Self.PRODUCT_TYPE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT_VARIANT" EntityType="Self.PRODUCT_VARIANT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT_VARIANT_OPTIONS" EntityType="Self.PRODUCT_VARIANT_OPTIONS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="REORDER_NOTIFICATION" EntityType="Self.REORDER_NOTIFICATION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SALES_LOG" EntityType="Self.SALES_LOG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STATE" EntityType="Self.STATE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STORE_SETUP" EntityType="Self.STORE_SETUP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STORE_SETUP_PRODUCTSAMPLE" EntityType="Self.STORE_SETUP_PRODUCTSAMPLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STORE_TYPE" EntityType="Self.STORE_TYPE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UNIT" EntityType="Self.UNIT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VENDOR" EntityType="Self.VENDOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VW_SALES_PAYMENT" EntityType="Self.VW_SALES_PAYMENT" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VW_SALES_PAYMENT].[Name] AS [Name], 
+    [VW_SALES_PAYMENT].[Payment_Id] AS [Payment_Id], 
+    [VW_SALES_PAYMENT].[Invoice_Number] AS [Invoice_Number], 
+    [VW_SALES_PAYMENT].[Person_Id] AS [Person_Id], 
+    [VW_SALES_PAYMENT].[Payment_Mode_Id] AS [Payment_Mode_Id], 
+    [VW_SALES_PAYMENT].[Payment_Mode_Name] AS [Payment_Mode_Name], 
+    [VW_SALES_PAYMENT].[amount] AS [amount], 
+    [VW_SALES_PAYMENT].[transaction_date] AS [transaction_date]
+    FROM [dbo].[VW_SALES_PAYMENT] AS [VW_SALES_PAYMENT]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_COURIER_AREA_CHARGES_STATE" Association="Self.FK_COURIER_AREA_CHARGES_STATE">
+      <End Role="STATE" EntitySet="STATE" />
+      <End Role="COURIER_AREA_CHARGES" EntitySet="COURIER_AREA_CHARGES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_COURIER_AREA_CHARGES" Association="Self.FK_COURIER_DETAIL_COURIER_AREA_CHARGES">
+      <End Role="COURIER_AREA_CHARGES" EntitySet="COURIER_AREA_CHARGES" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_COURIER_CHARGES" Association="Self.FK_COURIER_DETAIL_COURIER_CHARGES">
+      <End Role="COURIER_CHARGES" EntitySet="COURIER_CHARGES" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_COURIER_SERVICE" Association="Self.FK_COURIER_DETAIL_COURIER_SERVICE">
+      <End Role="COURIER_SERVICE" EntitySet="COURIER_SERVICE" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_STATE" Association="Self.FK_COURIER_DETAIL_STATE">
+      <End Role="STATE" EntitySet="STATE" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CUSTOMER_REVIEW_PRODUCT" Association="Self.FK_CUSTOMER_REVIEW_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="CUSTOMER_REVIEW" EntitySet="CUSTOMER_REVIEW" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CUSTOMER_VISIT_PRODUCT" Association="Self.FK_CUSTOMER_VISIT_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="CUSTOMER_VISIT" EntitySet="CUSTOMER_VISIT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DELIVERY_ADDRESS_DELIVERY_SERVICE" Association="Self.FK_DELIVERY_ADDRESS_DELIVERY_SERVICE">
+      <End Role="DELIVERY_SERVICE" EntitySet="DELIVERY_SERVICE" />
+      <End Role="DELIVERY_ADDRESS" EntitySet="DELIVERY_ADDRESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DELIVERY_ADDRESS_DELIVERY_STATUS" Association="Self.FK_DELIVERY_ADDRESS_DELIVERY_STATUS">
+      <End Role="DELIVERY_STATUS" EntitySet="DELIVERY_STATUS" />
+      <End Role="DELIVERY_ADDRESS" EntitySet="DELIVERY_ADDRESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DELIVERY_ADDRESS_PERSON" Association="Self.FK_DELIVERY_ADDRESS_PERSON">
+      <End Role="PERSON" EntitySet="PERSON" />
+      <End Role="DELIVERY_ADDRESS" EntitySet="DELIVERY_ADDRESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INVENTORY_PRODUCT" Association="Self.FK_INVENTORY_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="INVENTORY" EntitySet="INVENTORY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INVENTORY_PRODUCT_VARIANT_OPTIONS" Association="Self.FK_INVENTORY_PRODUCT_VARIANT_OPTIONS">
+      <End Role="PRODUCT_VARIANT_OPTIONS" EntitySet="PRODUCT_VARIANT_OPTIONS" />
+      <End Role="INVENTORY" EntitySet="INVENTORY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAYMENT_PAYMENT_MODE" Association="Self.FK_PAYMENT_PAYMENT_MODE">
+      <End Role="PAYMENT_MODE" EntitySet="PAYMENT_MODE" />
+      <End Role="PAYMENT" EntitySet="PAYMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAYMENT_PAYSTACK_PAYMENT" Association="Self.FK_PAYMENT_PAYSTACK_PAYMENT">
+      <End Role="PAYMENT" EntitySet="PAYMENT" />
+      <End Role="PAYMENT_PAYSTACK" EntitySet="PAYMENT_PAYSTACK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAYMENT_PERSON" Association="Self.FK_PAYMENT_PERSON">
+      <End Role="PERSON" EntitySet="PERSON" />
+      <End Role="PAYMENT" EntitySet="PAYMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PERSON_USER" Association="Self.FK_PERSON_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="PERSON" EntitySet="PERSON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_BRAND" Association="Self.FK_PRODUCT_BRAND">
+      <End Role="BRAND" EntitySet="BRAND" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_IMAGE_GALLARY_PRODUCT" Association="Self.FK_PRODUCT_IMAGE_GALLARY_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_IMAGE_GALLARY" EntitySet="PRODUCT_IMAGE_GALLARY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_OPTIONS_PRODUCT_VARIANT" Association="Self.FK_PRODUCT_OPTIONS_PRODUCT_VARIANT">
+      <End Role="PRODUCT_VARIANT" EntitySet="PRODUCT_VARIANT" />
+      <End Role="PRODUCT_VARIANT_OPTIONS" EntitySet="PRODUCT_VARIANT_OPTIONS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_ORDER_LOGS_PRODUCT" Association="Self.FK_PRODUCT_ORDER_LOGS_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_ORDER_LOGS_USER" Association="Self.FK_PRODUCT_ORDER_LOGS_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_ORDER_LOGS_VENDORS" Association="Self.FK_PRODUCT_ORDER_LOGS_VENDORS">
+      <End Role="VENDOR" EntitySet="VENDOR" />
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_PRODUCT_TYPE" Association="Self.FK_PRODUCT_PRODUCT_TYPE">
+      <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT" Association="Self.FK_PRODUCT_SUPPLY_LOGS_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS" Association="Self.FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS">
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_USER" Association="Self.FK_PRODUCT_SUPPLY_LOGS_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_VENDORS" Association="Self.FK_PRODUCT_SUPPLY_LOGS_VENDORS">
+      <End Role="VENDOR" EntitySet="VENDOR" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_TYPE_CATEGORY" Association="Self.FK_PRODUCT_TYPE_CATEGORY">
+      <End Role="CATEGORY" EntitySet="CATEGORY" />
+      <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_UNIT" Association="Self.FK_PRODUCT_UNIT">
+      <End Role="UNIT" EntitySet="UNIT" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PROUCT_VARIANT_PRODUCT" Association="Self.FK_PROUCT_VARIANT_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_VARIANT" EntitySet="PRODUCT_VARIANT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS" Association="Self.FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS">
+      <End Role="PRODUCT_VARIANT_OPTIONS" EntitySet="PRODUCT_VARIANT_OPTIONS" />
+      <End Role="SALES_LOG" EntitySet="SALES_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SALES_LOGS_PRODUCT" Association="Self.FK_SALES_LOGS_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="SALES_LOG" EntitySet="SALES_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SALES_LOGS_USER" Association="Self.FK_SALES_LOGS_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="SALES_LOG" EntitySet="SALES_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STATE_NATIONALITY" Association="Self.FK_STATE_NATIONALITY">
+      <End Role="NATIONALITY" EntitySet="NATIONALITY" />
+      <End Role="STATE" EntitySet="STATE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STORE_SETUP_PERSON" Association="Self.FK_STORE_SETUP_PERSON">
+      <End Role="PERSON" EntitySet="PERSON" />
+      <End Role="STORE_SETUP" EntitySet="STORE_SETUP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE" Association="Self.FK_USER_ROLE">
+      <End Role="ROLE" EntitySet="ROLE" />
+      <End Role="USER" EntitySet="USER" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

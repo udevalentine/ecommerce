@@ -1,0 +1,143 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    $(document).ready(function () {
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                }, , 'colvis'
+            ]
+        });
+        $("#deleteId").on("click", function () {
+
+            swal({
+                title: "Delete Vendor?",
+                text: "Your will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            });
+        });
+        $.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+    });
+</script>
+
+<div class="col-md-12">
+    <div class="panel panel-custom">
+
+
+        <div class="panel-body text-justify">
+            <h2 style="font-weight: 300; text-align: center">Ware House </h2>
+            <hr />
+            <br />
+            @using (Html.BeginForm("Create", "WareHouse", FormMethod.Get, new { enctype = "multipart/form-data" }))
+            {
+                <div class="row" style="margin-bottom: 3px">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2" style="padding-bottom: 3px">
+                        <button class="btn btn-success mr5" type="submit" name="submit"><i class="fa fa-plus"> Create New </i></button>
+
+                    </div>
+                </div>
+            }
+            <table class="table-responsive table-striped table-condensed" style="width: 100%" id="MyTable">
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.WareHouses.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.WareHouses[i].Name</td>
+                            <td>@Model.WareHouses[i].Address</td>
+                            <td>@Model.WareHouses[i].PhoneNumber</td>
+                            <td>@Html.ActionLink("Edit", "Edit", new { ProNo = @Model.WareHouses[i].Id, area = "admin", controller = "WareHouse" }, new { @class = "btn btn-success" })</td>
+                            <td>@Html.ActionLink("Delete", "Delete", new { ProNo = @Model.WareHouses[i].Id, area = "admin", controller = "WareHouse" }, new { @class = "btn btn-success", id = "deleteId" })</td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>

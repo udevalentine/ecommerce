@@ -1,0 +1,891 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+@using Abundance_SN.Business
+@using Abundance_SN.Model.Model
+
+
+@{
+    Layout = "~/Views/Shared/_SingleProductLayout.cshtml";
+}
+@*<link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/pe-icon-7-stroke.css">
+<link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/chosen.css">
+<link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/jquery.bxslider.css">
+
+
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/wow.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery.actual.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery.sticky.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery.elevateZoom.min.js"></script>
+
+<script src="~/Content/DefaultCss/js/fancybox/source/jquery.fancybox.pack.js"></script>
+<script src="~/Content/DefaultCss/js/fancybox/source/helpers/jquery.fancybox-media.js"></script>
+<script src="~/Content/DefaultCss/js/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/function.min.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/Modernizr.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery.plugin.js"></script>
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery.countdown.js"></script>*@
+
+<script type="text/javascript">
+    var noconflict = $.noConflict(true);
+    var quantity = 1;
+    var optionId = 0;
+    var productVariantId, key1, key2, key3, value1, value2, value3, image, price, inventoryQuantity, productName, productId, productDesc;
+    noconflict(document).ready(function () {
+        $('#thumbnailImage').on('click', function () {
+            $('#img_zoom').attr('src', " ");
+            var thumbnailimg = $('#thumbnailImage').attr('src'); 
+            $('#img_zoom').attr('src', thumbnailimg);
+            $('#img_zoom').attr('data-zoom-image', thumbnailimg);
+        })
+        var currentRating = $("#review_rating").val();
+        var splitedrating = currentRating.split(' ');
+        var ratingNumber = parseInt(splitedrating[0]);
+
+        $('#customerRating').val(ratingNumber);
+        $('#customerRating').val(ratingNumber);
+
+        $('.btn').on('click', function (e) {
+            var clickId = this.id;
+
+            if (clickId == "btnReview") {
+                document.getElementById('btnReview').submit();
+            } else if (clickId == "btnSaveforLater" || clickId == "buyNow") {
+                var productVarintId = $('#btnkey1').find('option:selected').val();
+
+                var OptionArray = [];
+                var isValid = true;
+                var avaliableOptions = document.getElementsByClassName('variantOptions');
+                for (var i = 0; i < avaliableOptions.length; i++) {
+                    var id = avaliableOptions[i].id;
+                    OptionArray.push(id);
+
+                    if (!$("#" + id).val() || $("#" + id).val() == "--select--") {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                if (!isValid) {
+
+                    $('#btnSaveforLater').attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times" });
+                    $('#buyNow').attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times" });
+
+                    $('#btnkey1').css({
+                        "border": "2px solid red"
+                    });
+                    $('#btnkey2').css({
+                        "border": "2px solid red"
+                    });
+                    $('#btnkey3').css({
+                        "border": "2px solid red"
+                    });
+
+                    iziToast.error({
+                        rtl: false,
+                        layout: 1,
+                        drag: false,
+                        timeout: 10000,
+                        close: true,
+                        overlay: true,
+                        toastOnce: true,
+                        id: 'question',
+                        progressBar: true,
+                        title: 'Error',
+                        message: 'Please Select Product Options to be able to continue',
+                        position: 'center'
+                    });
+                    e.preventDefault();
+                } else {
+                    if (clickId == "buyNow") {
+
+
+                        $('#btnkey1').css({ "border": "" });
+                        $('#btnkey2').css({ "border": "" });
+                        $('#btnkey3').css({ "border": "" });
+
+                        $('#btnSaveforLater').attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times", 'data-quantity': quantity, 'data-size': optionId });
+                        $('#buyNow').attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times", 'data-quantity': quantity, 'data-size': optionId });
+
+
+                        iziToast.success({
+                            title: 'Product',
+                            message: 'successfuly added to cart!',
+                            position: 'topRight',
+                            backgroundColor: "dodgerblue",
+                            messageColor: 'white',
+                            icon: "fa fa-check",
+                            iconColor: 'white',
+                            titleColor: 'white'
+                        });
+
+                        window.location.href = "/EashShop/Customer/Checkout/Checkout";
+
+                    } else {
+
+                        $('#buyNow').data('size', productVarintId);
+                        $('#btnSaveforLater').data('size', productVarintId);
+
+                        $('#btnkey1').css({ "border": "" });
+                        $('#btnkey2').css({ "border": "" });
+                        $('#btnkey3').css({ "border": "" });
+
+                        $('#btnSaveforLater').attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times", 'data-quantity': quantity, 'data-size': optionId });
+                        $('#buyNow').attr({ 'data-toast': "", 'data-toast-position': "topRight", 'data-toast-title': "Product", 'data-toast-type': "warning", 'data-toast-message': "Please Select a size and Color to be able to continue", 'data-toast-icon': "fa fa-times", 'data-quantity': quantity, 'data-size': optionId });
+
+                        iziToast.success({
+                            title: 'Product',
+                            message: 'successfuly added to cart!',
+                            position: 'topRight',
+                            backgroundColor: "dodgerblue",
+                            messageColor: 'white',
+                            icon: "fa fa-check",
+                            iconColor: 'white',
+                            titleColor: 'white'
+                        });
+                    }
+                }
+
+            }
+
+        });
+
+        //$("#bzoom").zoom({
+        //    zoom_area_width: 300,
+        //    autoplay_interval: 3000,
+        //    autoplay: true
+        //});
+
+
+    });
+
+    function assignRatingValue() {
+        var currentRating = $("#review_rating").val();
+        var splitedratings = currentRating.split(' ');
+        var ratingNumber = parseInt(splitedratings[0]);
+
+        $('#customerRating').val(ratingNumber);
+    }
+
+    function Key1change() {
+        var variantId = $('#btnkey1').find('option:selected').val();
+        var variantKey1Value = $('#btnkey1').find('option:selected').text();
+                    value1 = variantKey1Value;
+                    $('#variantColour').empty();
+                    noConflict.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("PopulateKey2ValueDropdown", "Home", new { area = "" })', // we are calling json method
+                        dataType: 'json',
+                        data: { variantId: variantId, key1Value: variantKey1Value },
+                        success: function(value2SelectListItems) {
+                            var key2Variant = value2SelectListItems[0].ProductVariant.Key2;
+                            if (value2SelectListItems.length > 0 && key2Variant != "" && key2Variant != undefined) {
+                                $("#btnkey2").append('<option value="' + 0 + '">----Select----</option>');
+                                $.each(value2SelectListItems, function (i, values) {
+                                    $('#btnkey2').append('<option value="' + values.ProductVariant.Id + '">' + values.ProductOptionName + '</option>');
+
+                                });
+                                //$('#key2Text').text(key2Variant);
+                                //$('#variantDiv2').show();
+                                //$('.discounted').empty();
+                                //$('.real').empty();
+                                $('#productPrice').empty();
+                                var productVariantData = value2SelectListItems.splice(-1, 1);
+                                key1 = productVariantData[0].ProductVariant.Key1;
+                                value1 = productVariantData[0].ProductVariant.Value1;
+                                productVariantId = productVariantData[0].Id;
+                                price = productVariantData[0].Price;
+                                image = productVariantData[0].ImageUrl;
+                                inventoryQuantity = productVariantData[0].VariantQuantity;
+                                key2 = key2Variant;
+                                $('#productPrice').text("₦" + price);
+                            } else {
+                                $('#productPrice').empty();
+                                $('#productrealPrice').empty();
+                                //$('.btn-add-to-cart').attr('disabled', false);
+                                key1 = value2SelectListItems[0].ProductVariant.Key1;
+                                //key1 = $("#key1Text").text();
+                                key2 = "";
+                                key3 = "";
+                                value2 = "";
+                                value3 = "";
+                                image = value2SelectListItems[0].ImageUrl;
+                                productVariantId = value2SelectListItems[0].ProductVariant.Id;
+                                price = value2SelectListItems[0].Price;
+                                inventoryQuantity = value2SelectListItems[0].VariantQuantity;
+                                $('#productPrice').text("₦" + price);
+                                $('#add-to-cart-Id').prop("disabled", false);
+                            }
+
+                        },
+                        error: function(ex) {
+                            alert('Failed to retrieve PopulateKey3ValueDropdown.' + ex);
+                        }
+                    });
+    }
+    function Key2change() {
+        var variantId = $('#btnkey1').find('option:selected').val();
+        var variantKey1Value = $('#btnkey1').find('option:selected').text();
+        value1 = variantKey1Value;
+        //var variantKey2Value = $('#btnkey2').find('option:selected').text();
+        var variantKey2Value = $('#btnkey2 option:selected').text();
+                    value2 = variantKey2Value;
+
+                    $('#variantMaterial').empty();
+                    noConflict.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("PopulateKey3ValueDropdown", "Home", new { area = "" })', // we are calling json method
+                        dataType: 'json',
+                        data: { variantId: variantId, key1Value: variantKey1Value, key2Value: variantKey2Value },
+                        success: function (value3SelectListItems) {
+
+                            var key3Variant = value3SelectListItems[0].ProductVariant.Key3;
+
+                                if (value3SelectListItems.length > 0 && key3Variant != "" && key3Variant != undefined) {
+
+                                    $("#btnkey3").append('<option value="' + 0 + '">----Select----</option>');
+                                $.each(value3SelectListItems, function (i, values) {
+                                    $('#btnkey3').append('<option value="' + values.ProductVariant.Id + '">' + values.ProductOptionName + '</option>');
+                                });
+                                $('#key3Text').text(key3Variant);
+                                $('#variantDiv3').show();
+                                $('#productPrice').empty();
+                                $('#productrealPrice').empty();
+                                var productVariantData = value3SelectListItems.splice(-1, 1);
+
+                                productVariantId = productVariantData[0].Id;
+                                price = productVariantData[0].Price;
+                                image = productVariantData[0].ImageUrl;
+                                value2 = productVariantData[0].ProductVariant.Value2;
+                                key2 = productVariantData[0].ProductVariant.Key2;
+                                inventoryQuantity = productVariantData[0].VariantQuantity;
+                                key3 = key3Variant;
+
+                                } else {
+                                    $('#productPrice').empty();
+                                    $('#productrealPrice').empty();
+                                //$('.btn-add-to-cart').attr('disabled', false);
+                                    $('#add-to-cart-Id').prop("disabled", false);
+                                    //key2 = $("#key2Text").text();
+                                    //price = value3SelectListItems[0].productVariantData.price;
+                                key3 = "";
+                                value3 = "";
+                                $('#productPrice').text("₦" + price);
+                            }
+
+                        },
+                        error: function(ex) {
+                            alert('Failed to retrieve PopulateKey3ValueDropdown.' + ex);
+                        }
+                    });
+    }
+    @*function Key1change() {
+
+        if ($('#btnkey1').val() != "" && $('#btnkey1').val() != undefined) {
+            $("#btnkey2").empty();
+            $("#btnkey3").empty();
+
+            var selectedSize = $('#btnkey1').find('option:selected').text();
+            var productVarintId = $('#btnkey1').find('option:selected').val();
+            noconflict.ajax({
+                type: 'POST',
+                url: '@Url.Action("PopulateKey2DropDown", "Product")',
+                dataType: 'json',
+                data: { key2: selectedSize, Id: productVarintId },
+                success: function (values) {
+
+                    $("#btnkey3").append('<option value="' + "" + '">' +
+                        "--Select--" + '</option>');
+                    $.each(values, function (i, values) {
+                        $("#btnkey2").append('<option value="' + values.Id + '">' +
+                            values.ProductOptionName + '</option>');
+                    });
+                    var variantPrice = values.splice(-1, 1);
+
+                    $('#buyNow').attr('image', variantPrice[0].ImageUrl);
+                    $('#btnSaveforLater').attr('image', variantPrice[0].ImageUrl);
+                    $('#buyNow').attr('size', variantPrice[0].ImageUrl);
+                    $('#btnSaveforLater').attr('price', variantPrice[0].Price);
+                    $('#buyNow').attr('price', variantPrice[0].Price);
+                    $('#btnSaveforLater').attr('size', variantPrice[0].ImageUrl);
+                    $('#buyNow').attr('key1', variantPrice[0].ProductVariant.Key1);
+                    $('#buyNow').attr('Value1', variantPrice[0].ProductVariant.Value1);
+                    $('#btnSaveforLater').attr('key1', variantPrice[0].ProductVariant.Key1);
+                    $('#btnSaveforLater').attr('Value1', variantPrice[0].ProductVariant.Value1);
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve dropdown' + ex);
+                }
+            });
+        } else {
+            $("#btnkey2").empty();
+            $("#btnkey3").empty();
+        }
+    }*@
+
+    @*function Key2change() {
+
+        if ($('#btnkey2').val() != "" && $('#btnkey1').val() != undefined) {
+            $("#btnkey3").empty();
+
+            var selectedKey2 = $('#btnkey2').find('option:selected').text();
+            var productVarintId = $('#btnkey2').find('option:selected').val();
+            var selectedKey1 = $('#btnkey1').find('option:selected').text();
+            noconflict.ajax({
+                type: 'POST',
+                url: '@Url.Action("PopulateKey3DropDown", "Product")',
+                dataType: 'json',
+                data: { key2: selectedKey2, Id: productVarintId, key1: selectedKey1 },
+                success: function (values) {
+
+                    $("#btnkey3").append('<option value="' + "" + '">' +
+                     "--Select--" + '</option>');
+                    $.each(values, function (i, values) {
+                        $("#btnkey3").append('<option value="' + values.Id + '">' +
+                            values.ProductOptionName + '</option>');
+                    });
+                    var variantPrice = values.splice(-1, 1);
+                    if (variantPrice[0] != null && variantPrice[0] != undefined && variantPrice[0].Price != "0") {
+                        $('#priceSpan').replaceWith('<span class="h2 d-block" id="priceSpan"><del class="text-muted text-normal">₦' + '@Model.Product.Price' + '</del>&nbsp; ₦' + variantPrice[0].Price + '</span>');
+                    }
+                    optionId = variantPrice[0].Id;
+                    $('#buyNow').attr('size', variantPrice[0].Id);
+                    $('#btnSaveforLater').attr('size', variantPrice[0].Id);
+                    $('#buyNow').attr('image', variantPrice[0].ImageUrl);
+                    $('#btnSaveforLater').attr('image', variantPrice[0].ImageUrl);
+                    $('#btnSaveforLater').attr('price', variantPrice[0].Price);
+                    $('#btnSaveforLater').attr('key1', variantPrice[0].ProductVariant.Key1);
+                    $('#btnSaveforLater').attr('key2', variantPrice[0].ProductVariant.Key2);
+                    $('#btnSaveforLater').attr('Value1', variantPrice[0].ProductVariant.Value1);
+                    $('#btnSaveforLater').attr('Value2', variantPrice[0].ProductVariant.Value2);
+                    $('#buyNow').attr('key1', variantPrice[0].ProductVariant.Key1);
+                    $('#buyNow').attr('key2', variantPrice[0].ProductVariant.Key2);
+                    $('#buyNow').attr('Value1', variantPrice[0].ProductVariant.Value1);
+                    $('#buyNow').attr('Value2', variantPrice[0].ProductVariant.Value2);
+                    $('#buyNow').attr('price', variantPrice[0].Price);
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve dropdown' + ex);
+                }
+            });
+        } else {
+            $("#btnkey3").empty();
+        }
+    }*@
+
+    function Key3change() {
+
+        if ($('#btnkey2').val() != "" && $('#btnkey1').val() != undefined) {
+            var variantId = $('#btnkey1').find('option:selected').val();
+            var variantKey2Value = $('#btnkey2').find('option:selected').text();
+            var variantKey3Value = $('#btnkey3').find('option:selected').text();
+            var variantKey1Value = $('#btnkey1').find('option:selected').text();
+
+            value1 = variantKey1Value;
+            value2= variantKey2Value;
+            value3= variantKey3Value;
+                        noConflict.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetProductVariantProperties", "Home", new { area = "" })', // we are calling json method
+                        dataType: 'json',
+                        data: { key1Value: variantKey1Value, key2Value: variantKey2Value, key3Value: variantKey3Value, variantId: variantId},
+                        success: function (values) {
+                            if (values != null) {
+                                $('#productPrice').empty();
+                                $('#productrealPrice').empty();
+                                productVariantId = values.Id;
+                                price = values.Price;
+                                image = values.ImageUrl;
+                                value3 = values.ProductVariant.Value3;
+                                key3 = values.ProductVariant.Key3;
+                                inventoryQuantity = productVariantData[0].VariantQuantity;
+                                $('#productPrice').text("₦" + price);
+                            }
+                            //$('.btn-add-to-cart').attr('disabled', false);
+                            $('#add-to-cart-Id').prop("disabled", false);
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve PopulateKey3ValueDropdown.' + ex);
+                        }
+                    });
+        } else {
+            $("#btnkey3").empty();
+        }
+    }
+    function quantityChange() {
+        if ($('#quantityId').val() != "" && $('#quantityId').val() != undefined) {
+            quantity = $('#quantityId').val();
+            $('#btnSaveforLater').data('quantity', quantity);
+            $('#buyNow').data('quantity', quantity);
+
+        };
+    }
+</script>
+<style>
+    .input-hidden {
+        position: absolute;
+        left: -9999px;
+    }
+
+    input[type=radio]:checked + label > img {
+        border: 1px solid #fff;
+        box-shadow: 0 0 3px 3px #0da9ef;
+    }
+
+    input[type=radio] + label > img {
+        width: 50px;
+        margin-right: 10px;
+        height: 50px;
+        transition: 300ms all;
+    }
+
+    .image-preview-container {
+        background: #fff;
+        min-height: 300px;
+        text-align: center;
+    }
+
+    .img_zoom {
+        margin: auto;
+    }
+
+    .heightProduct {
+        height: 240px;
+    }
+</style>
+<main class="site-main">
+
+    <div class="container">
+        <div class="product-content-single">
+            <div class="row">
+                @*<div class="col-md-4 col-sm-12 padding-right">
+                        <div class="product-media">
+                            @if (Model.ProductImageGallaries.Count > 0)
+                            {
+
+
+
+                                for (int i = 0; i < Model.ProductImageGallaries.Count; i++)
+                                {
+                                    string productImageGallary = Model.ProductImageGallaries[i].ImageUrl.Replace('~', ' ');
+                                    <div class="image-preview-container image-thick-box image_preview_container">
+                                        <img id="bzoom_wrap" data-zoom-image="images/detail/thick-box-1.jpg" src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" alt="">
+                                        <img class="bzoom_big_image" src="@Url.Content(productImageGallary)" />
+                                        <a href="#" class="btn-zoom open_qv">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="product-preview image-small product_preview">
+                                        <div id="thumbnails" class="thumbnails_carousel owl-carousel nav-style4" data-nav="true" data-autoplay="false" data-dots="false"
+                                             data-loop="true" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":5},"600":{"items":5},"1000":{"items":5}}'>
+                                            <a href="#" data-image="images/detail/thick-box-1.jpg" data-zoom-image="images/detail/thick-box-1.jpg">
+                                                <img src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" data-large-image="images/detail/thick-box-1.jpg" alt="i1">
+                                            </a>
+                                            <a href="#" data-image="images/detail/thick-box-1.jpg" data-zoom-image="images/detail/thick-box-1.jpg">
+                                                <img src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" data-large-image="images/detail/thick-box-1.jpg" alt="i1">
+                                            </a>
+                                            <a href="#" data-image="images/detail/thick-box-1.jpg" data-zoom-image="images/detail/thick-box-1.jpg">
+                                                <img src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" data-large-image="images/detail/thick-box-1.jpg" alt="i1">
+
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>*@
+
+
+                <div class="col-md-4 col-sm-12 padding-right">
+                    <div class="product-media">
+                        @if (Model.ProductImageGallaries.Count > 0)
+                        {
+                            //for (int s = 0; s < Model.ProductImageGallaries.Count; s++)
+                            //{
+                                <div class="image-preview-container image-thick-box image_preview_container">
+                                    <img id="img_zoom" data-zoom-image="@Url.Content(Model.ProductImageGallaries[0].ImageUrl).Replace("~","")" src="@Url.Content(Model.ProductImageGallaries[0].ImageUrl).Replace("~","")" alt="">
+                                    @*<a href="#" class="btn-zoom open_qv">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>*@
+                                </div>
+
+                                <div class="product-preview image-small product_preview">
+                                    
+                                    <div id="thumbnails" class="thumbnails_carousel owl-carousel nav-style4" data-nav="true" data-autoplay="false" data-dots="true"
+                                         data-loop="true" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":5},"600":{"items":5},"1000":{"items":5}}'>
+                                        @for (int i = 0; i < Model.ProductImageGallaries.Count; i++)
+                                        {
+                                            <a href="#" data-image="@Url.Content(Model.ProductImageGallaries[i].ImageUrl).Replace("~","")" data-zoom-image="@Url.Content(Model.ProductImageGallaries[i].ImageUrl).Replace("~","")">
+                                            <img id="thumbnailImage" src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl).Replace("~","")" data-large-image="@Url.Content(Model.ProductImageGallaries[i].ImageUrl).Replace("~","")" alt="i1">
+                                            </a>
+                                            @*<a href="#" data-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" data-zoom-image="/Content/DefaultCss/images/detail/thick-box-1.jpg">
+                                                <img src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" data-large-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" alt="i1">
+                                            </a>
+                                            <a href="#" data-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" data-zoom-image="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)">
+                                                <img src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" data-large-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" alt="i1">
+                                            </a>
+                                            <a href="#" data-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" data-zoom-image="/Content/DefaultCss/images/detail/thick-box-1.jpg">
+                                                <img src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" data-large-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" alt="i1">
+                                            </a>
+                                            <a href="#" data-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" data-zoom-image="/Content/DefaultCss/images/detail/thick-box-1.jpg">
+                                                <img src="@Url.Content(Model.ProductImageGallaries[i].ImageUrl)" data-large-image="/Content/DefaultCss/images/detail/thick-box-1.jpg" alt="i1">
+                                            </a>*@
+                                        }
+                                    </div>
+                                </div>
+                            //}
+
+                        }
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-5 col-sm-6">
+                    <div class="product-info-main">
+                        <div class="product-name">
+                            <a href="#">@Model.Product.Name.ToUpper()</a>
+                        </div>
+                        <span class="star-rating">
+                            @{
+                                int ratingValue = Model.Product.Rating;
+                                if (ratingValue > 0)
+                                {
+                                    if (ratingValue == 1)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                    }
+                                    else if (ratingValue == 2)
+                                    {
+
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                    }
+                                    else if (ratingValue == 3)
+                                    {
+
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                    }
+                                    else if (ratingValue == 4)
+                                    {
+
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                    }
+                                    else if (ratingValue == 5)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span class="review">@ratingValue Review(s)</span>
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                            <i class="fa fa-star star-rating-off" aria-hidden="true"></i>
+                                            <span class="review">0 Review(s)</span>
+                                }
+                            }
+                        </span>
+                        <div class="product-infomation">
+                            @Model.Product.Name.ToUpper()
+                            <br />
+                        </div>
+                        <div class="product-description">
+                            @Model.Product.Description
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 bg-white shadow" style="padding-bottom: 20px;">
+                    <div class="product-info-price">
+                        <div class="product-info-stock-sku">
+                            <div class="stock available">
+                                <span class="label-stock">Availability: </span>In Stock
+                            </div>
+                        </div>
+
+                        <span class="price">
+                            <ins id="productPrice">₦@Model.Product.DiscountAmount</ins>
+                            <del id="productrealPrice">₦@Model.Product.Price</del>
+                        </span>
+
+                        <!-- <div class="quantity">
+                            <h6 class="quantity-title">Quantity:</h6>
+                            <div class="buttons-added">
+                                  <a href="#" class="sign minus">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                                <input type="text" value="1" title="Qty" class="input-text qty text" size="1">
+                                <a href="#" class="sign plus">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+
+                            </div>
+                        </div> -->
+                    </div>
+                    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+                    @(new MvcHtmlString(Model.Product.Description))
+                    @if (Model.ProductVariants != null && Model.ProductVariants.Count > 0)
+                    {
+                        for (int i = 0; i < Model.ProductVariants.Count; i++)
+                        {
+                            var key1 = Model.ProductVariants[i].Key1;
+                            var key2 = Model.ProductVariants[i].Key2;
+                            var key3 = Model.ProductVariants[i].Key3;
+                            if (!string.IsNullOrEmpty(key1) && !string.IsNullOrEmpty(Model.ProductVariants[i].Value1))
+                            {
+                                <div class="quantity">
+                                    @Html.LabelFor(model => model.ProductVariant.Key1, key1, new { @class = "" })
+                                    @Html.DropDownListFor(model => model.ProductVariant.Value1, (IEnumerable<SelectListItem>)ViewBag.value1SelectListItems, new { @class = "form-control variantOptions", onchange = "Key1change()", Id = "btnkey1" })
+                                    @Html.ValidationMessageFor(model => model.ProductVariant.Value1, null, new { @class = "text-danger" })
+                                </div>
+                            }<br>
+                            if (!string.IsNullOrEmpty(key2) && !string.IsNullOrEmpty(Model.ProductVariants[i].Value2))
+                            {
+
+                                <div class="quantity">
+                                    @Html.LabelFor(model => model.ProductVariant.Key2, key2, new { @class = "" })
+                                    @Html.DropDownListFor(model => model.ProductVariant.Value2, (IEnumerable<SelectListItem>)ViewBag.value2SelectListItems, new { @class = "form-control variantOptions", onchange = "Key2change()", Id = "btnkey2" })
+                                    @Html.ValidationMessageFor(model => model.ProductVariant.Value2, null, new { @class = "text-danger" })
+                                </div>
+                            }<br>
+                            if (!string.IsNullOrEmpty(key3) && !string.IsNullOrEmpty(Model.ProductVariants[i].Value3))
+                            {
+                                <div class="quantity">
+                                    @Html.LabelFor(model => model.ProductVariant.Key3, key3, new { @class = "" })
+                                    @Html.DropDownListFor(model => model.ProductVariant.Value3, (IEnumerable<SelectListItem>)ViewBag.value3SelectListItems, new { @class = "form-control variantOptions", onchange = "Key3change()", Id = "btnkey3" })
+                                    @Html.ValidationMessageFor(model => model.ProductVariant.Value3, null, new { @class = "text-danger" })
+                                </div>
+                            }
+
+                            @*<div class="quantity">
+                                <h6 class="quantity-title">Quantity</h6>
+                                <select class="form-control custom-select" id="quantityId" onchange="quantityChange()">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                </select>
+                            </div>*@
+                        }
+                        <br>
+                        <div class="single-add-to-cart" style="text-align: center;">
+                            @*<button class="btn-add-to-cart my-cart-btn" id="btnSaveforLater" data-id="@Model.Product.Id" data-name="@Model.Product.Name" data-summary="@Model.Product.Description" data-quantity="1">Add to cart</button>*@
+                            <button class="btn-add-to-cart my-cart-btn " id="add-to-cart-Id" data-key1="" data-key2="" data-key3="" data-Value1="" data-id="@Model.Product.Id" data-name="@Model.Product.Name" data-summary="@Model.Product.Description" data-Price="@Model.Product.DiscountAmount" data-quantity="1">Add To Cart</button>
+                            @*$('#add-to-cart-Id').attr({ 'data-quantity': 1, 'data-price': price, 'data-image': image, 'data-size': productVariantId, 'data-valuekey1': key1, 'data-valuekey2': key2, 'data-valuekey3': key3, 'data-Value1': value1, 'data-Value2': value2, 'data-Value3': value3 });*@
+                            @*<a href="#" class="btn-add-to-cart my-cart-btn " id="add-to-cart-Id" data-id="" data-name="" data-summary="" data-Price="" data-quantity="1" data-image="" data-key1="" data-key2="" data-key3="">Add to cart</a>*@
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tab-details-product card">
+            <ul class="box-tab nav-tab">
+
+                <li>
+                    <a data-toggle="tab" href="#tab-2">Addtional Infomation</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#tab-3">Reviews</a>
+                </li>
+            </ul>
+            <div class="tab-container">
+
+                <div id="tab-2" class="tab-panel">
+                    <div class="box-content">
+                        <p>
+                            <b>@Model.Product.Name.ToUpper()</b>
+                            @Model.Product.Description
+                            @Model.Product.AdditionalInformation
+
+                        </p>
+                        <span>Weights & Dimensions</span>
+                        <div class="parameter">
+                            <p>@Model.Product.Weight</p>
+                            <p>@Model.Product.Size</p>
+                            <p> Discount on Product: @Model.Product.Discount %</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-3" class="tab-panel">
+                    @using (Html.BeginForm("CreateCustomerReview", "Product", new { Area = "Customer" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.HiddenFor(model => model.Product.Id)
+                        @Html.HiddenFor(model => model.CustomerReview.Rating, new { Id = "customerRating" })
+
+                        <div class="box-content">
+                            <form method="post" action="#" class="new-review-form">
+                                <a href="#" class="form-title">Write a review</a>
+                                <div class="form-content">
+                                    <p class="form-row form-row-wide">
+                                        @Html.LabelFor(model => model.CustomerReview.Name, "Surname:", new { @class = "control-label " })
+                                        @Html.TextBoxFor(model => model.CustomerReview.Name, new { @class = "form-control form-control-rounded", placeholder = "Name", required = true, })
+                                        @Html.ValidationMessageFor(model => model.CustomerReview.Name, null, new { @class = "text-danger" })
+                                    </p>
+                                    <p class="form-row form-row-wide">
+                                        @Html.LabelFor(model => model.CustomerReview.Email, "Email:", new { @class = "control-label " })
+                                        @Html.TextBoxFor(model => model.CustomerReview.Email, new { @class = "form-control form-control-rounded", type = "email", required = true })
+                                        @Html.ValidationMessageFor(model => model.CustomerReview.Email, null, new { @class = "text-danger" })
+                                    </p>
+                                    <p class="form-row form-row-wide">
+                                        @Html.LabelFor(model => model.CustomerReview.Subject, "Review Subject", new { @class = "control-label " })
+                                        @Html.TextBoxFor(model => model.CustomerReview.Subject, new { @class = "form-control form-control-rounded", required = true })
+                                        @Html.ValidationMessageFor(model => model.CustomerReview.Subject, null, new { @class = "text-danger" })
+
+                                    </p>
+                                    <p class="form-row form-row-wide">
+                                        <label for="review_rating">Rating</label>
+                                        <select class="form-control form-control-rounded" id="review_rating" onchange="assignRatingValue()">
+                                            <option>5 Stars</option>
+                                            <option>4 Stars</option>
+                                            <option>3 Stars</option>
+                                            <option>2 Stars</option>
+                                            <option>1 Star</option>
+                                        </select>
+                                    </p>
+                                    <p class="form-row form-row-wide">
+                                        @Html.LabelFor(model => model.CustomerReview.Review, "Review (1500)", new { @class = "control-label " })
+                                        @Html.TextBoxFor(model => model.CustomerReview.Review, new { @class = "form-control form-control-rounded textarea-control", @rows = "8", required = true })
+                                        @Html.ValidationMessageFor(model => model.CustomerReview.Review, null, new { @class = "text-danger" })
+                                    </p>
+                                    <p class="form-row">
+                                        <input type="submit" value="Submit Review" name="Submit" id="btnReview" style="background:#31639f;" class="button-submit">
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-recent-view">
+        <div class="container">
+            <div class="title-of-section">You may be also interested</div>
+            @{
+                var products = (List<Product>)ViewBag.ProductTypeViewed;
+
+                //long brandId = Model.Product.Brand.Id;
+                //var currentProductByBrands = Model.Products.Where(s => s.Brand.Id == brandId).Reverse().Take(6).ToList();
+            }
+
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false"
+                 data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+                @if (products.Count > 0)
+                {
+                    for (int i = 0; i < products.Count; i++)
+                    {
+                        //string cartImage = products[i].ImageUrl.Replace('~', ' ');
+                        <div class="product-item style1">
+                            <div class="product-inner equal-elem">
+                                <div class="product-thumb">
+                                    <div class="thumb-inner heightProduct">
+                                        <a href="#">
+                                            <img src="@Url.Content(products[i].ImageUrl).Replace("~","")" alt=" product">
+                                        </a>
+                                    </div>
+                                    <span class="onsale">@products[i].Discount% Off</span>
+                                    <a href="#" class="quick-view">Quick View</a>
+                                </div>
+                                <div class="product-innfo">
+                                    <div class="product-name">
+                                        <a href="@Url.Action("ViewSingleProduct", "Product", new { area = "Customer", Id = products[i].Id })">@products[i].Name.ToUpper()</a>
+                                    </div>
+                                    <span class="price">
+                                        <ins>@products[i].Discount%</ins>
+                                        <del>₦@products[i].Price.ToString("N2")</del>₦@products[i].DiscountAmount.ToString("N2")
+                                    </span>
+                                    <span class="star-rating">
+
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <span class="review">5 Review(s)</span>
+                                    </span>
+                                    <div class="group-btn-hover style2">
+                                        <a href="#" class="add-to-cart">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="#" class="compare">
+                                            <i class="flaticon-refresh-square-arrows"></i>
+                                        </a>
+                                        <a href="#" class="wishlist">
+                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+</main>
+@*<script src="~/Scripts/jquery-2.2.3.min.js"></script>*@
+<script type="text/javascript" src="~/Content/DefaultCss/js/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/DefaultCss/css/bootstrap.min.css">
+<script src="~/Scripts/jquery.mycart.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script src="~/Scripts/iziToast.js"></script>
+<script type="text/javascript">
+    $('#myaddToCart').on('click', function () {
+
+        $('#add-to-cart-Id').removeData();
+        productId = $(this).data('id');
+        productName = $(this).data('name');
+        productDesc = $(this).data('summary');
+        $('#add-to-cart-Id').trigger('click'); 
+    });
+
+    function submitAll() {
+        tabelaOnClick();
+    }
+</script>

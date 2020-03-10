@@ -1,0 +1,68 @@
+﻿@using Abundance_SN.Model.Model
+@using Abundance_SN.Models
+@model Abundance_SN.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "title";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<style>
+    .card {
+        box-shadow: 0 0 6px 6px rgba(158, 156, 156, 0.1), 0 0 5px 5px rgba(221, 221, 221, 0.1);
+        padding: 20px;
+    }
+</style>
+
+<main class="site-main checkout">
+    <div class="container">
+        <br>
+
+        <div class="row">
+
+            <div class="col-md-6 col-md-offset-3 shadow" style="background:#fff; padding: 20px; margin-bottom:20px;">
+                <!-- Page Content-->
+
+                            @if (TempData["Message"] != null)
+                            {
+                                @Html.Partial("_Message", (Abundance_SN.Model.Model.Message)TempData["Message"])
+                            }
+
+                                <div class="card-body">
+                                    @for (int i = 0; i < Model.SalesLogs.Count; i++)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img src="@Url.Content(Model.SalesLogs[i].Product.ImageUrl)" alt="product image">
+                                            </div>
+
+                                            <div class="col-md-8">
+                                                <h5 class="card-title"> @Model.SalesLogs[i].Product.Name.ToUpperInvariant()</h5>
+                                                <hr>
+                                                <div>
+                                                    <b>Quantity:</b> <span>@Model.SalesLogs[i].Quantity</span>
+                                                </div>
+                                                <div class="mb-2"><b>Sub Total:</b> ₦@string.Format("{0:0,0.00}", Model.SalesLogs[i].Amount) <span class="text-success ml-5"><b> Savings:</b> @Model.SalesLogs[i].Discount</span> </div>
+
+
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                                @*@if (Model.Payment != null)
+                                {
+
+                                    <div class="checkout-footer margin-top-1x">
+                                        <div class="column text-sm-right">
+                                            <a class="btn btn-primary" href="@Url.Action("PayStackPayment", "Payment", new { area = "Customer", customerId = Utility.Encrypt(Model.Payment.InvoiceNumber) })">Click here to Pay</a>
+                                        </div>
+                                    </div>
+                                }*@
+
+                        </div>
+
+                    <div class="clearfix"></div>
+                    </div>
+                </div>
+    </main>

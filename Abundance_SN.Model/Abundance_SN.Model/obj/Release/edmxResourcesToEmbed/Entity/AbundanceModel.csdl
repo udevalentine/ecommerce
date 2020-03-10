@@ -1,0 +1,1141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Abundance_SN.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Abundance_SN_2Entities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="BRAND" EntityType="Abundance_SN.Model.BRAND" />
+    <EntitySet Name="CATEGORY" EntityType="Abundance_SN.Model.CATEGORY" />
+    <EntitySet Name="COURIER_AREA_CHARGES" EntityType="Abundance_SN.Model.COURIER_AREA_CHARGES" />
+    <EntitySet Name="COURIER_CHARGES" EntityType="Abundance_SN.Model.COURIER_CHARGES" />
+    <EntitySet Name="COURIER_DETAIL" EntityType="Abundance_SN.Model.COURIER_DETAIL" />
+    <EntitySet Name="COURIER_SERVICE" EntityType="Abundance_SN.Model.COURIER_SERVICE" />
+    <EntitySet Name="CUSTOMER_REVIEW" EntityType="Abundance_SN.Model.CUSTOMER_REVIEW" />
+    <EntitySet Name="CUSTOMER_VISIT" EntityType="Abundance_SN.Model.CUSTOMER_VISIT" />
+    <EntitySet Name="DELIVERY_ADDRESS" EntityType="Abundance_SN.Model.DELIVERY_ADDRESS" />
+    <EntitySet Name="DELIVERY_SERVICE" EntityType="Abundance_SN.Model.DELIVERY_SERVICE" />
+    <EntitySet Name="DELIVERY_STATUS" EntityType="Abundance_SN.Model.DELIVERY_STATUS" />
+    <EntitySet Name="HOME_PAGE_SLIDER" EntityType="Abundance_SN.Model.HOME_PAGE_SLIDER" />
+    <EntitySet Name="INVENTORY" EntityType="Abundance_SN.Model.INVENTORY" />
+    <EntitySet Name="NATIONALITY" EntityType="Abundance_SN.Model.NATIONALITY" />
+    <EntitySet Name="PAYMENT" EntityType="Abundance_SN.Model.PAYMENT" />
+    <EntitySet Name="PAYMENT_MODE" EntityType="Abundance_SN.Model.PAYMENT_MODE" />
+    <EntitySet Name="PAYMENT_PAYSTACK" EntityType="Abundance_SN.Model.PAYMENT_PAYSTACK" />
+    <EntitySet Name="PERSON" EntityType="Abundance_SN.Model.PERSON" />
+    <EntitySet Name="PRODUCT" EntityType="Abundance_SN.Model.PRODUCT" />
+    <EntitySet Name="PRODUCT_IMAGE_GALLARY" EntityType="Abundance_SN.Model.PRODUCT_IMAGE_GALLARY" />
+    <EntitySet Name="PRODUCT_ORDER_LOG" EntityType="Abundance_SN.Model.PRODUCT_ORDER_LOG" />
+    <EntitySet Name="PRODUCT_SUPPLY_LOG" EntityType="Abundance_SN.Model.PRODUCT_SUPPLY_LOG" />
+    <EntitySet Name="PRODUCT_TYPE" EntityType="Abundance_SN.Model.PRODUCT_TYPE" />
+    <EntitySet Name="PRODUCT_VARIANT" EntityType="Abundance_SN.Model.PRODUCT_VARIANT" />
+    <EntitySet Name="PRODUCT_VARIANT_OPTIONS" EntityType="Abundance_SN.Model.PRODUCT_VARIANT_OPTIONS" />
+    <EntitySet Name="REORDER_NOTIFICATION" EntityType="Abundance_SN.Model.REORDER_NOTIFICATION" />
+    <EntitySet Name="ROLE" EntityType="Abundance_SN.Model.ROLE" />
+    <EntitySet Name="SALES_LOG" EntityType="Abundance_SN.Model.SALES_LOG" />
+    <EntitySet Name="STATE" EntityType="Abundance_SN.Model.STATE" />
+    <EntitySet Name="STORE_SETUP" EntityType="Abundance_SN.Model.STORE_SETUP" />
+    <EntitySet Name="STORE_SETUP_PRODUCTSAMPLE" EntityType="Abundance_SN.Model.STORE_SETUP_PRODUCTSAMPLE" />
+    <EntitySet Name="STORE_TYPE" EntityType="Abundance_SN.Model.STORE_TYPE" />
+    <EntitySet Name="sysdiagrams" EntityType="Abundance_SN.Model.sysdiagrams" />
+    <EntitySet Name="UNIT" EntityType="Abundance_SN.Model.UNIT" />
+    <EntitySet Name="USER" EntityType="Abundance_SN.Model.USER" />
+    <EntitySet Name="VENDOR" EntityType="Abundance_SN.Model.VENDOR" />
+    <EntitySet Name="VW_SALES_PAYMENT" EntityType="Abundance_SN.Model.VW_SALES_PAYMENT" />
+    <AssociationSet Name="FK_PRODUCT_BRAND" Association="Abundance_SN.Model.FK_PRODUCT_BRAND">
+      <End Role="BRAND" EntitySet="BRAND" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_TYPE_CATEGORY" Association="Abundance_SN.Model.FK_PRODUCT_TYPE_CATEGORY">
+      <End Role="CATEGORY" EntitySet="CATEGORY" />
+      <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_AREA_CHARGES_STATE" Association="Abundance_SN.Model.FK_COURIER_AREA_CHARGES_STATE">
+      <End Role="STATE" EntitySet="STATE" />
+      <End Role="COURIER_AREA_CHARGES" EntitySet="COURIER_AREA_CHARGES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_COURIER_AREA_CHARGES" Association="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_AREA_CHARGES">
+      <End Role="COURIER_AREA_CHARGES" EntitySet="COURIER_AREA_CHARGES" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_COURIER_CHARGES" Association="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_CHARGES">
+      <End Role="COURIER_CHARGES" EntitySet="COURIER_CHARGES" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_COURIER_SERVICE" Association="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_SERVICE">
+      <End Role="COURIER_SERVICE" EntitySet="COURIER_SERVICE" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURIER_DETAIL_STATE" Association="Abundance_SN.Model.FK_COURIER_DETAIL_STATE">
+      <End Role="STATE" EntitySet="STATE" />
+      <End Role="COURIER_DETAIL" EntitySet="COURIER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CUSTOMER_REVIEW_PRODUCT" Association="Abundance_SN.Model.FK_CUSTOMER_REVIEW_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="CUSTOMER_REVIEW" EntitySet="CUSTOMER_REVIEW" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CUSTOMER_VISIT_PRODUCT" Association="Abundance_SN.Model.FK_CUSTOMER_VISIT_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="CUSTOMER_VISIT" EntitySet="CUSTOMER_VISIT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DELIVERY_ADDRESS_DELIVERY_SERVICE" Association="Abundance_SN.Model.FK_DELIVERY_ADDRESS_DELIVERY_SERVICE">
+      <End Role="DELIVERY_SERVICE" EntitySet="DELIVERY_SERVICE" />
+      <End Role="DELIVERY_ADDRESS" EntitySet="DELIVERY_ADDRESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DELIVERY_ADDRESS_DELIVERY_STATUS" Association="Abundance_SN.Model.FK_DELIVERY_ADDRESS_DELIVERY_STATUS">
+      <End Role="DELIVERY_STATUS" EntitySet="DELIVERY_STATUS" />
+      <End Role="DELIVERY_ADDRESS" EntitySet="DELIVERY_ADDRESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DELIVERY_ADDRESS_PERSON" Association="Abundance_SN.Model.FK_DELIVERY_ADDRESS_PERSON">
+      <End Role="PERSON" EntitySet="PERSON" />
+      <End Role="DELIVERY_ADDRESS" EntitySet="DELIVERY_ADDRESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INVENTORY_PRODUCT" Association="Abundance_SN.Model.FK_INVENTORY_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="INVENTORY" EntitySet="INVENTORY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INVENTORY_PRODUCT_VARIANT_OPTIONS" Association="Abundance_SN.Model.FK_INVENTORY_PRODUCT_VARIANT_OPTIONS">
+      <End Role="PRODUCT_VARIANT_OPTIONS" EntitySet="PRODUCT_VARIANT_OPTIONS" />
+      <End Role="INVENTORY" EntitySet="INVENTORY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STATE_NATIONALITY" Association="Abundance_SN.Model.FK_STATE_NATIONALITY">
+      <End Role="NATIONALITY" EntitySet="NATIONALITY" />
+      <End Role="STATE" EntitySet="STATE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAYMENT_PAYMENT_MODE" Association="Abundance_SN.Model.FK_PAYMENT_PAYMENT_MODE">
+      <End Role="PAYMENT_MODE" EntitySet="PAYMENT_MODE" />
+      <End Role="PAYMENT" EntitySet="PAYMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAYMENT_PAYSTACK_PAYMENT" Association="Abundance_SN.Model.FK_PAYMENT_PAYSTACK_PAYMENT">
+      <End Role="PAYMENT" EntitySet="PAYMENT" />
+      <End Role="PAYMENT_PAYSTACK" EntitySet="PAYMENT_PAYSTACK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PAYMENT_PERSON" Association="Abundance_SN.Model.FK_PAYMENT_PERSON">
+      <End Role="PERSON" EntitySet="PERSON" />
+      <End Role="PAYMENT" EntitySet="PAYMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PERSON_USER" Association="Abundance_SN.Model.FK_PERSON_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="PERSON" EntitySet="PERSON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STORE_SETUP_PERSON" Association="Abundance_SN.Model.FK_STORE_SETUP_PERSON">
+      <End Role="PERSON" EntitySet="PERSON" />
+      <End Role="STORE_SETUP" EntitySet="STORE_SETUP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_IMAGE_GALLARY_PRODUCT" Association="Abundance_SN.Model.FK_PRODUCT_IMAGE_GALLARY_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_IMAGE_GALLARY" EntitySet="PRODUCT_IMAGE_GALLARY" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_ORDER_LOGS_PRODUCT" Association="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_PRODUCT_TYPE" Association="Abundance_SN.Model.FK_PRODUCT_PRODUCT_TYPE">
+      <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT" Association="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_UNIT" Association="Abundance_SN.Model.FK_PRODUCT_UNIT">
+      <End Role="UNIT" EntitySet="UNIT" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PROUCT_VARIANT_PRODUCT" Association="Abundance_SN.Model.FK_PROUCT_VARIANT_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="PRODUCT_VARIANT" EntitySet="PRODUCT_VARIANT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SALES_LOGS_PRODUCT" Association="Abundance_SN.Model.FK_SALES_LOGS_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="SALES_LOG" EntitySet="SALES_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_ORDER_LOGS_USER" Association="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_ORDER_LOGS_VENDORS" Association="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_VENDORS">
+      <End Role="VENDOR" EntitySet="VENDOR" />
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS" Association="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS">
+      <End Role="PRODUCT_ORDER_LOG" EntitySet="PRODUCT_ORDER_LOG" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_USER" Association="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_SUPPLY_LOGS_VENDORS" Association="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_VENDORS">
+      <End Role="VENDOR" EntitySet="VENDOR" />
+      <End Role="PRODUCT_SUPPLY_LOG" EntitySet="PRODUCT_SUPPLY_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRODUCT_OPTIONS_PRODUCT_VARIANT" Association="Abundance_SN.Model.FK_PRODUCT_OPTIONS_PRODUCT_VARIANT">
+      <End Role="PRODUCT_VARIANT" EntitySet="PRODUCT_VARIANT" />
+      <End Role="PRODUCT_VARIANT_OPTIONS" EntitySet="PRODUCT_VARIANT_OPTIONS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS" Association="Abundance_SN.Model.FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS">
+      <End Role="PRODUCT_VARIANT_OPTIONS" EntitySet="PRODUCT_VARIANT_OPTIONS" />
+      <End Role="SALES_LOG" EntitySet="SALES_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE" Association="Abundance_SN.Model.FK_USER_ROLE">
+      <End Role="ROLE" EntitySet="ROLE" />
+      <End Role="USER" EntitySet="USER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SALES_LOGS_USER" Association="Abundance_SN.Model.FK_SALES_LOGS_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="SALES_LOG" EntitySet="SALES_LOG" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BRAND">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_PRODUCT_BRAND" FromRole="BRAND" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="CATEGORY">
+    <Key>
+      <PropertyRef Name="Category_Id" />
+    </Key>
+    <Property Name="Category_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Category_Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Image_Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PRODUCT_TYPE" Relationship="Abundance_SN.Model.FK_PRODUCT_TYPE_CATEGORY" FromRole="CATEGORY" ToRole="PRODUCT_TYPE" />
+  </EntityType>
+  <EntityType Name="COURIER_AREA_CHARGES">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Area" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="State_Id" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Courier_Id" Type="Int32" />
+    <Property Name="Charger" Type="Decimal" Precision="8" Scale="2" />
+    <NavigationProperty Name="STATE" Relationship="Abundance_SN.Model.FK_COURIER_AREA_CHARGES_STATE" FromRole="COURIER_AREA_CHARGES" ToRole="STATE" />
+    <NavigationProperty Name="COURIER_DETAIL" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_AREA_CHARGES" FromRole="COURIER_AREA_CHARGES" ToRole="COURIER_DETAIL" />
+  </EntityType>
+  <EntityType Name="COURIER_CHARGES">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Charges" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <NavigationProperty Name="COURIER_DETAIL" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_CHARGES" FromRole="COURIER_CHARGES" ToRole="COURIER_DETAIL" />
+  </EntityType>
+  <EntityType Name="COURIER_DETAIL">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="State_Id" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Area_Id" Type="Int32" Nullable="false" />
+    <Property Name="Courier_Id" Type="Int32" Nullable="false" />
+    <Property Name="Charge_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="COURIER_AREA_CHARGES" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_AREA_CHARGES" FromRole="COURIER_DETAIL" ToRole="COURIER_AREA_CHARGES" />
+    <NavigationProperty Name="COURIER_CHARGES" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_CHARGES" FromRole="COURIER_DETAIL" ToRole="COURIER_CHARGES" />
+    <NavigationProperty Name="COURIER_SERVICE" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_SERVICE" FromRole="COURIER_DETAIL" ToRole="COURIER_SERVICE" />
+    <NavigationProperty Name="STATE" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_STATE" FromRole="COURIER_DETAIL" ToRole="STATE" />
+  </EntityType>
+  <EntityType Name="COURIER_SERVICE">
+    <Key>
+      <PropertyRef Name="Courier_Id" />
+    </Key>
+    <Property Name="Courier_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Courier_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="COURIER_DETAIL" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_COURIER_SERVICE" FromRole="COURIER_SERVICE" ToRole="COURIER_DETAIL" />
+  </EntityType>
+  <EntityType Name="CUSTOMER_REVIEW">
+    <Key>
+      <PropertyRef Name="Customer_Review_Id" />
+    </Key>
+    <Property Name="Customer_Review_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Customer_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Customer_Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Customer_Review_Subject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Customer_Rating" Type="Int32" Nullable="false" />
+    <Property Name="Customer_Review1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_CUSTOMER_REVIEW_PRODUCT" FromRole="CUSTOMER_REVIEW" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="CUSTOMER_VISIT">
+    <Key>
+      <PropertyRef Name="Customer_Visit_Id" />
+    </Key>
+    <Property Name="Customer_Visit_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Uuid" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Of_Visit" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_CUSTOMER_VISIT_PRODUCT" FromRole="CUSTOMER_VISIT" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="DELIVERY_ADDRESS">
+    <Key>
+      <PropertyRef Name="Delivery_Address_Id" />
+    </Key>
+    <Property Name="Delivery_Address_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Delivery_Service_Id" Type="Int32" Nullable="false" />
+    <Property Name="Delivery_Status_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cart_Hash" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Delivery_State_Id" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Person_Id" Type="Int64" Nullable="false" />
+    <Property Name="Date_Created" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Date_Delivered" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="DELIVERY_SERVICE" Relationship="Abundance_SN.Model.FK_DELIVERY_ADDRESS_DELIVERY_SERVICE" FromRole="DELIVERY_ADDRESS" ToRole="DELIVERY_SERVICE" />
+    <NavigationProperty Name="DELIVERY_STATUS" Relationship="Abundance_SN.Model.FK_DELIVERY_ADDRESS_DELIVERY_STATUS" FromRole="DELIVERY_ADDRESS" ToRole="DELIVERY_STATUS" />
+    <NavigationProperty Name="PERSON" Relationship="Abundance_SN.Model.FK_DELIVERY_ADDRESS_PERSON" FromRole="DELIVERY_ADDRESS" ToRole="PERSON" />
+    <Property Name="Delivery_Option" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DELIVERY_SERVICE">
+    <Key>
+      <PropertyRef Name="Delivery_Service_Id" />
+    </Key>
+    <Property Name="Delivery_Service_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <Property Name="Activated" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="DELIVERY_ADDRESS" Relationship="Abundance_SN.Model.FK_DELIVERY_ADDRESS_DELIVERY_SERVICE" FromRole="DELIVERY_SERVICE" ToRole="DELIVERY_ADDRESS" />
+  </EntityType>
+  <EntityType Name="DELIVERY_STATUS">
+    <Key>
+      <PropertyRef Name="Delivery_Status_Id" />
+    </Key>
+    <Property Name="Delivery_Status_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Decription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DELIVERY_ADDRESS" Relationship="Abundance_SN.Model.FK_DELIVERY_ADDRESS_DELIVERY_STATUS" FromRole="DELIVERY_STATUS" ToRole="DELIVERY_ADDRESS" />
+  </EntityType>
+  <EntityType Name="HOME_PAGE_SLIDER">
+    <Key>
+      <PropertyRef Name="Home_Page_Slider_Id" />
+    </Key>
+    <Property Name="Home_Page_Slider_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Image_Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Activated" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="INVENTORY">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Product_Variant_Option_Id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_INVENTORY_PRODUCT" FromRole="INVENTORY" ToRole="PRODUCT" />
+    <NavigationProperty Name="PRODUCT_VARIANT_OPTIONS" Relationship="Abundance_SN.Model.FK_INVENTORY_PRODUCT_VARIANT_OPTIONS" FromRole="INVENTORY" ToRole="PRODUCT_VARIANT_OPTIONS" />
+  </EntityType>
+  <EntityType Name="NATIONALITY">
+    <Key>
+      <PropertyRef Name="Nationality_Id" />
+    </Key>
+    <Property Name="Nationality_Id" Type="Int32" Nullable="false" />
+    <Property Name="Nationality_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="STATE" Relationship="Abundance_SN.Model.FK_STATE_NATIONALITY" FromRole="NATIONALITY" ToRole="STATE" />
+  </EntityType>
+  <EntityType Name="PAYMENT">
+    <Key>
+      <PropertyRef Name="Payment_Id" />
+    </Key>
+    <Property Name="Payment_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Person_Id" Type="Int64" Nullable="false" />
+    <Property Name="Payment_Mode_Id" Type="Int32" Nullable="false" />
+    <Property Name="Payment_Serial_Number" Type="Int64" />
+    <Property Name="Invoice_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Date_Paid" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Paid" Type="Boolean" />
+    <NavigationProperty Name="PAYMENT_MODE" Relationship="Abundance_SN.Model.FK_PAYMENT_PAYMENT_MODE" FromRole="PAYMENT" ToRole="PAYMENT_MODE" />
+    <NavigationProperty Name="PAYMENT_PAYSTACK" Relationship="Abundance_SN.Model.FK_PAYMENT_PAYSTACK_PAYMENT" FromRole="PAYMENT" ToRole="PAYMENT_PAYSTACK" />
+    <NavigationProperty Name="PERSON" Relationship="Abundance_SN.Model.FK_PAYMENT_PERSON" FromRole="PAYMENT" ToRole="PERSON" />
+  </EntityType>
+  <EntityType Name="PAYMENT_MODE">
+    <Key>
+      <PropertyRef Name="Payment_Mode_Id" />
+    </Key>
+    <Property Name="Payment_Mode_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Payment_Mode_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Payment_Mode_Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PAYMENT" Relationship="Abundance_SN.Model.FK_PAYMENT_PAYMENT_MODE" FromRole="PAYMENT_MODE" ToRole="PAYMENT" />
+  </EntityType>
+  <EntityType Name="PAYMENT_PAYSTACK">
+    <Key>
+      <PropertyRef Name="Payment_Id" />
+    </Key>
+    <Property Name="Payment_Id" Type="Int64" Nullable="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="currency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="transaction_date" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="domain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="gateway_response" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="channel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ip_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fees" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="last4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="exp_month" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="exp_year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="card_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="bank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="country_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="brand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reusable" Type="Boolean" />
+    <Property Name="signature" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="authorization_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="access_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PAYMENT" Relationship="Abundance_SN.Model.FK_PAYMENT_PAYSTACK_PAYMENT" FromRole="PAYMENT_PAYSTACK" ToRole="PAYMENT" />
+  </EntityType>
+  <EntityType Name="PERSON">
+    <Key>
+      <PropertyRef Name="Person_Id" />
+    </Key>
+    <Property Name="Person_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OtherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Country_Id" Type="Int32" />
+    <Property Name="State_Id" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Date_Registered" Type="DateTime" Precision="3" />
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Uuid" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DELIVERY_ADDRESS" Relationship="Abundance_SN.Model.FK_DELIVERY_ADDRESS_PERSON" FromRole="PERSON" ToRole="DELIVERY_ADDRESS" />
+    <NavigationProperty Name="PAYMENT" Relationship="Abundance_SN.Model.FK_PAYMENT_PERSON" FromRole="PERSON" ToRole="PAYMENT" />
+    <NavigationProperty Name="USER" Relationship="Abundance_SN.Model.FK_PERSON_USER" FromRole="PERSON" ToRole="USER" />
+    <NavigationProperty Name="STORE_SETUP" Relationship="Abundance_SN.Model.FK_STORE_SETUP_PERSON" FromRole="PERSON" ToRole="STORE_SETUP" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Slug" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MaxPrice" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="Shipping" Type="Boolean" Nullable="false" />
+    <Property Name="Weight" Type="Int32" />
+    <Property Name="Size" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Can_Be_Delivered" Type="Boolean" Nullable="false" />
+    <Property Name="Product_Type_Id" Type="Int32" Nullable="false" />
+    <Property Name="Reorder_Level" Type="Int32" Nullable="false" />
+    <Property Name="Visits" Type="Int32" />
+    <Property Name="Image_Url" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="sku" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Brand_Id" Type="Int64" Nullable="false" />
+    <Property Name="Unit_Id" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Additional_Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BRAND" Relationship="Abundance_SN.Model.FK_PRODUCT_BRAND" FromRole="PRODUCT" ToRole="BRAND" />
+    <NavigationProperty Name="CUSTOMER_REVIEW" Relationship="Abundance_SN.Model.FK_CUSTOMER_REVIEW_PRODUCT" FromRole="PRODUCT" ToRole="CUSTOMER_REVIEW" />
+    <NavigationProperty Name="CUSTOMER_VISIT" Relationship="Abundance_SN.Model.FK_CUSTOMER_VISIT_PRODUCT" FromRole="PRODUCT" ToRole="CUSTOMER_VISIT" />
+    <NavigationProperty Name="INVENTORY" Relationship="Abundance_SN.Model.FK_INVENTORY_PRODUCT" FromRole="PRODUCT" ToRole="INVENTORY" />
+    <NavigationProperty Name="PRODUCT_IMAGE_GALLARY" Relationship="Abundance_SN.Model.FK_PRODUCT_IMAGE_GALLARY_PRODUCT" FromRole="PRODUCT" ToRole="PRODUCT_IMAGE_GALLARY" />
+    <NavigationProperty Name="PRODUCT_ORDER_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_PRODUCT" FromRole="PRODUCT" ToRole="PRODUCT_ORDER_LOG" />
+    <NavigationProperty Name="PRODUCT_TYPE" Relationship="Abundance_SN.Model.FK_PRODUCT_PRODUCT_TYPE" FromRole="PRODUCT" ToRole="PRODUCT_TYPE" />
+    <NavigationProperty Name="PRODUCT_SUPPLY_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_PRODUCT" FromRole="PRODUCT" ToRole="PRODUCT_SUPPLY_LOG" />
+    <NavigationProperty Name="UNIT" Relationship="Abundance_SN.Model.FK_PRODUCT_UNIT" FromRole="PRODUCT" ToRole="UNIT" />
+    <NavigationProperty Name="PRODUCT_VARIANT" Relationship="Abundance_SN.Model.FK_PROUCT_VARIANT_PRODUCT" FromRole="PRODUCT" ToRole="PRODUCT_VARIANT" />
+    <NavigationProperty Name="SALES_LOG" Relationship="Abundance_SN.Model.FK_SALES_LOGS_PRODUCT" FromRole="PRODUCT" ToRole="SALES_LOG" />
+  </EntityType>
+  <EntityType Name="PRODUCT_IMAGE_GALLARY">
+    <Key>
+      <PropertyRef Name="Product_Image_Gallary_Id" />
+    </Key>
+    <Property Name="Product_Image_Gallary_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Image_Url" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Activated" Type="Boolean" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_PRODUCT_IMAGE_GALLARY_PRODUCT" FromRole="PRODUCT_IMAGE_GALLARY" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="PRODUCT_ORDER_LOG">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Vendor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Date_Requested" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Unit_Price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_PRODUCT" FromRole="PRODUCT_ORDER_LOG" ToRole="PRODUCT" />
+    <NavigationProperty Name="USER" Relationship="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_USER" FromRole="PRODUCT_ORDER_LOG" ToRole="USER" />
+    <NavigationProperty Name="VENDOR" Relationship="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_VENDORS" FromRole="PRODUCT_ORDER_LOG" ToRole="VENDOR" />
+    <NavigationProperty Name="PRODUCT_SUPPLY_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS" FromRole="PRODUCT_ORDER_LOG" ToRole="PRODUCT_SUPPLY_LOG" />
+  </EntityType>
+  <EntityType Name="PRODUCT_SUPPLY_LOG">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Vendor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Supply_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Unit_Price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <Property Name="Product_Order_Log_Id" Type="Int32" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_PRODUCT" FromRole="PRODUCT_SUPPLY_LOG" ToRole="PRODUCT" />
+    <NavigationProperty Name="PRODUCT_ORDER_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS" FromRole="PRODUCT_SUPPLY_LOG" ToRole="PRODUCT_ORDER_LOG" />
+    <NavigationProperty Name="USER" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_USER" FromRole="PRODUCT_SUPPLY_LOG" ToRole="USER" />
+    <NavigationProperty Name="VENDOR" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_VENDORS" FromRole="PRODUCT_SUPPLY_LOG" ToRole="VENDOR" />
+  </EntityType>
+  <EntityType Name="PRODUCT_TYPE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Category_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CATEGORY" Relationship="Abundance_SN.Model.FK_PRODUCT_TYPE_CATEGORY" FromRole="PRODUCT_TYPE" ToRole="CATEGORY" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_PRODUCT_PRODUCT_TYPE" FromRole="PRODUCT_TYPE" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="PRODUCT_VARIANT">
+    <Key>
+      <PropertyRef Name="Product_Variant_Id" />
+    </Key>
+    <Property Name="Product_Variant_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="Key_1" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Value_1" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Key_2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Value_2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Key_3" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Value_3" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_PROUCT_VARIANT_PRODUCT" FromRole="PRODUCT_VARIANT" ToRole="PRODUCT" />
+    <NavigationProperty Name="PRODUCT_VARIANT_OPTIONS" Relationship="Abundance_SN.Model.FK_PRODUCT_OPTIONS_PRODUCT_VARIANT" FromRole="PRODUCT_VARIANT" ToRole="PRODUCT_VARIANT_OPTIONS" />
+  </EntityType>
+  <EntityType Name="PRODUCT_VARIANT_OPTIONS">
+    <Key>
+      <PropertyRef Name="Product_Option_Id" />
+    </Key>
+    <Property Name="Product_Option_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Option_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Product_Variant_Id" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Image_Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="INVENTORY" Relationship="Abundance_SN.Model.FK_INVENTORY_PRODUCT_VARIANT_OPTIONS" FromRole="PRODUCT_VARIANT_OPTIONS" ToRole="INVENTORY" />
+    <NavigationProperty Name="PRODUCT_VARIANT" Relationship="Abundance_SN.Model.FK_PRODUCT_OPTIONS_PRODUCT_VARIANT" FromRole="PRODUCT_VARIANT_OPTIONS" ToRole="PRODUCT_VARIANT" />
+    <NavigationProperty Name="SALES_LOG" Relationship="Abundance_SN.Model.FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS" FromRole="PRODUCT_VARIANT_OPTIONS" ToRole="SALES_LOG" />
+  </EntityType>
+  <EntityType Name="REORDER_NOTIFICATION">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NotificationType" Type="Int32" Nullable="false" />
+    <Property Name="Order_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ROLE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="USER" Relationship="Abundance_SN.Model.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
+  </EntityType>
+  <EntityType Name="SALES_LOG">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cart_Hash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Product_Id" Type="Int64" Nullable="false" />
+    <Property Name="Product_Variant_Option_Id" Type="Int64" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="discount" Type="Int32" />
+    <Property Name="Unit_Price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Date_Ordered" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_SALES_LOGS_PRODUCT" FromRole="SALES_LOG" ToRole="PRODUCT" />
+    <NavigationProperty Name="PRODUCT_VARIANT_OPTIONS" Relationship="Abundance_SN.Model.FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS" FromRole="SALES_LOG" ToRole="PRODUCT_VARIANT_OPTIONS" />
+    <NavigationProperty Name="USER" Relationship="Abundance_SN.Model.FK_SALES_LOGS_USER" FromRole="SALES_LOG" ToRole="USER" />
+  </EntityType>
+  <EntityType Name="STATE">
+    <Key>
+      <PropertyRef Name="State_Id" />
+    </Key>
+    <Property Name="State_Id" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="State_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nationality_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="COURIER_AREA_CHARGES" Relationship="Abundance_SN.Model.FK_COURIER_AREA_CHARGES_STATE" FromRole="STATE" ToRole="COURIER_AREA_CHARGES" />
+    <NavigationProperty Name="COURIER_DETAIL" Relationship="Abundance_SN.Model.FK_COURIER_DETAIL_STATE" FromRole="STATE" ToRole="COURIER_DETAIL" />
+    <NavigationProperty Name="NATIONALITY" Relationship="Abundance_SN.Model.FK_STATE_NATIONALITY" FromRole="STATE" ToRole="NATIONALITY" />
+  </EntityType>
+  <EntityType Name="STORE_SETUP">
+    <Key>
+      <PropertyRef Name="Store_Setup_Id" />
+    </Key>
+    <Property Name="Store_Setup_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Person_Id" Type="Int64" Nullable="false" />
+    <Property Name="Shop_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Store_ProductType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BusinessName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BusinessRCNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BusinessPhone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BusinessEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="StoreLogoUrl" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="About_Us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Store_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PERSON" Relationship="Abundance_SN.Model.FK_STORE_SETUP_PERSON" FromRole="STORE_SETUP" ToRole="PERSON" />
+  </EntityType>
+  <EntityType Name="STORE_SETUP_PRODUCTSAMPLE">
+    <Key>
+      <PropertyRef Name="Store_Setup_ProductSample_Id" />
+    </Key>
+    <Property Name="Store_Setup_ProductSample_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="STORE_TYPE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UNIT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PRODUCT" Relationship="Abundance_SN.Model.FK_PRODUCT_UNIT" FromRole="UNIT" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PERSON" Relationship="Abundance_SN.Model.FK_PERSON_USER" FromRole="USER" ToRole="PERSON" />
+    <NavigationProperty Name="PRODUCT_ORDER_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_USER" FromRole="USER" ToRole="PRODUCT_ORDER_LOG" />
+    <NavigationProperty Name="PRODUCT_SUPPLY_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_USER" FromRole="USER" ToRole="PRODUCT_SUPPLY_LOG" />
+    <NavigationProperty Name="ROLE" Relationship="Abundance_SN.Model.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
+    <NavigationProperty Name="SALES_LOG" Relationship="Abundance_SN.Model.FK_SALES_LOGS_USER" FromRole="USER" ToRole="SALES_LOG" />
+  </EntityType>
+  <EntityType Name="VENDOR">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PRODUCT_ORDER_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_ORDER_LOGS_VENDORS" FromRole="VENDOR" ToRole="PRODUCT_ORDER_LOG" />
+    <NavigationProperty Name="PRODUCT_SUPPLY_LOG" Relationship="Abundance_SN.Model.FK_PRODUCT_SUPPLY_LOGS_VENDORS" FromRole="VENDOR" ToRole="PRODUCT_SUPPLY_LOG" />
+  </EntityType>
+  <EntityType Name="VW_SALES_PAYMENT">
+    <Key>
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Payment_Id" />
+      <PropertyRef Name="Person_Id" />
+      <PropertyRef Name="Payment_Mode_Id" />
+      <PropertyRef Name="Payment_Mode_Name" />
+    </Key>
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="152" FixedLength="false" Unicode="true" />
+    <Property Name="Payment_Id" Type="Int64" Nullable="false" />
+    <Property Name="Invoice_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Person_Id" Type="Int64" Nullable="false" />
+    <Property Name="Payment_Mode_Id" Type="Int32" Nullable="false" />
+    <Property Name="Payment_Mode_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="transaction_date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_PRODUCT_BRAND">
+    <End Type="Abundance_SN.Model.BRAND" Role="BRAND" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BRAND">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="Brand_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_TYPE_CATEGORY">
+    <End Type="Abundance_SN.Model.CATEGORY" Role="CATEGORY" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_TYPE" Role="PRODUCT_TYPE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORY">
+        <PropertyRef Name="Category_Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_TYPE">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_AREA_CHARGES_STATE">
+    <End Type="Abundance_SN.Model.STATE" Role="STATE" Multiplicity="0..1" />
+    <End Type="Abundance_SN.Model.COURIER_AREA_CHARGES" Role="COURIER_AREA_CHARGES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STATE">
+        <PropertyRef Name="State_Id" />
+      </Principal>
+      <Dependent Role="COURIER_AREA_CHARGES">
+        <PropertyRef Name="State_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_COURIER_AREA_CHARGES">
+    <End Type="Abundance_SN.Model.COURIER_AREA_CHARGES" Role="COURIER_AREA_CHARGES" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.COURIER_DETAIL" Role="COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURIER_AREA_CHARGES">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="Area_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_COURIER_CHARGES">
+    <End Type="Abundance_SN.Model.COURIER_CHARGES" Role="COURIER_CHARGES" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.COURIER_DETAIL" Role="COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURIER_CHARGES">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="Charge_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_COURIER_SERVICE">
+    <End Type="Abundance_SN.Model.COURIER_SERVICE" Role="COURIER_SERVICE" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.COURIER_DETAIL" Role="COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURIER_SERVICE">
+        <PropertyRef Name="Courier_Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="Courier_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURIER_DETAIL_STATE">
+    <End Type="Abundance_SN.Model.STATE" Role="STATE" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.COURIER_DETAIL" Role="COURIER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STATE">
+        <PropertyRef Name="State_Id" />
+      </Principal>
+      <Dependent Role="COURIER_DETAIL">
+        <PropertyRef Name="State_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CUSTOMER_REVIEW_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.CUSTOMER_REVIEW" Role="CUSTOMER_REVIEW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CUSTOMER_REVIEW">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CUSTOMER_VISIT_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.CUSTOMER_VISIT" Role="CUSTOMER_VISIT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CUSTOMER_VISIT">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DELIVERY_ADDRESS_DELIVERY_SERVICE">
+    <End Type="Abundance_SN.Model.DELIVERY_SERVICE" Role="DELIVERY_SERVICE" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.DELIVERY_ADDRESS" Role="DELIVERY_ADDRESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DELIVERY_SERVICE">
+        <PropertyRef Name="Delivery_Service_Id" />
+      </Principal>
+      <Dependent Role="DELIVERY_ADDRESS">
+        <PropertyRef Name="Delivery_Service_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DELIVERY_ADDRESS_DELIVERY_STATUS">
+    <End Type="Abundance_SN.Model.DELIVERY_STATUS" Role="DELIVERY_STATUS" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.DELIVERY_ADDRESS" Role="DELIVERY_ADDRESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DELIVERY_STATUS">
+        <PropertyRef Name="Delivery_Status_Id" />
+      </Principal>
+      <Dependent Role="DELIVERY_ADDRESS">
+        <PropertyRef Name="Delivery_Status_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DELIVERY_ADDRESS_PERSON">
+    <End Type="Abundance_SN.Model.PERSON" Role="PERSON" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.DELIVERY_ADDRESS" Role="DELIVERY_ADDRESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="Person_Id" />
+      </Principal>
+      <Dependent Role="DELIVERY_ADDRESS">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INVENTORY_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.INVENTORY" Role="INVENTORY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="INVENTORY">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INVENTORY_PRODUCT_VARIANT_OPTIONS">
+    <End Type="Abundance_SN.Model.PRODUCT_VARIANT_OPTIONS" Role="PRODUCT_VARIANT_OPTIONS" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.INVENTORY" Role="INVENTORY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_VARIANT_OPTIONS">
+        <PropertyRef Name="Product_Option_Id" />
+      </Principal>
+      <Dependent Role="INVENTORY">
+        <PropertyRef Name="Product_Variant_Option_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STATE_NATIONALITY">
+    <End Type="Abundance_SN.Model.NATIONALITY" Role="NATIONALITY" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.STATE" Role="STATE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NATIONALITY">
+        <PropertyRef Name="Nationality_Id" />
+      </Principal>
+      <Dependent Role="STATE">
+        <PropertyRef Name="Nationality_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAYMENT_PAYMENT_MODE">
+    <End Type="Abundance_SN.Model.PAYMENT_MODE" Role="PAYMENT_MODE" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PAYMENT" Role="PAYMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PAYMENT_MODE">
+        <PropertyRef Name="Payment_Mode_Id" />
+      </Principal>
+      <Dependent Role="PAYMENT">
+        <PropertyRef Name="Payment_Mode_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAYMENT_PAYSTACK_PAYMENT">
+    <End Type="Abundance_SN.Model.PAYMENT" Role="PAYMENT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PAYMENT_PAYSTACK" Role="PAYMENT_PAYSTACK" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PAYMENT">
+        <PropertyRef Name="Payment_Id" />
+      </Principal>
+      <Dependent Role="PAYMENT_PAYSTACK">
+        <PropertyRef Name="Payment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PAYMENT_PERSON">
+    <End Type="Abundance_SN.Model.PERSON" Role="PERSON" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PAYMENT" Role="PAYMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="Person_Id" />
+      </Principal>
+      <Dependent Role="PAYMENT">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PERSON_USER">
+    <End Type="Abundance_SN.Model.USER" Role="USER" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PERSON" Role="PERSON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PERSON">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STORE_SETUP_PERSON">
+    <End Type="Abundance_SN.Model.PERSON" Role="PERSON" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.STORE_SETUP" Role="STORE_SETUP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="Person_Id" />
+      </Principal>
+      <Dependent Role="STORE_SETUP">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_IMAGE_GALLARY_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_IMAGE_GALLARY" Role="PRODUCT_IMAGE_GALLARY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_IMAGE_GALLARY">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_ORDER_LOGS_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_ORDER_LOG" Role="PRODUCT_ORDER_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_PRODUCT_TYPE">
+    <End Type="Abundance_SN.Model.PRODUCT_TYPE" Role="PRODUCT_TYPE" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_TYPE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="Product_Type_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_SUPPLY_LOG" Role="PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_UNIT">
+    <End Type="Abundance_SN.Model.UNIT" Role="UNIT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UNIT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="Unit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PROUCT_VARIANT_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_VARIANT" Role="PRODUCT_VARIANT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_VARIANT">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SALES_LOGS_PRODUCT">
+    <End Type="Abundance_SN.Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.SALES_LOG" Role="SALES_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SALES_LOG">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_ORDER_LOGS_USER">
+    <End Type="Abundance_SN.Model.USER" Role="USER" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_ORDER_LOG" Role="PRODUCT_ORDER_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_ORDER_LOGS_VENDORS">
+    <End Type="Abundance_SN.Model.VENDOR" Role="VENDOR" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_ORDER_LOG" Role="PRODUCT_ORDER_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENDOR">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="Vendor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_PRODUCT_ORDER_LOGS">
+    <End Type="Abundance_SN.Model.PRODUCT_ORDER_LOG" Role="PRODUCT_ORDER_LOG" Multiplicity="0..1" />
+    <End Type="Abundance_SN.Model.PRODUCT_SUPPLY_LOG" Role="PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_ORDER_LOG">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="Product_Order_Log_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_USER">
+    <End Type="Abundance_SN.Model.USER" Role="USER" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_SUPPLY_LOG" Role="PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_SUPPLY_LOGS_VENDORS">
+    <End Type="Abundance_SN.Model.VENDOR" Role="VENDOR" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_SUPPLY_LOG" Role="PRODUCT_SUPPLY_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENDOR">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_SUPPLY_LOG">
+        <PropertyRef Name="Vendor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRODUCT_OPTIONS_PRODUCT_VARIANT">
+    <End Type="Abundance_SN.Model.PRODUCT_VARIANT" Role="PRODUCT_VARIANT" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.PRODUCT_VARIANT_OPTIONS" Role="PRODUCT_VARIANT_OPTIONS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_VARIANT">
+        <PropertyRef Name="Product_Variant_Id" />
+      </Principal>
+      <Dependent Role="PRODUCT_VARIANT_OPTIONS">
+        <PropertyRef Name="Product_Variant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SALES_LOG_PRODUCT_VARIANT_OPTIONS">
+    <End Type="Abundance_SN.Model.PRODUCT_VARIANT_OPTIONS" Role="PRODUCT_VARIANT_OPTIONS" Multiplicity="0..1" />
+    <End Type="Abundance_SN.Model.SALES_LOG" Role="SALES_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_VARIANT_OPTIONS">
+        <PropertyRef Name="Product_Option_Id" />
+      </Principal>
+      <Dependent Role="SALES_LOG">
+        <PropertyRef Name="Product_Variant_Option_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE">
+    <End Type="Abundance_SN.Model.ROLE" Role="ROLE" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.USER" Role="USER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="USER">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SALES_LOGS_USER">
+    <End Type="Abundance_SN.Model.USER" Role="USER" Multiplicity="1" />
+    <End Type="Abundance_SN.Model.SALES_LOG" Role="SALES_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SALES_LOG">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

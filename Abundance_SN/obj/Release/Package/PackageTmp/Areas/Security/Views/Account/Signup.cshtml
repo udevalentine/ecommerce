@@ -1,0 +1,70 @@
+﻿@model Abundance_SN.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Signup";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<h2>Signup</h2>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="col-sm-5 border-after">
+
+            <div class="row" id="checkoutbtn">
+                <div class="col-md-12 m-b-10">
+                    <a href="@Url.Action("Checkout", "Checkout", new {area = "Customer", id = "anonymous"})" class="btn btn-primary margin-bottom-none">CONTINUE TO CHECKOUT</a>
+                </div>
+            </div>
+            <br />
+
+
+            <h5 class="title-login col-md-12">Create an account</h5>
+            @using (Html.BeginForm("Register", "Account", new { Area = "Security" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <form class="register col-md-12" method="post">
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.Person.Surname, "Surname", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Person.Surname, new { placeholder = "Surname", required = "required", @class = "form-control" })
+                    </p>
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.Person.FirstName, "First Name", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Person.FirstName, new { placeholder = "First Name", required = "required", @class = "form-control" })
+                    </p>
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.Person.OtherName, "Other Name", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Person.OtherName, new { placeholder = "Other Name", @class = "form-control" })
+                    </p>
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.Person.PhoneNumber, "Mobile No*", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Person.PhoneNumber, new { placeholder = "Mobile No", required = "required", @class = "form-control" })
+                    </p>
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.Person.Address, "Address", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Person.Address, new { placeholder = "Address", required = "required", @class = "form-control" })
+                    </p>
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.Person.Email, "Email Address", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Person.Email, new { placeholder = "Email Address", required = "required", @class = "form-control" })
+                    </p>
+                    @*<ul>
+                        <li><label class="inline"><input type="checkbox"><span class="input"></span>Sign Up for Newsletter</label></li>
+                    </ul>*@
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.Password, "Password", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Password, new { placeholder = "Password", type = "password", required = "required", @class = "form-control" })
+                    </p>
+                    <p class="form-row form-row-wide col-md-12">
+                        @Html.LabelFor(model => model.ConfirmPassword, "Confirm Password", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ConfirmPassword, new { placeholder = "Confirm Password", type = "password", required = "required", @class = "form-control" })
+                    </p>
+                    <p class="form-row col-md-12">
+                        @*<button class="btn btn-primary margin-bottom-none" type="submit">Register</button>*@
+                        <input type="submit" value="Register" name="Submit" class="button-submit">
+                    </p>
+                </form>
+            }
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,214 @@
+﻿@model Abundance_SN.Models.ProductViewModel
+
+@{
+//Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Content/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Content/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+    var jqueryVersion = $.noConflict(true);
+    $(document).ready(function () {
+
+
+        jqueryVersion("#MyTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+
+
+                }, , 'colvis'
+            ]
+        });
+        jqueryVersion.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+        $("#deleteId").on("click", function () {
+            function confirmDelete() {
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (!isConfirm) return;
+                    $.ajax({
+                        url: "scriptDelete.php",
+                        type: "POST",
+                        data: {
+                            id: 5
+                        },
+                        dataType: "html",
+                        success: function () {
+                            swal("Done!", "It was succesfully deleted!", "success");
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            swal("Error deleting!", "Please try again", "error");
+                        }
+                    });
+                });
+            }
+        });
+
+
+    });
+</script>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Sub-Category</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            @*<li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Home")">Home</a></li>*@
+                            <li class="breadcrumb-item"><a href="#">Manage Sub-Category</a></li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="content-body">
+            <!-- Basic form layout section start -->
+            <section id="basic-form-layouts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <div id="DataTables_Table_10_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                        <div class="row">
+                                            <div class="dt-buttons btn-group col-md-7 pt-2">
+                                                @*<a class="btn btn-secondary buttons-copy buttons-html5 btn-primary mr-1" tabindex="0" aria-controls="MyTable"
+                                                       href="#">
+                                                        <span>Download</span>
+                                                    </a>
+                                                    <a class="btn btn-secondary buttons-print btn-primary mr-1" tabindex="0" aria-controls="MyTable" href="#">
+                                                        <span>Print</span>
+                                                    </a>*@
+                                            </div>
+
+                                            <div id="DataTables_Table_10_filter" class="dataTables_filter col-md-3 ">
+                                                @*<label>
+                                                        Search:
+                                                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="MyTable">
+                                                    </label>*@
+                                            </div>
+                                            <div class="col-md-2 pt-1 text-right">
+                                                <a class="btn btn-secondary buttons-print ml-auto btn-warning mr-1" tabindex="0" aria-controls="MyTable" href="@Url.Action("CreateProductType", "Product", new {area = "Admin"})">
+                                                    <span>Create New</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <table class="table table-striped table-bordered file-export dataTable" id="MyTable" role="grid" aria-describedby="DataTables_Table_10_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    @*<th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                        style="width: 20px;">S/N</th>*@
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                                                        style="width: 126px;">Sub-Category</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
+                                                        style="width: 202px;">Active</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"
+                                                        style="width: 92px;">Edit</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="MyTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"
+                                                        style="width: 28px;">Delete</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.ProductTypes.Count; i++)
+                                                {
+                                                    <tr role="row" class="odd">
+                                                        @*<td class="sorting_1">1</td>*@
+                                                        <td>@Model.ProductTypes[i].Name</td>
+                                                        <td>@Model.ProductTypes[i].Active</td>
+                                                        <td>@Html.ActionLink("Edit", "EditProductType", new { ProNo = @Model.ProductTypes[i].Id, area = "admin", controller = "Product" }, new { @class = "btn btn-outline-primary box-shadow-1 btn-sm ft-edit-2" })</td>
+                                                        <td>@Html.ActionLink("Delete", "DeleteProductType", new { ProNo = @Model.ProductTypes[i].Id, area = "admin", controller = "Product" }, new { @class = "btn btn-outline-primary box-shadow-1 btn-sm ft-x", id = "deleteId" })</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    @*<th rowspan="1" colspan="1">S/N</th>*@
+                                                    <th rowspan="1" colspan="1">Sub-Category</th>
+                                                    <th rowspan="1" colspan="1">Active</th>
+                                                    <th rowspan="1" colspan="1">Edit</th>
+                                                    <th rowspan="1" colspan="1">Delete</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
